@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Màu chính của toàn bộ trang web
+       Nếu muốn thay đổi chỉ cần thay 
+       đổi ở đây
+    */
+    --main-color: linear-gradient(
+        to right,
+        #2b1404,
+        #976017
+    ); /*Màu chính của trang web*/
+    --text-color: #eef5ea; /*Màu chữ*/
+    --title-color: #976017;
+}
+
+/* Phủ màu toàn màn hình */
+body {
+    background: var(--main-color);
+}
+
+/* =====HEADER===== */
+header {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3); /*Tạo 1 đường viền ở phía dưới*/
+}
+
+/* =====LOGO===== */
+
+.logo {
+    padding-left: 10px;
+}
+
+.logo .logo-link {
+    text-decoration: none; /*Bỏ dấu gạch dưới*/
+    color: var(--text-color);
+}
+
+/*=====DANH SÁCH=====*/
+.list {
+    z-index: 1;
+}
+
+/* =====TRANG LIÊN KẾT===== */
+.pages .pages-link {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+/* =====GIỎ HÀNG==== */
+
+.cart {
+    position: relative;
+}
+
+.cart-information {
+    position: absolute;
+    background-color: #f5e6d3;
+    border-radius: 5px;
+    padding: 10px;
+    white-space: nowrap; /*Không xuống hàng*/
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    z-index: 1;
+}
+
+.cart:hover .cart-information {
+    display: block;
+}
+
+.cart .cart-link {
+    color: var(--text-color);
+    font-size: 20px;
+}
+
+/* =====LOGIN===== */
+.auth .auth-login .auth-login-link {
+    text-decoration: none;
+    color: var(--text-color);
+    padding-right: 10px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.logo .logo-link .logo-img {
+    width: 100px;
+    height: 100px;
+}
+
+/* =====THANH TÌM KIẾM===== */
+.search-box {
+    position: relative;
+    width: 250px;
+}
+
+.find-input {
+    width: 100%;
+    /* padding-right: 35px; */
+    height: 30px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+.find-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+}
+
+/*=====SIDEBAR TRÊN MÀN HÌNH LỚN===== */
+#menuCanvas {
+    background: var(--main-color);
+}
+
+/* Các liên kết trên sideBar */
+.pages-link-sideBar {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+/* .offcanvas-header {
+  color: var(--text-color);
+} */
+
+/* Logo trên side bar */
+.logo-link-sideBar .logo-img {
+    width: 100px;
+    height: 100px;
+}
+
+@media (max-width: 768px) {
+    /* Sidebar trên điện thoại */
+    #menuCanvas {
+        width: 50%;
+        background: var(--main-color);
+    }
+
+    /* Phần liên kết các trang trên điện thoại */
+    .pages-link-sideBar {
+        text-decoration: none;
+        color: var(--text-color);
+        font-weight: 700;
+    }
+}

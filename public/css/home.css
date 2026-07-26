@@ -1,0 +1,296 @@
+/* =====VIDEO TRÊN MÀN HÌNH CHÍNH===== */
+.hero {
+    position: relative;
+    height: 100vh; /*Luôn lấy kích thước của màn hình làm chuẩn*/
+    overflow: hidden;
+}
+
+.hero video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(
+        -50%,
+        -50%
+    ); /* Dịch trái 50% width và lên 50% height của chính phần tử */
+    color: var(--text-color);
+}
+
+.hero nav {
+    position: absolute;
+    top: 0;
+    left: 5%;
+}
+
+/* =====Infinite Scrolling Text===== */
+.marquee {
+    overflow: hidden;
+    width: 100%;
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    /*
+  marquee  : tên @keyframes
+  15s      : thời gian hoàn thành 1 vòng chạy
+  linear   : tốc độ đều từ đầu đến cuối
+  infinite : lặp vô hạn
+  */
+    animation: marquee 10s linear infinite;
+    color: var(--text-color);
+}
+
+.marquee-track span {
+    white-space: nowrap;
+    padding-right: 50px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Chạy từ trái sang phải */
+@keyframes marquee {
+    from {
+        transform: translateX(
+            -50%
+        ); /* Dịch sang phải 1/2 track vì nửa sau giống nửa đầu, tạo hiệu ứng chạy vô hạn */
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* =====MÔ TẢ CÀ PHÊ===== */
+.coffee-card {
+    background: var(--text-color);
+
+    clip-path: polygon(
+        4% 15%,
+        12% 4%,
+        30% 8%,
+        45% 2%,
+        62% 8%,
+        80% 4%,
+        95% 15%,
+        98% 40%,
+        94% 65%,
+        98% 90%,
+        75% 96%,
+        50% 90%,
+        25% 96%,
+        6% 90%,
+        2% 65%,
+        5% 35%
+    );
+
+    padding: 80px;
+}
+
+.coffee-image {
+    aspect-ratio: 1 / 1; /*Tỷ lệ 1/1 tức chiều rộng và chiều cao bằng nhau*/
+    overflow: hidden;
+    /* Chỉ hiển thị phần nằm bên trong vùng được chỉ định, phần nằm bên ngoài bị cắt bỏ */
+    clip-path: polygon(
+        4% 15%,
+        12% 4%,
+        30% 8%,
+        45% 2%,
+        62% 8%,
+        80% 4%,
+        95% 15%,
+        98% 40%,
+        94% 65%,
+        98% 90%,
+        75% 96%,
+        50% 90%,
+        25% 96%,
+        6% 90%,
+        2% 65%,
+        5% 35%
+    );
+
+    /* clip-path: circle(); */
+}
+
+.coffee-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.coffee-content-title {
+    color: var(--title-color);
+}
+
+/* =====MÔ TẢ TRÀ TRÁI CÂY===== */
+.tea-card {
+    background: var(--text-color);
+
+    clip-path: polygon(
+        4% 15%,
+        12% 4%,
+        30% 8%,
+        45% 2%,
+        62% 8%,
+        80% 4%,
+        95% 15%,
+        98% 40%,
+        94% 65%,
+        98% 90%,
+        75% 96%,
+        50% 90%,
+        25% 96%,
+        6% 90%,
+        2% 65%,
+        5% 35%
+    );
+
+    padding: 80px;
+}
+
+.tea-image {
+    aspect-ratio: 1 / 1; /*Tỷ lệ 1/1 tức chiều rộng và chiều cao bằng nhau*/
+    overflow: hidden;
+    /* Chỉ hiển thị phần nằm bên trong vùng được chỉ định, phần nằm bên ngoài bị cắt bỏ */
+    clip-path: polygon(
+        4% 15%,
+        12% 4%,
+        30% 8%,
+        45% 2%,
+        62% 8%,
+        80% 4%,
+        95% 15%,
+        98% 40%,
+        94% 65%,
+        98% 90%,
+        75% 96%,
+        50% 90%,
+        25% 96%,
+        6% 90%,
+        2% 65%,
+        5% 35%
+    );
+
+    /* clip-path: circle(); */
+}
+
+.tea-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.tea-content-title {
+    color: var(--title-color);
+}
+
+/* =====MÔ TẢ BÁNH NGỌT===== */
+.bun-card {
+    background: var(--text-color);
+
+    clip-path: polygon(
+        4% 15%,
+        12% 4%,
+        30% 8%,
+        45% 2%,
+        62% 8%,
+        80% 4%,
+        95% 15%,
+        98% 40%,
+        94% 65%,
+        98% 90%,
+        75% 96%,
+        50% 90%,
+        25% 96%,
+        6% 90%,
+        2% 65%,
+        5% 35%
+    );
+
+    padding: 80px;
+}
+
+.bun-image {
+    aspect-ratio: 1 / 1; /*Tỷ lệ 1/1 tức chiều rộng và chiều cao bằng nhau*/
+    overflow: hidden;
+    /* Chỉ hiển thị phần nằm bên trong vùng được chỉ định, phần nằm bên ngoài bị cắt bỏ */
+    clip-path: polygon(
+        4% 15%,
+        12% 4%,
+        30% 8%,
+        45% 2%,
+        62% 8%,
+        80% 4%,
+        95% 15%,
+        98% 40%,
+        94% 65%,
+        98% 90%,
+        75% 96%,
+        50% 90%,
+        25% 96%,
+        6% 90%,
+        2% 65%,
+        5% 35%
+    );
+
+    /* clip-path: circle(); */
+}
+
+.bun-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.bun-content-title {
+    color: var(--title-color);
+}
+
+/* Điện thoại */
+@media (max-width: 767px) {
+    .coffee-card {
+        clip-path: none;
+        padding: 20px;
+        border-radius: 16px; /* hoặc 20px nếu muốn */
+        margin-bottom: 10px;
+    }
+
+    .coffee-image {
+        clip-path: none;
+        border-radius: 16px;
+    }
+
+    .tea-card {
+        clip-path: none;
+        padding: 20px;
+        border-radius: 16px;
+        margin-bottom: 10px;
+    }
+
+    .tea-image {
+        clip-path: none;
+        border-radius: 16px;
+    }
+
+    .bun-card {
+        clip-path: none;
+        padding: 20px;
+        border-radius: 16px;
+        margin-bottom: 10px;
+    }
+
+    .bun-image {
+        clip-path: none;
+        border-radius: 16px;
+    }
+}
