@@ -24,7 +24,7 @@ use App\Http\Controllers\Auth\GoogleController;
 //Trang chủ
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 
 
@@ -65,4 +65,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class)
         ->only(['show', 'edit', 'update']);
 });
+
+
+//Đăng nhập bằng Google
+Route::get('/auth/google', [GoogleController::class, 'redirect'])
+    ->name('google.login');
+
+Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 
