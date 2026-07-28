@@ -23,7 +23,7 @@ function renderTable(products) {
         <tr>
             <td>${product.id}</td>
             <td>
-                <img src="/encrypted-images/${product.thumbnail}" width="60">
+                <img src="/uploaded-images/${product.thumbnail}" width="60">
             </td>
             <td>${product.name}</td>
             <td>${product.description}</td>

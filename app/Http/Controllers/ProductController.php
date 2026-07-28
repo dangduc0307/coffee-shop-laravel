@@ -19,7 +19,7 @@ class ProductController extends Controller
         $products = Product::with('category')
             ->latest()
             ->get();
-
+        //Request (yêu cầu) gửi lên có mong muốn nhận dữ liệu JSON hay không?
         if ($request->expectsJson()) {
             return response()->json($products);
         }
@@ -51,7 +51,7 @@ class ProductController extends Controller
 
             $thumbnail = time() . '_' . $file->getClientOriginalName();
 
-            $file->move(public_path('encrypted-images'), $thumbnail);
+            $file->move(public_path('uploaded-images'), $thumbnail);
 
         }
 

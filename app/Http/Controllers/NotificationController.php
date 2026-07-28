@@ -13,8 +13,11 @@ class NotificationController extends Controller
      */
     public function index(Request $request)
     {
+        //Lấy dữ liệu mới nhất lên trước
+        //get() thực hiện truy vấn và lấy tất cả dữ liệu
         $notifications = Notification::latest()->get();
 
+        //Request (yêu cầu) gửi lên có mong muốn nhận dữ liệu JSON hay không?
         if ($request->expectsJson()) {
             return response()->json($notifications);
         }
