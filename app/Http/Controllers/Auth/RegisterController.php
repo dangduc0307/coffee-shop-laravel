@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -22,14 +23,9 @@ class RegisterController extends Controller
     /**
      * Đăng ký.
      */
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $data = $request->validate([
-            'name' => ['required', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'phone' => ['nullable', 'max:20'],
-            'password' => ['required', 'confirmed', 'min:6'],
-        ]);
+        $data = $request->validated();
 
         // Kiểm tra email bằng Emailable
         $response = Http::get('https://api.emailable.com/v1/verify', [
@@ -66,6 +62,16 @@ class RegisterController extends Controller
 
     public function checkEmail(Request $request)
     {
+
+        // Kiểm tra email đã tồn tại trong database chưa
+        if (User::where('email', $request->email)->exists()) {
+            return response()->json([
+                'valid' => false,
+                'message' => 'Email này đã được sử dụng.'
+            ]);
+        }
+
+        //Kiểm tra email bằng Emailable
         $response = Http::get('https://api.emailable.com/v1/verify', [
             'email' => $request->email,
             'api_key' => env('EMAILABLE_API_KEY'),
