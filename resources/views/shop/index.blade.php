@@ -1,24 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
+{{--  Breadcrumb --}}
+<nav aria-label="breadcrumb" class="mb-3 text-white">
+    <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="/" class="text-decoration-none text-white">
+        Trang chủ
+        </a>
+    </li>
 
+    <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
+    </ol>
+</nav>
 <div class="container py-5">
 
-    <h2 class="mb-4 text-center">
+    
+    {{-- Tiêu đề sản phẩm --}}
+    <h2 class="mb-4 text-title">
         Sản phẩm
     </h2>
 
     <div class="mb-4">
 
         <a href="{{ route('shop.index') }}"
-           class="btn btn-dark me-2">
+           class="btn-category me-2 {{ request('category') ? '' : 'active' }}">
             Tất cả
         </a>
 
         @foreach($categories as $category)
 
             <a href="{{ route('shop.index',['category'=>$category->id]) }}"
-               class="btn btn-outline-dark me-2">
+               class="btn-category me-2 {{ request('category') == $category->id ? 'active' : '' }}">
 
                 {{ $category->name }}
 
@@ -97,5 +110,5 @@
 @endsection
 
 @section('scripts')
-    
+    <script src="{{ asset('js/carts/carts.js') }}"></script>
 @endsection

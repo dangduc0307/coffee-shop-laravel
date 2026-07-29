@@ -16,6 +16,8 @@
     ); /*Màu chính của trang web*/
     --text-color: #eef5ea; /*Màu chữ*/
     --title-color: #976017;
+    --button-color: #e9d3b4;
+    --border-color: #d8b98a;
 }
 
 /* Phủ màu toàn màn hình */
@@ -50,6 +52,13 @@ header {
     text-decoration: none;
     color: var(--text-color);
     font-weight: 700;
+    transition: 0.2s;
+}
+
+.pages-link.active {
+    color: var(--title-color); /* Màu nổi bật */
+    font-weight: 700;
+    font-weight: 600;
 }
 
 /* =====GIỎ HÀNG==== */
@@ -69,6 +78,26 @@ header {
     transform: translateX(-100%);
     display: none;
     z-index: 1;
+}
+
+.cart-item {
+    display: flex;
+
+    align-items: center;
+
+    margin-bottom: 8px;
+}
+
+.cart-item img {
+    width: 45px;
+
+    height: 45px;
+
+    object-fit: cover;
+
+    margin-right: 10px;
+
+    border-radius: 5px;
 }
 
 .cart:hover .cart-information {
@@ -130,6 +159,12 @@ header {
     text-decoration: none;
     color: var(--text-color);
     font-weight: 700;
+    transition: 0.2;
+}
+
+.pages-link-sideBar.active {
+    color: var(--title-color);
+    font-weight: 700;
 }
 
 /* .offcanvas-header {
@@ -140,6 +175,21 @@ header {
 .logo-link-sideBar .logo-img {
     width: 100px;
     height: 100px;
+}
+
+/* =====breadcrumb===== */
+
+.breadcrumb-item a {
+    color: var(--text-color) !important;
+    margin-left: 70px;
+}
+
+.breadcrumb-item.active {
+    color: var(--title-color) !important;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: var(--text-color) !important;
 }
 
 @media (max-width: 768px) {

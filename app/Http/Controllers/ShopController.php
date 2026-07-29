@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\CartItem;
 
 class ShopController extends Controller
 {
@@ -27,7 +28,7 @@ class ShopController extends Controller
 
         return view('shop.index',compact(
             'products',
-            'categories'
+            'categories',
         ));
     }
 

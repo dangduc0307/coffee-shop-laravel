@@ -19,8 +19,8 @@
       class="pages flex-grow-1 d-none d-lg-flex d-flex flex-wrap flex-column flex-lg-row justify-content-center gap-3"
     >
       <!--flex-wrap: không cho các chữ xuống hàng-->
-      <a href="/" class="pages-link">Trang chủ</a>
-      <a href="{{ route('shop.index') }}" class="pages-link">Sản phẩm</a>
+      <a href="/" class="pages-link {{ request()->is('/') ? 'active' : '' }}">Trang chủ</a>
+      <a href="{{ route('shop.index') }}" class="pages-link {{ request()->is('shop') ? 'active' : '' }}">Sản phẩm</a>
       <a href="introduce.html" class="pages-link">Giới thiệu</a>
       <a href="" class="pages-link">Về chúng tôi</a>
       <a href="" class="pages-link">Liên hệ</a>
@@ -42,8 +42,44 @@
     >
       <a href="{{ route('carts.index') }}" class="cart-link"><i class="bi bi-cart3"></i></a>
       <div class="cart-information">
-        <span><i class="bi bi-cart-x"></i> Chưa có sản phẩm nào</span>
-      </div>
+
+        @guest
+
+            <span>
+                <i class="bi bi-person-x"></i>
+                Chưa đăng nhập
+            </span>
+
+        @else
+
+            @if($cartItems->isEmpty())
+
+                <span>
+                    <i class="bi bi-cart-x"></i>
+                    Chưa có sản phẩm nào
+                </span>
+
+            @else
+
+                @foreach($cartItems as $item)
+
+                    <div class="cart-item">
+
+                        <img src="{{ asset('uploaded-images/' . $item->product->thumbnail) }}"
+                            alt="{{ $item->product->name }}">
+                        
+                        <span class="me-2">{{ $item->product->name }}  </span>
+                        <span>x{{ $item->quantity }}</span>
+
+                    </div>
+
+                @endforeach
+
+            @endif
+
+        @endguest
+
+    </div>
       <span class="cart-count">0</span>
     </div>
 

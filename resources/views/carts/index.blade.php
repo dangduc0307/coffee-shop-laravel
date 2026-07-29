@@ -28,7 +28,7 @@
 
         <tbody>
 
-            @foreach($items as $item)
+            @foreach($cartItems as $item)
 
             <tr>
 

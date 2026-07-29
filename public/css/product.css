@@ -1,0 +1,17 @@
+.btn-category {
+    text-decoration: none;
+    padding: 5px;
+    background: var(--button-color);
+    color: var(--title-color);
+    border-radius: 5px;
+    border: 1px solid transparent;
+    transition: 0.2s; /*Để tạo hiệu ứng chuyển đổi mượt mà*/
+}
+
+.btn-category.active {
+    border: 3px solid var(--border-color);
+}
+
+.text-title {
+    color: var(--title-color);
+}

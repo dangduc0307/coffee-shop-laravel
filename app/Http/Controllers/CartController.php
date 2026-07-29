@@ -15,11 +15,11 @@ class CartController extends Controller
     {
         $cart = Cart::where('user_id',auth()->id())->first();
 
-        $items=[];
+        $cartItems=[];
 
         if($cart){
 
-            $items = CartItem::with('product')
+            $cartItems = CartItem::with('product')
 
                 ->where('cart_id',$cart->id)
 
@@ -27,7 +27,7 @@ class CartController extends Controller
 
         }
 
-        return view('carts.index',compact('items'));
+        return view('carts.index',compact('cartItems'));
 
     }
 
