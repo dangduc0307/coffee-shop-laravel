@@ -6,6 +6,8 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleController;
@@ -31,6 +33,20 @@ Route::get('/', function () {
 
 //Sản phẩm
 Route::resource('products', ProductController::class);
+
+//Hiển thị sản phẩm trên giao diện khách hàng
+Route::resource('shop', ShopController::class)->only([
+    'index',
+    'show'
+]);
+
+//Giỏ hàng
+Route::resource('carts', CartController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware('auth');
+
+//Đếm số lượng trong giỏ hàng
+Route::get('/carts/count',[CartController::class,'count']);
 
 //Loại sản phẩm
 Route::resource('categories', CategoryController::class);

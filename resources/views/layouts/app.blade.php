@@ -12,6 +12,7 @@
     />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
 
 </head>
 
@@ -26,7 +27,7 @@
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     
-
+    <script src="{{ asset('js/carts/carts.js') }}"></script>
     @yield('scripts')
     
 

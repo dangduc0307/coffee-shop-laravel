@@ -66,7 +66,7 @@ header {
     white-space: nowrap; /*Không xuống hàng*/
     top: 100%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-100%);
     display: none;
     z-index: 1;
 }

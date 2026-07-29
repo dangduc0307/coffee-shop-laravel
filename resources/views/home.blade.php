@@ -29,8 +29,8 @@
           </div>
 
           <div class="offcanvas-body d-flex flex-column gap-3">
-            <a href="#" class="pages-link-sideBar d-block"> Trang chủ </a>
-            <a href="#" class="pages-link-sideBar d-block"> Sản phẩm </a>
+            <a href="/" class="pages-link-sideBar d-block"> Trang chủ </a>
+            <a href="{{ route('shop.index') }}" class="pages-link-sideBar d-block"> Sản phẩm </a>
             <a href="#" class="pages-link-sideBar d-block"> Giới thiệu </a>
             <a href="#" class="pages-link-sideBar d-block"> Về chúng tôi </a>
             <a href="#" class="pages-link-sideBar d-block"> Liên hệ </a>
@@ -54,7 +54,8 @@
 
               <!-- Giỏ hàng trong side bar -->
               <div class="cart flex-shrink-0 justify-content-center ms-4">
-                <a href="" class="cart-link"><i class="bi bi-cart3"></i></a>
+                <a href="{{ route('carts.index') }}" class="cart-link"><i class="bi bi-cart3"></i></a>
+                <span class="cart-count">0</span>
               </div>
             </div>
           </div>

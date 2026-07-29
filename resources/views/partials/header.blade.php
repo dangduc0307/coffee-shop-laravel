@@ -20,7 +20,7 @@
     >
       <!--flex-wrap: không cho các chữ xuống hàng-->
       <a href="/" class="pages-link">Trang chủ</a>
-      <a href="product.html" class="pages-link">Sản phẩm</a>
+      <a href="{{ route('shop.index') }}" class="pages-link">Sản phẩm</a>
       <a href="introduce.html" class="pages-link">Giới thiệu</a>
       <a href="" class="pages-link">Về chúng tôi</a>
       <a href="" class="pages-link">Liên hệ</a>
@@ -40,10 +40,11 @@
     <div
       class="cart flex-shrink-0 justify-content-center me-3 d-none d-lg-flex"
     >
-      <a href="cart.html" class="cart-link"><i class="bi bi-cart3"></i></a>
+      <a href="{{ route('carts.index') }}" class="cart-link"><i class="bi bi-cart3"></i></a>
       <div class="cart-information">
         <span><i class="bi bi-cart-x"></i> Chưa có sản phẩm nào</span>
       </div>
+      <span class="cart-count">0</span>
     </div>
 
     <!-- Đăng nhập -->
