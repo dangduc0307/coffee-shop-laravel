@@ -5,6 +5,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -75,9 +76,9 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        //
+        return response()->json($category);
     }
 
     /**
@@ -91,16 +92,46 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $image = $category->image;
+        //Kiểm tra request gửi lên có file với tên là image hay không?
+        if ($request->hasFile('image')) {
+            // Lấy đối tượng UploadedFile của ảnh người dùng tải lên
+            $file = $request->file('image');
+
+            // Ghép thời gian hiện tại với tên gốc của ảnh để tạo tên file duy nhất
+            $image = time() . '_' . $file->getClientOriginalName();
+
+            $file->move(public_path('uploaded-images'), $image);
+
+        }
+
+        $category->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'image' => $image,
+            'status' => $request->status,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Cập nhật thành công",
+            'data' => $category,
+        ]);
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => "Xóa thành công",
+        ]);
     }
 }

@@ -147,7 +147,7 @@ async function editProduct(id) {
 
     if (product.thumbnail) {
         document.getElementById("edit_thumbnail_preview").src =
-            "/encrypted-images/" + product.thumbnail;
+            "/uploaded-images/" + product.thumbnail;
     }
 
     const modal = new bootstrap.Modal(document.getElementById("editModal"));

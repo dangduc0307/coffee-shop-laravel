@@ -29,7 +29,21 @@ function renderTable(categories) {
             <td>${category.description}</td>
             <td>${category.status}</td>
             <td>
-                
+                <button
+                    class="btn btn-warning btn-sm"
+                    onclick="editCategory(${category.id})">
+
+                    Sửa
+
+                </button>
+
+                <button
+                    class="btn btn-danger btn-sm"
+                    onclick="deleteCategory(${category.id})">
+
+                    Xóa
+
+                </button>
             </td>
         </tr>
         `;
@@ -70,6 +84,83 @@ async function addCategory() {
     document.getElementById("name").value = "";
     document.getElementById("description").value = "";
     document.getElementById("status").value = "";
+
+    loadCategories();
+}
+
+//delete Category
+async function deleteCategory(id) {
+    await fetch("/categories/" + id, {
+        method: "DELETE",
+
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+    });
+
+    loadCategories();
+}
+
+//editCategory
+async function editCategory(id) {
+    const response = await fetch("/categories/" + id, {
+        headers: {
+            Accept: "application/json",
+        },
+    });
+
+    const category = await response.json();
+
+    document.getElementById("edit_id").value = category.id;
+    document.getElementById("edit_name").value = category.name;
+    document.getElementById("edit_description").value =
+        category.description ?? "";
+    document.getElementById("edit_status").value = category.status;
+
+    if (category.image) {
+        document.getElementById("edit_image_preview").src =
+            "/uploaded-images/" + category.image;
+    }
+
+    const modal = new bootstrap.Modal(document.getElementById("editModal"));
+    modal.show();
+}
+
+//update Category
+
+async function updateCategory() {
+    const id = document.getElementById("edit_id").value;
+
+    const image = document.getElementById("edit_image").files[0];
+    const name = document.getElementById("edit_name").value;
+    const description = document.getElementById("edit_description").value;
+    const status = document.getElementById("edit_status").value;
+
+    const formData = new FormData();
+
+    formData.append("_method", "PUT");
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("status", status);
+
+    if (image) {
+        formData.append("image", image);
+    }
+
+    await fetch("/categories/" + id, {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+            Accept: "application/json",
+        },
+        body: formData,
+    });
+
+    const modal = bootstrap.Modal.getInstance(
+        document.getElementById("editModal"),
+    );
+
+    modal.hide();
 
     loadCategories();
 }

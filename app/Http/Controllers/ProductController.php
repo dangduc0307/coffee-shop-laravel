@@ -42,7 +42,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-
+        //Nếu người dùng không chọn ảnh thì nó sẽ null
         $thumbnail = null;
 
         if ($request->hasFile('thumbnail')) {
@@ -106,7 +106,7 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-
+        //Nếu người dùng không chọn ảnh thì nó giữ lại ảnh cũ
         $thumbnail = $product->thumbnail;
 
         if ($request->hasFile('thumbnail')) {
