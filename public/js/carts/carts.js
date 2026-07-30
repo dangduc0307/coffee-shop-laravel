@@ -13,7 +13,16 @@ async function loadCartCount() {
 async function loadCartSummary() {
     const cartInformation = document.getElementById("cartInformation");
 
-    const response = await fetch("/carts/summary");
+    if (cartInformation.dataset.auth === "0") {
+        return;
+    }
+
+    // const response = await fetch("/carts/summary");
+    const response = await fetch("/carts/summary", {
+        headers: {
+            Accept: "application/json",
+        },
+    });
 
     const cartItems = await response.json();
 

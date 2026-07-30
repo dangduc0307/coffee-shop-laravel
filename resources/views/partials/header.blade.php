@@ -41,7 +41,7 @@
       class="cart flex-shrink-0 justify-content-center me-3 d-none d-lg-flex"
     >
       <a href="{{ route('carts.index') }}" class="cart-link"><i class="bi bi-cart3"></i></a>
-      <div class="cart-information" id="cartInformation">
+      <div class="cart-information" id="cartInformation" data-auth="{{ auth()->check() ? '1' : '0' }}">
 
         @guest
             <span class="text-muted">
