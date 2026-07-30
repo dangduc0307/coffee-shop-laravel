@@ -43,9 +43,13 @@
       <a href="{{ route('carts.index') }}" class="cart-link"><i class="bi bi-cart3"></i></a>
       <div class="cart-information" id="cartInformation">
 
-        
+        @guest
+            <span class="text-muted">
+                <i class="bi bi-person-x me-1"></i>Chưa đăng nhập
+            </span>
+        @endguest
 
-    </div>
+      </div>
       <span class="cart-count">0</span>
     </div>
 

@@ -13,17 +13,6 @@ async function loadCartCount() {
 async function loadCartSummary() {
     const cartInformation = document.getElementById("cartInformation");
 
-    // Nếu chưa đăng nhập
-    if (!document.body.dataset.auth) {
-        cartInformation.innerHTML = `
-            <span>
-                <i class="bi bi-person-x"></i>
-                Chưa đăng nhập
-            </span>
-        `;
-        return;
-    }
-
     const response = await fetch("/carts/summary");
 
     const cartItems = await response.json();
