@@ -48,6 +48,9 @@ Route::resource('carts', CartController::class)
 //Đếm số lượng trong giỏ hàng
 Route::get('/carts/count',[CartController::class,'count']);
 
+//Hiển thị thông tin sản phẩm 
+Route::get('/carts/summary', [CartController::class, 'summary'])
+    ->middleware('auth');
 //Loại sản phẩm
 Route::resource('categories', CategoryController::class);
 

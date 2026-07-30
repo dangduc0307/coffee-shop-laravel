@@ -41,43 +41,9 @@
       class="cart flex-shrink-0 justify-content-center me-3 d-none d-lg-flex"
     >
       <a href="{{ route('carts.index') }}" class="cart-link"><i class="bi bi-cart3"></i></a>
-      <div class="cart-information">
+      <div class="cart-information" id="cartInformation">
 
-        @guest
-
-            <span>
-                <i class="bi bi-person-x"></i>
-                Chưa đăng nhập
-            </span>
-
-        @else
-
-            @if($cartItems->isEmpty())
-
-                <span>
-                    <i class="bi bi-cart-x"></i>
-                    Chưa có sản phẩm nào
-                </span>
-
-            @else
-
-                @foreach($cartItems as $item)
-
-                    <div class="cart-item">
-
-                        <img src="{{ asset('uploaded-images/' . $item->product->thumbnail) }}"
-                            alt="{{ $item->product->name }}">
-                        
-                        <span class="me-2">{{ $item->product->name }}  </span>
-                        <span>x{{ $item->quantity }}</span>
-
-                    </div>
-
-                @endforeach
-
-            @endif
-
-        @endguest
+        
 
     </div>
       <span class="cart-count">0</span>

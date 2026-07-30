@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body data-auth="{{ auth()->check() ? 1 : '' }}">
     @include('partials.header')
 
     <main>

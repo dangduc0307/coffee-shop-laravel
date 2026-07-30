@@ -8,4 +8,52 @@ async function loadCartCount() {
     });
 }
 
+async function loadCartSummary() {
+    const cartInformation = document.getElementById("cartInformation");
+
+    // Nếu chưa đăng nhập
+    if (!document.body.dataset.auth) {
+        cartInformation.innerHTML = `
+            <span>
+                <i class="bi bi-person-x"></i>
+                Chưa đăng nhập
+            </span>
+        `;
+        return;
+    }
+
+    const response = await fetch("/carts/summary");
+
+    const cartItems = await response.json();
+
+    cartInformation.innerHTML = "";
+
+    if (cartItems.length === 0) {
+        cartInformation.innerHTML = `
+            <span>
+                <i class="bi bi-cart-x"></i>
+                Chưa có sản phẩm nào
+            </span>
+        `;
+
+        return;
+    }
+
+    cartItems.forEach((item) => {
+        cartInformation.innerHTML += `
+            <div class="cart-item">
+
+                <img src="/uploaded-images/${item.product.thumbnail}"
+                     alt="${item.product.name}">
+
+                <span class="me-2">${item.product.name}</span>
+
+                <span>x${item.quantity}</span>
+
+            </div>
+        `;
+    });
+}
+
 loadCartCount();
+loadCartSummary();

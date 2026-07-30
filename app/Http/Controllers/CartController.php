@@ -89,6 +89,19 @@ class CartController extends Controller
         ]);
     }
 
+    public function summary()
+    {
+        $cartItems = CartItem::whereHas('cart', function ($q) {
+
+            $q->where('user_id', auth()->id());
+
+        })
+        ->with('product')
+        ->get();
+
+        return response()->json($cartItems);
+    }
+
     /**
      * Display the specified resource.
      */
@@ -108,10 +121,28 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, CartItem $cart)
     {
-        //
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $stock = $cart->product->stock;
+
+        $quantity = min($request->quantity, $stock);
+
+        $cart->update([
+            'quantity' => $quantity,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'quantity' => $quantity,
+        ]);
     }
+
+
+    
 
     /**
      * Remove the specified resource from storage.

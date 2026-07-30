@@ -48,19 +48,39 @@
 
                 <td>
 
-                    {{ number_format($item->product->price) }}
+                    {{ number_format($item->product->price, 0, ',', '.') }} VNĐ
 
                 </td>
 
                 <td>
+                    <div class="d-flex align-items-center gap-2">
 
-                    {{ $item->quantity }}
+                        <button
+                            class="btn btn-outline-secondary btn-sm decrease-btn"
+                            data-id="{{ $item->id }}">
+                            -
+                        </button>
 
+                        <span
+                            id="quantity-{{ $item->id }}"
+                            data-stock="{{ $item->product->stock }}">
+                            {{ $item->quantity }}
+                        </span>
+
+                        <button
+                            class="btn btn-outline-secondary btn-sm increase-btn"
+                            data-id="{{ $item->id }}">
+                            +
+                        </button>
+
+                    </div>
                 </td>
 
-                <td>
+                <td
+                    id="subtotal-{{ $item->id }}"
+                    data-price="{{ $item->product->price }}">
 
-                    {{ number_format($item->product->price*$item->quantity) }}
+                    {{ number_format($item->product->price * $item->quantity, 0, ',','.')}} VNĐ
 
                 </td>
 
@@ -74,4 +94,8 @@
 
 </div>
 
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/carts/carts.js') }}"></script>
 @endsection
