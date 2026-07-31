@@ -154,5 +154,33 @@ async function updateQuantity(id, quantity) {
     }
 }
 
+async function deleteCart(id) {
+    const response = await fetch("/carts/" + id, {
+        method: "DELETE",
+
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+        document.getElementById("cart-row-" + id).remove();
+
+        loadCartCount();
+        loadCartSummary();
+
+        // Kiểm tra còn sản phẩm không
+        const rows = document.querySelectorAll("tbody tr");
+
+        if (rows.length === 0) {
+            document.getElementById("cartContainer").classList.add("d-none");
+
+            document.getElementById("emptyCart").classList.remove("d-none");
+        }
+    }
+}
+
 loadCartCount();
 loadCartSummary();

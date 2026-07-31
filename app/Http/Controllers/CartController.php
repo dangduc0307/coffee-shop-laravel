@@ -147,8 +147,13 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(CartItem $cart)
     {
-        //
+        $cart->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Đã xóa',
+        ]);
     }
 }

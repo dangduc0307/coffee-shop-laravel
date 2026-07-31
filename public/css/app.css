@@ -22,12 +22,13 @@
 
 /* Phủ màu toàn màn hình */
 body {
-    background: var(--main-color);
+    /* background: var(--main-color); */
 }
 
 /* =====HEADER===== */
 header {
     padding-bottom: 20px;
+    background: var(--main-color);
     border-bottom: 1px solid rgba(0, 0, 0, 0.3); /*Tạo 1 đường viền ở phía dưới*/
 }
 

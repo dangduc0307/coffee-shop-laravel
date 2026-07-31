@@ -4,93 +4,100 @@
 
 <div class="container">
 
-    <h2>Giỏ hàng</h2>
+    <h2 class="mb-4 text-title">Giỏ hàng</h2>
 
-    <table class="table">
+    <div id="cartContainer" @if($cartItems->isEmpty()) class="d-none" @endif>
 
-        <thead>
+        <table class="table">
 
-            <tr>
+            <thead>
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
 
-                <th>Ảnh</th>
+            <tbody>
 
-                <th>Sản phẩm</th>
+                @foreach($cartItems as $item)
 
-                <th>Giá</th>
+                <tr id="cart-row-{{ $item->id }}">
 
-                <th>Số lượng</th>
+                    <td>
+                        <img
+                            src="{{ asset('uploaded-images/'.$item->product->thumbnail) }}"
+                            width="80">
+                    </td>
 
-                <th>Thành tiền</th>
+                    <td>{{ $item->product->name }}</td>
 
-            </tr>
+                    <td>
+                        {{ number_format($item->product->price, 0, ',', '.') }} VNĐ
+                    </td>
 
-        </thead>
+                    <td> 
+                        <div class="d-flex align-items-center gap-2"> 
+                            <button class="btn btn-outline-secondary btn-sm decrease-btn" data-id="{{ $item->id }}">
+                                 - 
+                            </button>
+                             <span id="quantity-{{ $item->id }}" data-stock="{{ $item->product->stock }}">
+                                 {{ $item->quantity }} 
+                            </span> 
+                            <button class="btn btn-outline-secondary btn-sm increase-btn" data-id="{{ $item->id }}">
+                                 + 
+                            </button> 
+                        </div> 
+                    </td>
 
-        <tbody>
+                    <td
+                        id="subtotal-{{ $item->id }}"
+                        data-price="{{ $item->product->price }}">
 
-            @foreach($cartItems as $item)
+                        {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }} VNĐ
 
-            <tr>
+                    </td>
 
-                <td>
-
-                    <img
-                    src="{{ asset('uploaded-images/'.$item->product->thumbnail) }}"
-                    width="80">
-
-                </td>
-
-                <td>
-
-                    {{ $item->product->name }}
-
-                </td>
-
-                <td>
-
-                    {{ number_format($item->product->price, 0, ',', '.') }} VNĐ
-
-                </td>
-
-                <td>
-                    <div class="d-flex align-items-center gap-2">
-
+                    <td>
                         <button
-                            class="btn btn-outline-secondary btn-sm decrease-btn"
-                            data-id="{{ $item->id }}">
-                            -
+                            class="btn btn-danger btn-sm"
+                            onclick="deleteCart({{ $item->id }})">
+                            Xóa
                         </button>
+                    </td>
 
-                        <span
-                            id="quantity-{{ $item->id }}"
-                            data-stock="{{ $item->product->stock }}">
-                            {{ $item->quantity }}
-                        </span>
+                </tr>
 
-                        <button
-                            class="btn btn-outline-secondary btn-sm increase-btn"
-                            data-id="{{ $item->id }}">
-                            +
-                        </button>
+                @endforeach
 
-                    </div>
-                </td>
+            </tbody>
 
-                <td
-                    id="subtotal-{{ $item->id }}"
-                    data-price="{{ $item->product->price }}">
+        </table>
 
-                    {{ number_format($item->product->price * $item->quantity, 0, ',','.')}} VNĐ
+    </div>
 
-                </td>
+    <div
+        id="emptyCart"
+        class="cart-empty @if(!$cartItems->isEmpty()) d-none @endif">
 
-            </tr>
+        <img
+            src="{{ asset('images/empty-cart.png') }}"
+            alt="Giỏ hàng trống"
+            width="500"
+            class="mb-3">
 
-            @endforeach
+        <h5 class="text-muted">
+            "Hổng" có gì trong giỏ hết trơn 🛒
+        </h5>
 
-        </tbody>
+        <a href="{{ route('shop.index') }}">
+            Đặt hàng ngay
+        </a>
 
-    </table>
+    </div>
 
 </div>
 
