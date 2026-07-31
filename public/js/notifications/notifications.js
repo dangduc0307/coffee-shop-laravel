@@ -10,7 +10,7 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 // }
 
 async function loadNotifications() {
-    const response = await fetch("/notifications", {
+    const response = await fetch("/admin/notifications", {
         headers: {
             Accept: "application/json",
         },
@@ -71,7 +71,7 @@ async function addNotification() {
 
     const message = document.getElementById("message").value;
 
-    await fetch("/notifications", {
+    await fetch("/admin/notifications", {
         method: "POST",
 
         headers: {
@@ -101,7 +101,7 @@ async function addNotification() {
 
 //delete Notification
 async function deleteNotification(id) {
-    await fetch("/notifications/" + id, {
+    await fetch("/admin/notifications/" + id, {
         method: "DELETE",
 
         headers: {
@@ -114,7 +114,7 @@ async function deleteNotification(id) {
 
 //edit Notificaton
 async function editNotification(id) {
-    const response = await fetch("/notifications/" + id);
+    const response = await fetch("/admin/notifications/" + id);
 
     const notification = await response.json();
 
@@ -131,7 +131,7 @@ async function editNotification(id) {
 async function updateNotification() {
     const id = document.getElementById("edit_id").value;
 
-    await fetch("/notifications/" + id, {
+    await fetch("/admin/notifications/" + id, {
         method: "PUT",
 
         headers: {

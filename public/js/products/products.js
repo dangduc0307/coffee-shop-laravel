@@ -3,7 +3,7 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 //Hàm load dữ liệu
 
 async function loadProducts() {
-    const response = await fetch("/products", {
+    const response = await fetch("/admin/products", {
         headers: {
             Accept: "application/json",
         },
@@ -80,7 +80,7 @@ async function addProduct() {
     formData.append("featured", featured);
     formData.append("status", status);
 
-    await fetch("/products", {
+    await fetch("/admin/products", {
         method: "POST",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
@@ -109,7 +109,7 @@ async function addProduct() {
 
 //delete Product
 async function deleteProduct(id) {
-    await fetch("/products/" + id, {
+    await fetch("/admin/products/" + id, {
         method: "DELETE",
 
         headers: {
@@ -127,7 +127,7 @@ async function editProduct(id) {
     clearError("edit_price");
     clearError("edit_stock");
     clearError("edit_thumbnail");
-    const response = await fetch("/products/" + id, {
+    const response = await fetch("/admin/products/" + id, {
         headers: {
             Accept: "application/json",
         },
@@ -186,7 +186,7 @@ async function updateProduct() {
         formData.append("thumbnail", thumbnail);
     }
 
-    await fetch("/products/" + id, {
+    await fetch("/admin/products/" + id, {
         method: "POST",
         headers: {
             "X-CSRF-TOKEN": csrfToken,

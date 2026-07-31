@@ -22,7 +22,7 @@ class NotificationController extends Controller
             return response()->json($notifications);
         }
 
-        return view('notifications.index');
+        return view('admin.notifications.index');
     }
 
 

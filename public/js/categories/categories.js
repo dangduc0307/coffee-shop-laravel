@@ -3,7 +3,7 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 //Hàm load dữ liệu
 
 async function loadCategories() {
-    const response = await fetch("/categories", {
+    const response = await fetch("/admin/categories", {
         headers: {
             Accept: "application/json",
         },
@@ -65,7 +65,7 @@ async function addCategory() {
     formData.append("description", description);
     formData.append("status", status);
 
-    await fetch("/categories", {
+    await fetch("/admin/categories", {
         method: "POST",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
@@ -90,7 +90,7 @@ async function addCategory() {
 
 //delete Category
 async function deleteCategory(id) {
-    await fetch("/categories/" + id, {
+    await fetch("/admin/categories/" + id, {
         method: "DELETE",
 
         headers: {
@@ -147,7 +147,7 @@ async function updateCategory() {
         formData.append("image", image);
     }
 
-    await fetch("/categories/" + id, {
+    await fetch("/admin/categories/" + id, {
         method: "POST",
         headers: {
             "X-CSRF-TOKEN": csrfToken,

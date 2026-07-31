@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
@@ -48,18 +48,14 @@
 
 </div>
 
-@include('products.add-modal')
+@include('admin.products.add-modal')
 
-@include('products.edit-modal')
+@include('admin.products.edit-modal')
 
 @endsection
 
-@section('scripts')
-
-<meta name="csrf-token" content="{{ csrf_token() }}">
-
+@push('scripts')
 <script src="{{ asset('js/products/products.js') }}"></script>
 <script src="{{ asset('js/products/add-product-form.js') }}"></script>
 <script src="{{ asset('js/products/edit-product-form.js') }}"></script>
-
-@endsection
+@endpush

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
@@ -36,17 +36,17 @@
 
 </div>
 
-@include('notifications.add-modal')
+@include('admin.notifications.add-modal')
 
-@include('notifications.edit-modal')
+@include('admin.notifications.edit-modal')
 
 @endsection
 
 
-@section('scripts')
+@push('scripts')
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script src="{{ asset('js/notifications/notifications.js') }}"></script>
 
-@endsection
+@endpush

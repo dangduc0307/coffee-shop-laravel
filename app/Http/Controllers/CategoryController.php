@@ -22,7 +22,7 @@ class CategoryController extends Controller
             return response()->json($categories);
         }
 
-        return view('categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**

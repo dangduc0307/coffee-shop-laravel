@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
@@ -44,16 +44,16 @@
 
 </div>
 
-@include('categories.add-modal')
+@include('admin.categories.add-modal')
 
-@include('categories.edit-modal')
+@include('admin.categories.edit-modal')
 
 @endsection
 
-@section('scripts')
+@push('scripts')
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script src="{{ asset('js/categories/categories.js') }}"></script>
 
-@endsection
+@endpush

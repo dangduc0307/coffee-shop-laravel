@@ -27,7 +27,7 @@ class ProductController extends Controller
         $categories = Category::all();
         
 
-        return view('products.index', compact('categories'));
+        return view('admin.products.index', compact('categories'));
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleController;
@@ -30,9 +31,29 @@ Route::get('/', function () {
 })->name('home');
 
 
+//Admin
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware(['auth']) // Sau này đổi thành ['auth', 'admin']
+    ->group(function () {
 
-//Sản phẩm
-Route::resource('products', ProductController::class);
+        // Dashboard
+        Route::get('/', [DashboardController::class, 'index'])
+            ->name('dashboard');
+
+        //Sản phẩm
+        Route::resource('products', ProductController::class);
+
+        //Loại sản phẩm
+        Route::resource('categories', CategoryController::class);
+
+        //Thông báo
+        Route::resource('notifications', NotificationController::class);
+    });
+
+
+
+
 
 //Hiển thị sản phẩm trên giao diện khách hàng
 Route::resource('shop', ShopController::class)->only([
@@ -51,13 +72,11 @@ Route::get('/carts/count',[CartController::class,'count']);
 //Hiển thị thông tin sản phẩm 
 Route::get('/carts/summary', [CartController::class, 'summary'])
     ->middleware('auth');
-//Loại sản phẩm
-Route::resource('categories', CategoryController::class);
 
 
 
-//Thông báo
-Route::resource('notifications', NotificationController::class);
+
+
 
 
 //Auth
