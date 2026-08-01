@@ -120,8 +120,12 @@ Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 //Thanh toán
 Route::middleware('auth')->group(function () {
 
-    Route::post('/checkout', [CheckoutController::class,'store'])
-        ->name('checkout.store');
+    Route::resource('checkout', CheckoutController::class)
+        ->only([
+            'create',
+            'store',
+            'show',
+        ]);
 
 });
 

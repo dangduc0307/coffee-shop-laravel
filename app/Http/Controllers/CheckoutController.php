@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -25,7 +26,11 @@ class CheckoutController extends Controller
      */
     public function create()
     {
-        //
+        $cart = Cart::with('cartItems.product')
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
+        return view('checkout.create', compact('cart'));
     }
 
     /**
@@ -33,6 +38,14 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'customer_name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
+            'address' => 'required|string|max:500',
+        ]);
+
         $cart = Cart::with('cartItems.product')
             ->where('user_id', Auth::id())
             ->first();
@@ -53,13 +66,13 @@ class CheckoutController extends Controller
 
             $order = Order::create([
                 'user_id' => Auth::id(),
-                'customer_name' => Auth::user()->name,
-                'phone' => Auth::user()->phone,
-                'email' => Auth::user()->email,
-                'address' => Auth::user()->address,
+                'customer_name' => $request->customer_name,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'address' => $request->address,
                 'total_price' => $total,
                 'payment_method' => 'sepay',
-                'status' => 'pending'
+                'status' => 'pending',
             ]);
 
             foreach ($cart->cartItems as $item) {
@@ -73,8 +86,14 @@ class CheckoutController extends Controller
 
             }
 
+            $paymentCode = 'CF-' .
+                now()->format('YmdHis') .
+                '-' .
+                strtoupper(Str::random(6));
+
             $payment = Payment::create([
                 'order_id' => $order->id,
+                'payment_code' => $paymentCode,
                 'payment_method' => 'bank_transfer',
                 'amount' => $total,
                 'currency' => 'VND',
@@ -98,9 +117,13 @@ class CheckoutController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Payment $checkout)
     {
-        //
+        $checkout->load('order');
+
+        return view('checkout.show', [
+            'payment' => $checkout,
+        ]);
     }
 
     /**

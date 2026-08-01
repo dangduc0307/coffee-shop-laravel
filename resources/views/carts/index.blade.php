@@ -102,23 +102,10 @@
 
                 <hr>
 
-                <form action="{{ route('checkout.store') }}" method="POST">
-
-                    @csrf
-
-                    <div class="d-flex justify-content-end">
-
-                        <button
-                            type="submit"
-                            class="btn btn-danger px-4">
-
-                            Thanh toán bằng SePay
-
-                        </button>
-
-                    </div>
-
-                </form>
+                <a href="{{ route('checkout.create') }}"
+                class="btn btn-danger px-4">
+                    Thanh toán bằng SePay
+                </a>
 
             </div>
 
