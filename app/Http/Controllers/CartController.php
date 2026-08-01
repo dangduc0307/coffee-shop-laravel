@@ -135,9 +135,19 @@ class CartController extends Controller
             'quantity' => $quantity,
         ]);
 
+        // Tính tổng tiền giỏ hàng
+        $cartTotal = CartItem::where('cart_id', $cart->cart_id)
+            ->with('product')
+            ->get()
+            ->sum(function ($item) {
+                return $item->product->price * $item->quantity;
+            });
+
         return response()->json([
             'success' => true,
             'quantity' => $quantity,
+            'subtotal' => $cart->product->price * $quantity,
+            'cart_total' => $cartTotal,
         ]);
     }
 

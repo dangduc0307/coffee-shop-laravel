@@ -50,7 +50,7 @@
         @endguest
 
       </div>
-      <span class="cart-count">0</span>
+      <span class="cart-count">{{ $cartItems->sum('quantity') }}</span>
     </div>
 
     <!-- Đăng nhập -->

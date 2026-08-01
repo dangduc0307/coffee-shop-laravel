@@ -142,12 +142,11 @@ async function updateQuantity(id, quantity) {
         quantityElement.textContent = data.quantity;
 
         // cập nhật thành tiền
-        const subtotal = document.getElementById("subtotal-" + id);
-
-        const price = parseInt(subtotal.dataset.price);
-
-        subtotal.textContent =
-            (price * data.quantity).toLocaleString() + " VNĐ";
+        document.getElementById("subtotal-" + id).textContent =
+            data.subtotal.toLocaleString() + " VNĐ";
+        // Cập nhật tổng tiền
+        document.getElementById("cart-total").textContent =
+            data.cart_total.toLocaleString() + " VNĐ";
 
         loadCartCount();
         loadCartSummary();

@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleController;
@@ -114,4 +115,13 @@ Route::get('/auth/google', [GoogleController::class, 'redirect'])
     ->name('google.login');
 
 Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
+
+
+//Thanh toán
+Route::middleware('auth')->group(function () {
+
+    Route::post('/checkout', [CheckoutController::class,'store'])
+        ->name('checkout.store');
+
+});
 

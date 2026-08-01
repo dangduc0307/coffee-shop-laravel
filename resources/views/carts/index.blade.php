@@ -77,6 +77,53 @@
 
         </table>
 
+        <div class="card mt-4">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <h5>Tổng tiền</h5>
+
+                    <h5
+                        id="cart-total"
+                        data-total="{{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}">
+
+                        {{ number_format(
+                            $cartItems->sum(fn($item) => $item->product->price * $item->quantity),
+                            0,
+                            ',',
+                            '.'
+                        ) }} VNĐ
+
+                    </h5>
+
+                </div>
+
+                <hr>
+
+                <form action="{{ route('checkout.store') }}" method="POST">
+
+                    @csrf
+
+                    <div class="d-flex justify-content-end">
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger px-4">
+
+                            Thanh toán bằng SePay
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
     </div>
 
     <div
