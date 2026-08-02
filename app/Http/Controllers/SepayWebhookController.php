@@ -12,13 +12,23 @@ class SepayWebhookController extends Controller
 {
     public function handle(Request $request)
     {
-        Log::info('=== SePay Webhook Received ===', $request->all());
+        $apiKey = env('SEPAY_API_KEY');
 
-        // 1. Kiểm tra Authorization Secret Key (Nếu có cấu hình)
-        $secretKey = env('SEPAY_SECRET_KEY');
-        if ($secretKey && $request->header('Authorization') !== 'Bearer ' . $secretKey) {
-            Log::error('SePay Webhook: Sai Secret Key');
-            return response()->json(['success' => false, 'message' => 'Unauthorized'], 401);
+        Log::info('Authorization Header', [
+            'received' => $request->header('Authorization'),
+            'expected' => 'Apikey ' . $apiKey,
+        ]);
+
+        if (
+            $apiKey &&
+            $request->header('Authorization') !== 'Apikey ' . $apiKey
+        ) {
+            Log::error('SePay Webhook: Sai API Key');
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized'
+            ], 401);
         }
 
         $data = $request->all();
