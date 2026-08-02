@@ -170,6 +170,13 @@ async function deleteCart(id) {
         loadCartCount();
         loadCartSummary();
 
+        // Cập nhật tổng tiền
+        const cartTotal = document.getElementById("cart-total");
+
+        if (cartTotal) {
+            cartTotal.textContent = data.cart_total.toLocaleString() + " VNĐ";
+        }
+
         // Kiểm tra còn sản phẩm không
         const rows = document.querySelectorAll("tbody tr");
 

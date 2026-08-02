@@ -10,6 +10,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\SepayWebhookController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleController;
@@ -126,6 +127,18 @@ Route::middleware('auth')->group(function () {
             'store',
             'show',
         ]);
+    
+    Route::get('/payments/{payment}/status', [CheckoutController::class, 'paymentStatus'])
+        ->name('payments.status');
+
+    Route::get(
+        '/checkout/{payment}/success',
+        [CheckoutController::class, 'success']
+    )->name('checkout.success');
 
 });
+
+//Sepay
+Route::post('/sepay/webhook', [SepayWebhookController::class, 'handle'])
+    ->name('sepay.webhook');
 

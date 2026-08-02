@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
+@section('title', 'Thanh toán')
+
 @section('content')
 
 <div class="container py-5">
 
     <div class="row justify-content-center">
 
-        <div class="col-lg-7">
+        <div class="col-lg-8">
 
-            <div class="card shadow">
+            <div class="card shadow border-0">
 
                 <div class="card-header bg-danger text-white">
 
@@ -20,11 +22,50 @@
 
                 <div class="card-body">
 
+                    {{-- Trạng thái --}}
+                    <div class="mb-3">
+
+                        <strong>Trạng thái:</strong>
+
+                        @if($payment->status == 'pending')
+
+                            <span
+                                id="payment-status"
+                                class="badge bg-warning text-dark">
+
+                                Chờ thanh toán
+
+                            </span>
+
+                        @else
+
+                            <span
+                                id="payment-status"
+                                class="badge bg-success">
+
+                                Đã thanh toán
+
+                            </span>
+
+                        @endif
+
+                    </div>
+
+                    {{-- Thời gian tạo --}}
+                    <div class="mb-3">
+
+                        <strong>Ngày tạo:</strong>
+
+                        {{ $payment->created_at->format('d/m/Y H:i:s') }}
+
+                    </div>
+
+                    {{-- Tổng tiền --}}
                     <div class="mb-3">
 
                         <strong>Tổng tiền:</strong>
 
-                        <span class="text-danger fs-4">
+                        <span class="text-danger fw-bold fs-3">
 
                             {{ number_format($payment->amount,0,',','.') }}
 
@@ -34,68 +75,127 @@
 
                     </div>
 
-                    <div class="mb-3">
+                    <hr>
 
-                        <strong>Ngân hàng:</strong>
+                    <div class="row">
 
-                        VPBank
+                        <div class="col-md-6">
 
-                    </div>
+                            <p>
 
-                    <div class="mb-3">
+                                <strong>Ngân hàng:</strong>
 
-                        <strong>Số tài khoản:</strong>
+                                VPBank
 
-                        0372718388
+                            </p>
 
-                    </div>
+                            <p>
 
-                    <div class="mb-3">
+                                <strong>Số tài khoản:</strong>
 
-                        <strong>Chủ tài khoản:</strong>
+                                0372718388
 
-                        ĐẶNG ĐỨC
+                            </p>
 
-                    </div>
+                            <p>
 
-                    <div class="mb-3">
+                                <strong>Chủ tài khoản:</strong>
 
-                        <strong>Nội dung chuyển khoản:</strong>
+                                ĐẶNG ĐỨC
 
-                        <div class="alert alert-warning">
+                            </p>
 
-                            <strong>
+                        </div>
 
-                                {{ $payment->payment_code }}
+                        <div class="col-md-6">
 
-                            </strong>
+                            <label class="fw-bold">
+
+                                Nội dung chuyển khoản
+
+                            </label>
+
+                            <div class="input-group">
+
+                                <input
+                                    id="paymentCode"
+                                    class="form-control"
+                                    value="{{ $payment->payment_code }}"
+                                    readonly>
+
+                                <button
+                                    class="btn btn-danger"
+                                    type="button"
+                                    onclick="copyPaymentCode()">
+
+                                    Copy
+
+                                </button>
+
+                            </div>
 
                         </div>
 
                     </div>
 
+                    <hr>
+
                     <div class="text-center">
 
                         <img
                             src="https://img.vietqr.io/image/VPB-0372718388-compact2.png?amount={{ $payment->amount }}&addInfo={{ urlencode($payment->payment_code) }}&accountName={{ urlencode('DANG DUC') }}"
-                            class="img-fluid"
+                            class="img-fluid rounded"
                             width="320">
 
                     </div>
 
-                    <hr>
+                    <div class="alert alert-info text-center mt-4 mb-0">
 
-                    <div class="alert alert-info text-center">
-
-                        <strong>
+                        <h5>
 
                             Vui lòng quét mã QR để thanh toán.
 
-                        </strong>
+                        </h5>
 
-                        <br>
+                        <p class="mb-1">
 
-                        Hệ thống sẽ tự động xác nhận khi nhận được tiền.
+                            Sau khi chuyển khoản thành công,
+
+                            hệ thống sẽ tự động xác nhận.
+
+                        </p>
+
+                        <small class="text-muted">
+
+                            Không đóng trang này trong lúc thanh toán.
+
+                        </small>
+
+                    </div>
+
+                   <div class="d-flex justify-content-center mt-4">
+
+                        <a
+                            href="{{ route('shop.index') }}"
+                            class="btn btn-outline-secondary">
+
+                            Tiếp tục mua hàng
+
+                        </a>
+
+                    </div>
+
+                    <div
+                        id="paymentSuccess"
+                        class="alert alert-success mt-4 d-none">
+
+                        <h5 class="mb-1">
+                            ✅ Thanh toán thành công
+                        </h5>
+
+                        <p class="mb-0">
+                            Hệ thống đang chuyển bạn tới trang hoàn tất đơn hàng...
+                        </p>
 
                     </div>
 
@@ -108,5 +208,42 @@
     </div>
 
 </div>
+
+@endsection
+
+@section('scripts')
+
+<script>
+
+function copyPaymentCode() {
+
+    navigator.clipboard.writeText(
+        document.getElementById('paymentCode').value
+    );
+
+    alert('Đã sao chép nội dung chuyển khoản.');
+
+}
+
+async function checkPaymentStatus() {
+
+    const response = await fetch(
+        "{{ route('payments.status',$payment->id) }}"
+    );
+
+    const data = await response.json();
+
+    if(data.status === 'paid'){
+
+        window.location.href =
+            "{{ route('checkout.success',$payment->id) }}";
+
+    }
+
+}
+
+setInterval(checkPaymentStatus,3000);
+
+</script>
 
 @endsection

@@ -38,4 +38,8 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    'sepay' => [
+        'secret' => env('SEPAY_SECRET'),
+    ],
+
 ];

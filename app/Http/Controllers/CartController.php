@@ -159,11 +159,24 @@ class CartController extends Controller
      */
     public function destroy(CartItem $cart)
     {
+        // Lưu cart trước khi xóa item
+        $parentCart = $cart->cart;
+
+        // Xóa sản phẩm
         $cart->delete();
 
+        // Tính lại tổng tiền
+        $cartTotal = $parentCart->cartItems()
+            ->with('product')
+            ->get()
+            ->sum(function ($item) {
+                return $item->product->price * $item->quantity;
+            });
+
         return response()->json([
-            'success' => true,
-            'message' => 'Đã xóa',
+            'success'    => true,
+            'message'    => 'Đã xóa',
+            'cart_total' => $cartTotal,
         ]);
     }
 }

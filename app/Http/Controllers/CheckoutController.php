@@ -13,17 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $cart = Cart::with('cartItems.product')
@@ -33,17 +22,13 @@ class CheckoutController extends Controller
         return view('checkout.create', compact('cart'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-
         $request->validate([
             'customer_name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'email' => 'required|email|max:255',
-            'address' => 'required|string|max:500',
+            'phone'         => 'required|string|max:20',
+            'email'         => 'required|email|max:255',
+            'address'       => 'required|string|max:500',
         ]);
 
         $cart = Cart::with('cartItems.product')
@@ -57,48 +42,44 @@ class CheckoutController extends Controller
         DB::beginTransaction();
 
         try {
-
             $total = 0;
-
             foreach ($cart->cartItems as $item) {
                 $total += $item->product->price * $item->quantity;
             }
 
+            // 1. Tạo Order
             $order = Order::create([
-                'user_id' => Auth::id(),
-                'customer_name' => $request->customer_name,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'address' => $request->address,
-                'total_price' => $total,
+                'user_id'        => Auth::id(),
+                'customer_name'  => $request->customer_name,
+                'phone'          => $request->phone,
+                'email'          => $request->email,
+                'address'        => $request->address,
+                'total_price'    => $total,
                 'payment_method' => 'sepay',
-                'status' => 'pending',
+                'status'         => 'pending',
             ]);
 
+            // 2. Tạo Order Items
             foreach ($cart->cartItems as $item) {
-
                 OrderItem::create([
-                    'order_id' => $order->id,
+                    'order_id'   => $order->id,
                     'product_id' => $item->product_id,
-                    'quantity' => $item->quantity,
-                    'price' => $item->product->price
+                    'quantity'   => $item->quantity,
+                    'price'      => $item->product->price
                 ]);
-
             }
 
-            $paymentCode = 'CF-' .
-                now()->format('YmdHis') .
-                '-' .
-                strtoupper(Str::random(6));
+            // 3. Tạo Mã Payment (Định dạng CF + 12 số/ký tự)
+            $paymentCode = 'CF' . time() . strtoupper(Str::random(3));
 
             $payment = Payment::create([
-                'order_id' => $order->id,
-                'payment_code' => $paymentCode,
+                'order_id'       => $order->id,
+                'payment_code'   => $paymentCode,
                 'payment_method' => 'bank_transfer',
-                'amount' => $total,
-                'currency' => 'VND',
-                'status' => 'pending',
-                'gateway' => 'SePay'
+                'amount'         => $total,
+                'currency'       => 'VND',
+                'status'         => 'pending',
+                'gateway'        => 'SePay'
             ]);
 
             DB::commit();
@@ -106,47 +87,50 @@ class CheckoutController extends Controller
             return redirect()->route('checkout.show', $payment->id);
 
         } catch (\Exception $e) {
-
             DB::rollBack();
-
             return back()->with('error', $e->getMessage());
-
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Payment $checkout)
     {
         $checkout->load('order');
 
+        // Lấy thông tin ngân hàng từ config hoặc tĩnh
+        $bankCode = config('sepay.bank', 'VPBank');
+        $accountNumber = config('sepay.account_number', '0372718388');
+        $accountName = config('sepay.account_name', 'DANG DUC');
+
+        // Tạo VietQR URL dựa theo cách tạo từ SepayController cũ
+        $vietQrUrl = "https://img.vietqr.io/image/"
+            . $bankCode . "-" . $accountNumber
+            . "-compact2.jpg"
+            . "?amount=" . $checkout->amount
+            . "&addInfo=" . urlencode($checkout->payment_code)
+            . "&accountName=" . urlencode($accountName);
+
         return view('checkout.show', [
-            'payment' => $checkout,
+            'payment'   => $checkout,
+            'vietQrUrl' => $vietQrUrl,
+            'bankInfo'  => [
+                'bank_code'      => $bankCode,
+                'account_number' => $accountNumber,
+                'account_name'   => $accountName,
+            ]
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Ajax kiểm tra trạng thái thanh toán ở màn hình chờ
+    public function paymentStatus(Payment $payment)
     {
-        //
+        return response()->json([
+            'status'       => $payment->status, // 'pending' hoặc 'paid'
+            'redirect_url' => $payment->status === 'paid' ? route('checkout.success', $payment->id) : null
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function success(Payment $payment)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('checkout.success', compact('payment'));
     }
 }
