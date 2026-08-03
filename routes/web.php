@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SepayWebhookController;
@@ -51,6 +52,9 @@ Route::prefix('admin')
 
         //Thông báo
         Route::resource('notifications', NotificationController::class);
+
+        //Danh sách thanh toán
+        Route::resource('payments', PaymentController::class);
     });
 
 

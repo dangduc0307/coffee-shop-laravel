@@ -43,7 +43,7 @@
             Đơn hàng
         </a>
 
-        <a href="#">
+        <a href="{{ route('admin.payments.index') }}" class="{{ request()->routeIs('admin.payments.index') ? 'active' : '' }}">
             <i class="bi bi-credit-card"></i>
             Thanh toán
         </a>

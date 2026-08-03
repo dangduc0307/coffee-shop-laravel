@@ -16,6 +16,7 @@ async function loadProducts() {
 //Hàm render
 function renderTable(products) {
     const table = document.getElementById("productTable");
+    //xóa toàn bộ nội dung cũ của bảng trước khi vẽ lại dữ liệu mới.
     table.innerHTML = "";
 
     products.forEach((product) => {

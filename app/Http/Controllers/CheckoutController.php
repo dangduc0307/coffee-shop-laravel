@@ -14,16 +14,7 @@ use Illuminate\Support\Facades\DB;
 class CheckoutController extends Controller
 {
 
-    public function index(Request $request)
-    {
-        $payments = Payment::latest()->get();
-
-        if ($request->expectsJson()) {
-            return response()->json($payments);
-        }
-
-        return view('admin.payments.index');
-    }
+    
 
 
     public function create()
