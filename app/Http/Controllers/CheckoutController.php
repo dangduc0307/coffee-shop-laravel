@@ -6,6 +6,8 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
+use App\Events\PaymentCreated;
+use App\Http\Requests\StoreCheckoutRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -26,14 +28,9 @@ class CheckoutController extends Controller
         return view('checkout.create', compact('cart'));
     }
 
-    public function store(Request $request)
+    public function store(StoreCheckoutRequest $request)
     {
-        $request->validate([
-            'customer_name' => 'required|string|max:255',
-            'phone'         => 'required|string|max:20',
-            'email'         => 'required|email|max:255',
-            'address'       => 'required|string|max:500',
-        ]);
+        
 
         $cart = Cart::with('cartItems.product')
             ->where('user_id', Auth::id())
@@ -87,6 +84,9 @@ class CheckoutController extends Controller
             ]);
 
             DB::commit();
+
+            // 🔥 Bắn event để trang Admin nảy ngay dòng thanh toán mới (Pending)
+            event(new PaymentCreated($payment));
 
             return redirect()->route('checkout.show', $payment->id);
 

@@ -53,6 +53,25 @@
     {{-- JS riêng --}}
     <script src="{{ asset('js/admin/admin.js') }}"></script>
 
+    <!-- CDN Pusher JS -->
+    <script src="https://js.pusher.com/8.0.1/pusher.min.js"></script>
+
+    <!-- CDN Laravel Echo -->
+    <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.16.1/dist/echo.iife.js"></script>
+
+    <script>
+        // Khởi tạo Laravel Echo kết nối tới Laravel Reverb
+        window.Echo = new Echo({
+            broadcaster: 'reverb',
+            key: '{{ env("REVERB_APP_KEY") }}',
+            wsHost: '{{ env("REVERB_HOST", "127.0.0.1") }}',
+            wsPort: {{ env("REVERB_PORT", 8080) }},
+            wssPort: {{ env("REVERB_PORT", 8080) }},
+            forceTLS: false,
+            enabledTransports: ['ws', 'wss'],
+        });
+    </script>
+
     @stack('scripts')
 
 </body>

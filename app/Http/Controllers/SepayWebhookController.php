@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payment;
 use App\Models\PaymentLog;
+use App\Events\PaymentCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -127,6 +128,8 @@ class SepayWebhookController extends Controller
                 ]);
 
                 DB::commit();
+
+                
 
             } catch (\Exception $e) {
                 DB::rollBack();
