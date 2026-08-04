@@ -23,23 +23,11 @@ async function renderTable(payments) {
                 <td>${payment.order.user.name}</td>
                 <td>${payment.payment_method}</td>
                 <td>${payment.gateway}</td>
-                <td>${payment.amount}</td>
-                <td>${payment.status}</td>
+                <td>${numberFormat(payment.amount)}</td>
+                <td>${renderStatus(payment.status)}</td>
                 <td>${formatDateTime(payment.paid_at)}</td>
             </tr>
         `;
-    });
-}
-
-function formatDateTime(dateString) {
-    if (!dateString) return "-";
-
-    return new Date(dateString).toLocaleString("vi-VN", {
-        hour: "2-digit",
-        minute: "2-digit",
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
     });
 }
 

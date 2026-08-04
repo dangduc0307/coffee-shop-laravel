@@ -11,6 +11,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SepayWebhookController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -55,6 +56,9 @@ Route::prefix('admin')
 
         //Danh sách thanh toán
         Route::resource('payments', PaymentController::class);
+
+        //Danh sách đơn hàng
+        Route::resource('orders', OrderController::class);
     });
 
 

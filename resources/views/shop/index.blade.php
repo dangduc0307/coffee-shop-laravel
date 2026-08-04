@@ -65,7 +65,7 @@
 
                     <p>
 
-                        {{ number_format($product->price) }} đ
+                        {{ number_format($product->price, 0, ',', '.') }} đ
 
                     </p>
 

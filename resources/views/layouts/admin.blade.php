@@ -51,7 +51,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     {{-- JS riêng --}}
-    {{-- <script src="{{ asset('js/admin.js') }}"></script> --}}
+    <script src="{{ asset('js/admin/admin.js') }}"></script>
 
     @stack('scripts')
 

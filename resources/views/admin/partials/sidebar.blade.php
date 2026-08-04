@@ -38,7 +38,7 @@
             Sản phẩm
         </a>
 
-        <a href="#">
+        <a href="{{ route('admin.orders.index') }}", class="{{ request()->routeIs('admin.orders.index') ? 'active': '' }}">
             <i class="bi bi-bag-check"></i>
             Đơn hàng
         </a>
