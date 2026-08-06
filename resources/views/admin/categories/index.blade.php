@@ -55,5 +55,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script src="{{ asset('js/categories/categories.js') }}"></script>
+<script src="{{ asset('js/categories/add-category-form.js') }}"></script>
+<script src="{{ asset('js/categories/edit-category-form.js') }}"></script>
 
 @endpush

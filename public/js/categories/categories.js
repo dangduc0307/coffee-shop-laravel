@@ -103,7 +103,7 @@ async function deleteCategory(id) {
 
 //editCategory
 async function editCategory(id) {
-    const response = await fetch("/categories/" + id, {
+    const response = await fetch("/admin/categories/" + id, {
         headers: {
             Accept: "application/json",
         },
