@@ -5,6 +5,7 @@
 <div class="container">
 
     <div class="d-flex justify-content-between align-items-center mb-3">
+        
 
         <h2>Quản lý loại sản phẩm</h2>
 
@@ -16,6 +17,21 @@
             Thêm loại sản phẩm
 
         </button>
+
+
+    </div>
+
+    <div class="row mb-3">
+
+        <div class="col-md-4">
+
+            <input
+                type="text"
+                id="search"
+                class="form-control"
+                placeholder="Tìm theo tên hoặc mô tả...">
+
+        </div>
 
     </div>
 

@@ -32,8 +32,8 @@ function validateCategory() {
         valid = false;
     }
 
-    if (document.getElementById("image").value.trim() === "") {
-        showError("image", "Vui lòng nhập vào mô tả loại sản phẩm!");
+    if (document.getElementById("image").files.length === 0) {
+        showError("image", "Vui lòng nhập vào ảnh loại sản phẩm!");
         valid = false;
     }
 

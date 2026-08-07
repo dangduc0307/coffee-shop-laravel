@@ -19,7 +19,7 @@
       class="pages flex-grow-1 d-none d-lg-flex d-flex flex-wrap flex-column flex-lg-row justify-content-center gap-3"
     >
       <!--flex-wrap: không cho các chữ xuống hàng-->
-      <a href="/" class="pages-link {{ request()->is('/') ? 'active' : '' }}">Trang chủ</a>
+      <a href="/" class="pages-link {{ request()->is('/') ? 'active' : '' }}">{{ __('messages.home') }}</a>
       <a href="{{ route('shop.index') }}" class="pages-link {{ request()->is('shop') ? 'active' : '' }}">Sản phẩm</a>
       <a href="introduce.html" class="pages-link">Giới thiệu</a>
       <a href="" class="pages-link">Về chúng tôi</a>
@@ -35,6 +35,59 @@
         </button>
       </div>
     </div>
+
+    <div class="dropdown flex-shrink-0">
+
+      <button
+          class="btn btn-light border rounded-pill dropdown-toggle px-3"
+          type="button"
+          data-bs-toggle="dropdown">
+
+          @if(app()->getLocale() == 'vi')
+              🇻🇳 VI
+          @else
+              🇺🇸 EN
+          @endif
+
+      </button>
+
+      <ul class="dropdown-menu dropdown-menu-end shadow">
+
+          <li>
+
+              <a
+                  class="dropdown-item d-flex justify-content-between align-items-center"
+                  href="{{ route('language.switch','vi') }}">
+
+                  <span>🇻🇳 Tiếng Việt</span>
+
+                  @if(app()->getLocale()=='vi')
+                      <i class="bi bi-check-lg text-success"></i>
+                  @endif
+
+              </a>
+
+          </li>
+
+          <li>
+
+              <a
+                  class="dropdown-item d-flex justify-content-between align-items-center"
+                  href="{{ route('language.switch','en') }}">
+
+                  <span>🇺🇸 English</span>
+
+                  @if(app()->getLocale()=='en')
+                      <i class="bi bi-check-lg text-success"></i>
+                  @endif
+
+              </a>
+
+          </li>
+
+      </ul>
+
+  </div>
 
     <!-- Giỏ hàng -->
     <div

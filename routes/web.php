@@ -12,6 +12,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SepayWebhookController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -149,4 +150,11 @@ Route::middleware('auth')->group(function () {
 //Sepay
 Route::post('/sepay/webhook', [SepayWebhookController::class, 'handle'])
     ->name('sepay.webhook');
+
+//Ngôn ngữ
+
+Route::get('/language/{locale}', [
+    LanguageController::class,
+    'switch'
+])->name('language.switch');
 

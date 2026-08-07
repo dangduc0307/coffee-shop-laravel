@@ -14,15 +14,26 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        //Lấy dữ liệu mới nhất lên trước
-        $categories = Category::latest()->get();
+        $search = $request->search;
+        //query() dùng để truy vấn tới các phương thức khác 
+        $categories = Category::query()
+            //when() nếu điều kiện đúng thì thực hiện đoạn code này
+            ->when($search, function ($query) use ($search) {
 
-        //Request (yêu cầu) gửi lên có mong muốn nhận dữ liệu JSON hay không?
+                $query->where("name", "like", "%{$search}%")
+                    ->orWhere("description", "like", "%{$search}%");
+
+            })
+
+            ->latest()
+
+            ->get();
+
         if ($request->expectsJson()) {
             return response()->json($categories);
         }
 
-        return view('admin.categories.index', compact('categories'));
+        return view("admin.categories.index");
     }
 
     /**

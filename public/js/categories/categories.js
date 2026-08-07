@@ -3,11 +3,15 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 //Hàm load dữ liệu
 
 async function loadCategories() {
-    const response = await fetch("/admin/categories", {
-        headers: {
-            Accept: "application/json",
+    const keyword = document.getElementById("search").value;
+    const response = await fetch(
+        "/admin/categories?search=" + encodeURIComponent(keyword),
+        {
+            headers: {
+                Accept: "application/json",
+            },
         },
-    });
+    );
 
     const categories = await response.json();
     renderTable(categories);
@@ -53,6 +57,9 @@ function renderTable(categories) {
 //Add product
 
 async function addCategory() {
+    if (!validateCategory()) {
+        return;
+    }
     const image = document.getElementById("image").files[0];
     const name = document.getElementById("name").value;
     const description = document.getElementById("description").value;
@@ -129,6 +136,9 @@ async function editCategory(id) {
 //update Category
 
 async function updateCategory() {
+    if (!validateEditCategory()) {
+        return;
+    }
     const id = document.getElementById("edit_id").value;
 
     const image = document.getElementById("edit_image").files[0];
@@ -164,5 +174,15 @@ async function updateCategory() {
 
     loadCategories();
 }
+
+let searchTimeout;
+
+document.getElementById("search").addEventListener("input", function () {
+    clearTimeout(searchTimeout);
+
+    searchTimeout = setTimeout(() => {
+        loadCategories();
+    }, 300);
+});
 
 loadCategories();
