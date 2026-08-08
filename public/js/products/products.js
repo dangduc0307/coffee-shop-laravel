@@ -3,11 +3,15 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 //Hàm load dữ liệu
 
 async function loadProducts() {
-    const response = await fetch("/admin/products", {
-        headers: {
-            Accept: "application/json",
+    const keyword = document.getElementById("search-products").value;
+    const response = await fetch(
+        "/admin/products?search=" + encodeURIComponent(keyword),
+        {
+            headers: {
+                Accept: "application/json",
+            },
         },
-    });
+    );
 
     const products = await response.json();
     renderTable(products);
@@ -204,5 +208,17 @@ async function updateProduct() {
 
     loadProducts();
 }
+
+let searchTimeout;
+
+document
+    .getElementById("search-products")
+    .addEventListener("input", function () {
+        clearTimeout(searchTimeout);
+
+        searchTimeout = setTimeout(() => {
+            loadProducts();
+        }, 300);
+    });
 
 loadProducts();

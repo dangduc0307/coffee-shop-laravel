@@ -16,7 +16,12 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $search = $request->search;
         $products = Product::with('category')
+            ->when($search, function ($query) use ($search){
+                $query->where('name', 'like', "%{$search}%")
+                ->orWhere('description', 'like', "%{$search}%");
+            })  
             ->latest()
             ->get();
         //Request (yêu cầu) gửi lên có mong muốn nhận dữ liệu JSON hay không?

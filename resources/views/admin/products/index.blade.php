@@ -19,6 +19,20 @@
 
     </div>
 
+    <div class="row mb-3">
+
+        <div class="col-md-4">
+
+            <input
+                type="text"
+                id="search-products"
+                class="form-control"
+                placeholder="Tìm theo tên hoặc mô tả...">
+
+        </div>
+
+    </div>
+
     <table class="table table-bordered align-middle">
 
         <thead>
