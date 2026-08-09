@@ -4,6 +4,20 @@
         <div class="d-flex align-items-center mb-3">
             <h2>Danh sách thanh toán</h2>
         </div>
+
+        <div class="row mb-3">
+
+            <div class="col-md-4">
+
+                <input
+                    type="text"
+                    id="search-payments"
+                    class="form-control"
+                    placeholder="Tìm theo mã thanh toán...">
+
+            </div>
+
+        </div>
         <table class="table table-bordered align-middle">
             <thead>
                 <tr>

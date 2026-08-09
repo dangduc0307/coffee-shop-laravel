@@ -1,11 +1,15 @@
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
 async function loadPayments() {
-    const response = await fetch("/admin/payments", {
-        headers: {
-            Accept: "application/json",
+    const keyword = document.getElementById("search-payments").value;
+    const response = await fetch(
+        "/admin/payments?search=" + encodeURIComponent(keyword),
+        {
+            headers: {
+                Accept: "application/json",
+            },
         },
-    });
+    );
 
     const payments = await response.json();
     renderTable(payments);
@@ -33,17 +37,14 @@ function renderTable(payments) {
 }
 
 // Hàm chèn bản ghi mới lên đầu bảng
-function prependPayment(payment) {
-    const table = document.getElementById("paymentTable");
+// function prependPayment(payment) {
+//     const table = document.getElementById("paymentTable");
 
-    // Nếu bản ghi đã có trong bảng thì không chèn nữa (tránh trùng)
-    if (document.getElementById(`payment-row-${payment.id}`)) return;
+//     // Nếu bản ghi đã có trong bảng thì không chèn nữa (tránh trùng)
+//     if (document.getElementById(`payment-row-${payment.id}`)) return;
 
-    table.insertAdjacentHTML("afterbegin", createRowHTML(payment));
-}
-
-// Tải danh sách ban đầu
-loadPayments();
+//     table.insertAdjacentHTML("afterbegin", createRowHTML(payment));
+// }
 
 // Lắng nghe sự kiện Real-time qua CDN Echo đã khởi tạo ở Layout
 if (window.Echo) {
@@ -75,3 +76,18 @@ function prependPayment(payment) {
     // Nếu chưa có -> Chèn mới lên đầu bảng
     table.insertAdjacentHTML("afterbegin", createRowHTML(payment));
 }
+
+let searchTimeout;
+
+document
+    .getElementById("search-payments")
+    .addEventListener("input", function () {
+        clearTimeout(searchTimeout);
+
+        searchTimeout = setTimeout(() => {
+            loadPayments();
+        }, 300);
+    });
+
+// Tải danh sách ban đầu
+loadPayments();

@@ -11,8 +11,21 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        $search = $request->search;
         //Lấy dữ liệu từ bảng orders
-        $orders = Order::latest()->get();
+        $orders = Order::query()
+        // when(
+        //     ĐIỀU KIỆN,
+        //     HÀNH ĐỘNG KHI ĐIỀU KIỆN ĐÚNG
+        // )
+        ->when($search, function($query) use ($search){
+            $query->where('customer_name', 'like', "%{$search}%")
+            ->orWhere('phone', 'like', "%{$search}%")
+            ->orWhere('email', 'like', "%{$search}%")
+            ->orWhere('address', 'like', "%{$search}%");
+        })
+        ->latest()
+        ->get();
         //Request (yêu cầu) gửi lên có mong muốn nhận dữ liệu JSON hay không?
         if($request->expectsJson())
         {

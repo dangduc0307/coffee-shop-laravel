@@ -14,7 +14,11 @@ class PaymentController extends Controller
      */
     public function index(Request $request)
     {
+        $search = $request->search;
         $payments = Payment::with('order.user')
+            ->when($search, function($query) use ($search){
+                $query->where('payment_code', 'like', "%{$search}%" );
+            })
             ->latest()
             ->get();
 

@@ -4,13 +4,17 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 async function loadOrders() {
     // Gửi yêu cầu GET đến route /admin/orders
     // await: đợi server trả kết quả rồi mới chạy tiếp
-    const response = await fetch("/admin/orders", {
-        // Gửi Header cho Laravel biết rằng
-        // "Tôi muốn nhận dữ liệu dạng JSON"
-        headers: {
-            Accept: "application/json",
+    const keyword = document.getElementById("search-orders").value;
+    const response = await fetch(
+        "/admin/orders?search=" + encodeURIComponent(keyword),
+        {
+            // Gửi Header cho Laravel biết rằng
+            // "Tôi muốn nhận dữ liệu dạng JSON"
+            headers: {
+                Accept: "application/json",
+            },
         },
-    });
+    );
 
     // Chuyển dữ liệu JSON mà server trả về
     // thành Object hoặc Array của JavaScript
@@ -42,5 +46,14 @@ function renderTable(orders) {
         `;
     });
 }
+
+let searchTimeout;
+
+document.getElementById("search-orders").addEventListener("input", function () {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        loadOrders();
+    }, 300);
+});
 
 loadOrders();
