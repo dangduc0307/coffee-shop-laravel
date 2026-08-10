@@ -23,7 +23,7 @@ class ProductController extends Controller
                 ->orWhere('description', 'like', "%{$search}%");
             })  
             ->latest()
-            ->get();
+            ->paginate(10);
         //Request (yêu cầu) gửi lên có mong muốn nhận dữ liệu JSON hay không?
         if ($request->expectsJson()) {
             return response()->json($products);

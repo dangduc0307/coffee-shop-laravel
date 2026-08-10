@@ -59,6 +59,7 @@
         </tbody>
 
     </table>
+    <div id="pagination" class="mt-3"></div>
 
 </div>
 

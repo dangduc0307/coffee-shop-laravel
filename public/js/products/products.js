@@ -2,10 +2,14 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
 //Hàm load dữ liệu
 
-async function loadProducts() {
+async function loadProducts(page = 1) {
     const keyword = document.getElementById("search-products").value;
+
     const response = await fetch(
-        "/admin/products?search=" + encodeURIComponent(keyword),
+        "/admin/products?page=" +
+            page +
+            "&search=" +
+            encodeURIComponent(keyword),
         {
             headers: {
                 Accept: "application/json",
@@ -13,8 +17,11 @@ async function loadProducts() {
         },
     );
 
-    const products = await response.json();
-    renderTable(products);
+    const result = await response.json();
+
+    renderTable(result.data);
+
+    renderPagination(result);
 }
 
 //Hàm render
@@ -57,6 +64,63 @@ function renderTable(products) {
         </tr>
         `;
     });
+}
+
+function renderPagination(result) {
+    const pagination = document.getElementById("pagination");
+
+    pagination.innerHTML = "";
+
+    if (result.last_page <= 1) {
+        return;
+    }
+
+    let html = `
+        <nav>
+            <ul class="pagination">
+    `;
+
+    // Nút Previous
+    html += `
+        <li class="page-item ${result.current_page === 1 ? "disabled" : ""}">
+            <button
+                class="page-link"
+                onclick="loadProducts(${result.current_page - 1})">
+                Trước
+            </button>
+        </li>
+    `;
+
+    // Các số trang
+    for (let page = 1; page <= result.last_page; page++) {
+        html += `
+            <li class="page-item ${page === result.current_page ? "active" : ""}">
+                <button
+                    class="page-link"
+                    onclick="loadProducts(${page})">
+                    ${page}
+                </button>
+            </li>
+        `;
+    }
+
+    // Nút Next
+    html += `
+        <li class="page-item ${result.current_page === result.last_page ? "disabled" : ""}">
+            <button
+                class="page-link"
+                onclick="loadProducts(${result.current_page + 1})">
+                Sau
+            </button>
+        </li>
+    `;
+
+    html += `
+            </ul>
+        </nav>
+    `;
+
+    pagination.innerHTML = html;
 }
 
 //Add product
@@ -103,11 +167,14 @@ async function addProduct() {
     document.getElementById("thumbnail").value = "";
     document.getElementById("name").value = "";
     document.getElementById("description").value = "";
-    document.getElementById("category_id").value = "";
+    // document.getElementById("category_id").value = "";
+    document.getElementById("category_id").selectedIndex = 0;
     document.getElementById("price").value = "";
     document.getElementById("stock").value = "";
-    document.getElementById("featured").value = "";
-    document.getElementById("status").value = "";
+    // document.getElementById("featured").value = "";
+    // document.getElementById("status").value = "";
+    document.getElementById("featured").selectedIndex = 0;
+    document.getElementById("status").selectedIndex = 0;
 
     loadProducts();
 }
