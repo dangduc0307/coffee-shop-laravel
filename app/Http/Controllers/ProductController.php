@@ -17,22 +17,35 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $search = $request->search;
+        $locale = app()->getLocale();
+
         $products = Product::with('category')
-            ->when($search, function ($query) use ($search){
-                $query->where('name', 'like', "%{$search}%")
-                ->orWhere('description', 'like', "%{$search}%");
-            })  
+            ->when($search, function ($query) use ($search, $locale) {
+
+                $query->where(
+                    "name->{$locale}",
+                    'like',
+                    "%{$search}%"
+                )
+                ->orWhere(
+                    "description->{$locale}",
+                    'like',
+                    "%{$search}%"
+                );
+            })
             ->latest()
             ->paginate(10);
-        //Request (yêu cầu) gửi lên có mong muốn nhận dữ liệu JSON hay không?
+
         if ($request->expectsJson()) {
             return response()->json($products);
         }
 
         $categories = Category::all();
-        
 
-        return view('admin.products.index', compact('categories'));
+        return view(
+            'admin.products.index',
+            compact('categories')
+        );
     }
 
     /**
@@ -48,7 +61,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //Nếu người dùng không chọn ảnh thì nó sẽ null
+        // Nếu người dùng không chọn ảnh thì nó sẽ null
         $thumbnail = null;
 
         if ($request->hasFile('thumbnail')) {
@@ -57,20 +70,30 @@ class ProductController extends Controller
 
             $thumbnail = time() . '_' . $file->getClientOriginalName();
 
-            $file->move(public_path('uploaded-images'), $thumbnail);
-
+            $file->move(
+                public_path('uploaded-images'),
+                $thumbnail
+            );
         }
 
         $product = Product::create([
 
             'category_id' => $request->category_id,
-            // 'category_id' => $request->category_id ?: null,
 
-            'name' => $request->name,
+            'name' => [
+                'vi' => $request->name['vi'],
+                'en' => $request->name['en'],
+            ],
 
-            'slug' => Str::slug($request->name),
+            'slug' => [
+                'vi' => Str::slug($request->name['vi']),
+                'en' => Str::slug($request->name['en']),
+            ],
 
-            'description' => $request->description,
+            'description' => [
+                'vi' => $request->description['vi'],
+                'en' => $request->description['en'],
+            ],
 
             'price' => $request->price,
 
@@ -110,9 +133,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product $product)
-    {
-        //Nếu người dùng không chọn ảnh thì nó giữ lại ảnh cũ
+    public function update(
+        UpdateProductRequest $request,
+        Product $product
+    ) {
+        // Nếu người dùng không chọn ảnh thì giữ ảnh cũ
         $thumbnail = $product->thumbnail;
 
         if ($request->hasFile('thumbnail')) {
@@ -121,19 +146,30 @@ class ProductController extends Controller
 
             $thumbnail = time() . '_' . $file->getClientOriginalName();
 
-            $file->move(public_path('encrypted-images'), $thumbnail);
-
+            $file->move(
+                public_path('encrypted-images'),
+                $thumbnail
+            );
         }
 
         $product->update([
 
             'category_id' => $request->category_id,
 
-            'name' => $request->name,
+            'name' => [
+                'vi' => $request->name['vi'],
+                'en' => $request->name['en'],
+            ],
 
-            'slug' => Str::slug($request->name),
+            'slug' => [
+                'vi' => Str::slug($request->name['vi']),
+                'en' => Str::slug($request->name['en']),
+            ],
 
-            'description' => $request->description,
+            'description' => [
+                'vi' => $request->description['vi'],
+                'en' => $request->description['en'],
+            ],
 
             'price' => $request->price,
 

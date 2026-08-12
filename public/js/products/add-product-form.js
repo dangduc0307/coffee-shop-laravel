@@ -1,4 +1,7 @@
-//Hàm phát hiện lỗi
+// ===============================
+// HÀM PHÁT HIỆN LỖI
+// ===============================
+
 function showError(id, message) {
     const input = document.getElementById(id);
 
@@ -7,7 +10,10 @@ function showError(id, message) {
     document.getElementById(id + "-error").textContent = message;
 }
 
-//Hàm xóa lỗi
+// ===============================
+// HÀM XÓA LỖI
+// ===============================
+
 function clearError(id) {
     const input = document.getElementById(id);
 
@@ -16,25 +22,58 @@ function clearError(id) {
     document.getElementById(id + "-error").textContent = "";
 }
 
-//Hàm validate
+// ===============================
+// VALIDATE PRODUCT
+// ===============================
 
 function validateProduct() {
     let valid = true;
 
-    clearError("name");
+    // Xóa lỗi cũ
+
+    clearError("name_vi");
+    clearError("name_en");
+
+    clearError("description_vi");
+    clearError("description_en");
+
     clearError("price");
     clearError("stock");
+    clearError("thumbnail");
 
-    if (document.getElementById("name").value.trim() === "") {
-        showError("name", "Vui lòng nhập tên sản phẩm");
+    // Tên tiếng Việt
+
+    if (document.getElementById("name_vi").value.trim() === "") {
+        showError("name_vi", "Vui lòng nhập tên sản phẩm");
 
         valid = false;
     }
 
-    if (document.getElementById("description").value.trim() === "") {
-        showError("description", "Vui lòng nhập mô tả");
+    // Tên tiếng Anh
+
+    if (document.getElementById("name_en").value.trim() === "") {
+        showError("name_en", "Vui lòng nhập tên sản phẩm bằng tiếng Anh");
+
         valid = false;
     }
+
+    // Mô tả tiếng Việt
+
+    if (document.getElementById("description_vi").value.trim() === "") {
+        showError("description_vi", "Vui lòng nhập mô tả");
+
+        valid = false;
+    }
+
+    // Mô tả tiếng Anh
+
+    if (document.getElementById("description_en").value.trim() === "") {
+        showError("description_en", "Vui lòng nhập mô tả bằng tiếng Anh");
+
+        valid = false;
+    }
+
+    // Giá
 
     if (document.getElementById("price").value === "") {
         showError("price", "Vui lòng nhập giá");
@@ -42,39 +81,81 @@ function validateProduct() {
         valid = false;
     }
 
+    // Stock
+
     if (document.getElementById("stock").value === "") {
         showError("stock", "Vui lòng nhập tồn kho");
 
         valid = false;
     }
 
+    // Thumbnail
+
     if (document.getElementById("thumbnail").files.length === 0) {
         showError("thumbnail", "Vui lòng chọn ảnh đại diện");
+
         valid = false;
     }
 
     return valid;
 }
 
-//Kiểm tra người dùng đang nhập tên (có nghĩa là khi họ nhập đúng thì tắt hiển thị lỗi)
-document.getElementById("name").addEventListener("input", function () {
+// ===============================
+// NAME VI
+// ===============================
+
+document.getElementById("name_vi").addEventListener("input", function () {
     if (this.value.trim() !== "") {
-        clearError("name");
+        clearError("name_vi");
     } else {
-        showError("name", "Vui lòng nhập tên sản phẩm");
+        showError("name_vi", "Vui lòng nhập tên sản phẩm");
     }
 });
 
-// Kiểm tra người dùng đang nhập mô tả (có nghĩa là khi họ nhập đúng thì tắt hiển thị lỗi)
-document.getElementById("description").addEventListener("input", function () {
+// ===============================
+// NAME EN
+// ===============================
+
+document.getElementById("name_en").addEventListener("input", function () {
     if (this.value.trim() !== "") {
-        clearError("description");
+        clearError("name_en");
     } else {
-        showError("description", "Vui lòng nhập mô tả");
+        showError("name_en", "Vui lòng nhập tên sản phẩm bằng tiếng Anh");
     }
 });
 
-//Kiểm tra người dùng đang nhập giá (có nghĩa là khi họ nhập đúng thì tắt hiển thị lỗi)
+// ===============================
+// DESCRIPTION VI
+// ===============================
+
+document
+    .getElementById("description_vi")
+    .addEventListener("input", function () {
+        if (this.value.trim() !== "") {
+            clearError("description_vi");
+        } else {
+            showError("description_vi", "Vui lòng nhập mô tả");
+        }
+    });
+
+// ===============================
+// DESCRIPTION EN
+// ===============================
+
+document
+    .getElementById("description_en")
+    .addEventListener("input", function () {
+        if (this.value.trim() !== "") {
+            clearError("description_en");
+        } else {
+            showError("description_en", "Vui lòng nhập mô tả bằng tiếng Anh");
+        }
+    });
+
+// ===============================
+// PRICE
+// ===============================
+
 document.getElementById("price").addEventListener("input", function () {
     if (this.value !== "") {
         clearError("price");
@@ -83,16 +164,22 @@ document.getElementById("price").addEventListener("input", function () {
     }
 });
 
-//Kiểm tra người dùng đang nhập hàng tồn kho (có nghĩa là khi họ nhập đúng thì tắt hiển thị lỗi)
+// ===============================
+// STOCK
+// ===============================
+
 document.getElementById("stock").addEventListener("input", function () {
     if (this.value !== "") {
         clearError("stock");
     } else {
-        showError("stock", "Vui lòng nhập giá");
+        showError("stock", "Vui lòng nhập tồn kho");
     }
 });
 
-// Kiểm tra người dùng chọn ảnh (có nghĩa là khi họ nhập đúng thì tắt hiển thị lỗi)
+// ===============================
+// THUMBNAIL
+// ===============================
+
 document.getElementById("thumbnail").addEventListener("change", function () {
     if (this.files.length > 0) {
         clearError("thumbnail");

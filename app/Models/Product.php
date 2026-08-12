@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $fillable = [
         'category_id',
@@ -19,6 +20,13 @@ class Product extends Model
         'thumbnail',
         'featured',
         'status'
+    ];
+
+
+    public array $translatable = [
+        'name',
+        'slug',
+        'description',
     ];
 
     public function category()
@@ -46,14 +54,14 @@ class Product extends Model
         return $this->hasMany(CartItem::class);
     }
 
-    public function translations()
-    {
-        return $this->hasMany(ProductTranslation::class);
-    }
+    // public function translations()
+    // {
+    //     return $this->hasMany(ProductTranslation::class);
+    // }
 
-    public function translation()
-    {
-        return $this->hasOne(ProductTranslation::class)
-            ->where('locale', app()->getLocale());
-    }
+    // public function translation()
+    // {
+    //     return $this->hasOne(ProductTranslation::class)
+    //         ->where('locale', app()->getLocale());
+    // }
 }

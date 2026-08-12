@@ -20,52 +20,141 @@
 
             <div class="modal-body">
 
+                {{-- Danh mục --}}
                 <div class="mb-3">
 
                     <label class="form-label">
                         Danh mục
                     </label>
 
-                    <select id="category_id" class="form-select">
+                    <select
+                        id="category_id"
+                        class="form-select">
+
                         @foreach ($categories as $category)
+
                             <option value="{{ $category->id }}">
                                 {{ $category->name }}
                             </option>
+
                         @endforeach
+
                     </select>
 
                 </div>
 
-                <div class="mb-3">
 
-                    <label class="form-label">
-                        Tên sản phẩm
-                    </label>
+                {{-- ==================== --}}
+                {{-- TIẾNG VIỆT --}}
+                {{-- ==================== --}}
 
-                    <input
-                        type="text"
-                        id="name"
-                        class="form-control">
-                    <div id="name-error" class="invalid-feedback"></div>
+                <div class="border rounded p-3 mb-3">
+
+                    <h6 class="mb-3">
+                        🇻🇳 Tiếng Việt
+                    </h6>
+
+
+                    {{-- Tên tiếng Việt --}}
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Tên sản phẩm
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name_vi"
+                            class="form-control"
+                            placeholder="Nhập tên sản phẩm bằng tiếng Việt">
+
+                        <div
+                            id="name_vi-error"
+                            class="invalid-feedback">
+                        </div>
+
+                    </div>
+
+
+                    {{-- Mô tả tiếng Việt --}}
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Mô tả
+                        </label>
+
+                        <textarea
+                            id="description_vi"
+                            class="form-control"
+                            rows="4"
+                            placeholder="Nhập mô tả bằng tiếng Việt"></textarea>
+
+                        <div
+                            id="description_vi-error"
+                            class="invalid-feedback">
+                        </div>
+
+                    </div>
 
                 </div>
 
-                
 
-                <div class="mb-3">
+                {{-- ==================== --}}
+                {{-- ENGLISH --}}
+                {{-- ==================== --}}
 
-                    <label class="form-label">
-                        Mô tả
-                    </label>
+                <div class="border rounded p-3 mb-3">
 
-                    <textarea
-                        id="description"
-                        class="form-control"
-                        rows="4"></textarea>
-                    <div id="description-error" class="invalid-feedback"></div>
+                    <h6 class="mb-3">
+                        🇬🇧 English
+                    </h6>
+
+
+                    {{-- Tên tiếng Anh --}}
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Product name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name_en"
+                            class="form-control"
+                            placeholder="Enter product name in English">
+
+                        <div
+                            id="name_en-error"
+                            class="invalid-feedback">
+                        </div>
+
+                    </div>
+
+
+                    {{-- Mô tả tiếng Anh --}}
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="description_en"
+                            class="form-control"
+                            rows="4"
+                            placeholder="Enter description in English"></textarea>
+
+                        <div
+                            id="description_en-error"
+                            class="invalid-feedback">
+                        </div>
+
+                    </div>
 
                 </div>
 
+
+                {{-- Giá + tồn kho --}}
                 <div class="row">
 
                     <div class="col-md-6">
@@ -80,11 +169,16 @@
                                 type="number"
                                 id="price"
                                 class="form-control">
-                            <div id="price-error" class="invalid-feedback"></div>
+
+                            <div
+                                id="price-error"
+                                class="invalid-feedback">
+                            </div>
 
                         </div>
 
                     </div>
+
 
                     <div class="col-md-6">
 
@@ -98,7 +192,11 @@
                                 type="number"
                                 id="stock"
                                 class="form-control">
-                            <div id="stock-error" class="invalid-feedback"></div>
+
+                            <div
+                                id="stock-error"
+                                class="invalid-feedback">
+                            </div>
 
                         </div>
 
@@ -106,6 +204,8 @@
 
                 </div>
 
+
+                {{-- Ảnh --}}
                 <div class="mb-3">
 
                     <label class="form-label">
@@ -116,10 +216,16 @@
                         type="file"
                         id="thumbnail"
                         class="form-control">
-                    <div id="thumbnail-error" class="invalid-feedback"></div>
+
+                    <div
+                        id="thumbnail-error"
+                        class="invalid-feedback">
+                    </div>
 
                 </div>
 
+
+                {{-- Featured --}}
                 <div class="mb-3">
 
                     <label class="form-label">
@@ -130,15 +236,25 @@
                         id="featured"
                         class="form-select">
 
-                        <option value="0">Không</option>
+                        <option value="0">
+                            Không
+                        </option>
 
-                        <option value="1">Có</option>
+                        <option value="1">
+                            Có
+                        </option>
 
                     </select>
-                    <div id="featured-error" class="invalid-feedback"></div>
+
+                    <div
+                        id="featured-error"
+                        class="invalid-feedback">
+                    </div>
 
                 </div>
 
+
+                {{-- Status --}}
                 <div class="mb-3">
 
                     <label class="form-label">
@@ -149,16 +265,25 @@
                         id="status"
                         class="form-select">
 
-                        <option value="1">Hiển thị</option>
+                        <option value="1">
+                            Hiển thị
+                        </option>
 
-                        <option value="0">Ẩn</option>
+                        <option value="0">
+                            Ẩn
+                        </option>
 
                     </select>
-                    <div id="status-error" class="invalid-feedback"></div>
+
+                    <div
+                        id="status-error"
+                        class="invalid-feedback">
+                    </div>
 
                 </div>
 
             </div>
+
 
             <div class="modal-footer">
 
