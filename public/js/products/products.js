@@ -94,21 +94,33 @@ function renderTable(products) {
 
                 <td>
 
-                    <button
-                        class="btn btn-warning btn-sm"
-                        onclick="editProduct(${product.id})">
+                    ${
+                        window.productPermissions.update
+                            ? `
+                                <button
+                                    class="btn btn-warning btn-sm"
+                                    onclick="editProduct(${product.id})">
 
-                        Sửa
+                                    Sửa
 
-                    </button>
+                                </button>
+                            `
+                            : ""
+                    }
 
-                    <button
-                        class="btn btn-danger btn-sm"
-                        onclick="deleteProduct(${product.id})">
+                    ${
+                        window.productPermissions.delete
+                            ? `
+                                <button
+                                    class="btn btn-danger btn-sm"
+                                    onclick="deleteProduct(${product.id})">
 
-                        Xóa
+                                    Xóa
 
-                    </button>
+                                </button>
+                            `
+                            : ""
+                    }
 
                 </td>
 

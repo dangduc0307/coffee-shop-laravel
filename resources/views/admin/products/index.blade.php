@@ -48,7 +48,15 @@
                 <th>Tồn kho</th>
                 <th>Nổi bật</th>
                 <th>Trạng thái</th>
-                <th width="180">Thao tác</th>
+                {{-- <th width="180">Thao tác</th> --}}
+                @if(
+                    auth()->user()->hasPermission('products.update') ||
+                    auth()->user()->hasPermission('products.delete')
+                )
+
+                    <th width="180">Thao tác</th>
+
+                @endif
 
             </tr>
 
@@ -63,13 +71,49 @@
 
 </div>
 
-@include('admin.products.add-modal')
+{{-- Modal thêm --}}
+@if(auth()->user()->hasPermission('products.create'))
 
-@include('admin.products.edit-modal')
+    @include('admin.products.add-modal')
+
+@endif
+
+
+{{-- Modal sửa --}}
+@if(auth()->user()->hasPermission('products.update'))
+
+    @include('admin.products.edit-modal')
+
+@endif
 
 @endsection
 
 @push('scripts')
+<script>
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permissions
+    |--------------------------------------------------------------------------
+    */
+
+    window.productPermissions = {
+
+        create: @json(
+            auth()->user()->hasPermission('products.create')
+        ),
+
+        update: @json(
+            auth()->user()->hasPermission('products.update')
+        ),
+
+        delete: @json(
+            auth()->user()->hasPermission('products.delete')
+        ),
+
+    };
+
+</script>
 <script src="{{ asset('js/products/products.js') }}"></script>
 <script src="{{ asset('js/products/add-product-form.js') }}"></script>
 <script src="{{ asset('js/products/edit-product-form.js') }}"></script>
