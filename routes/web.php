@@ -15,6 +15,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SepayWebhookController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleController;
 
@@ -107,9 +108,21 @@ Route::middleware('guest')->group(function () {
     Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 });
 
+//Login admin
+Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])
+    ->name('admin.login');
+
+Route::post('/admin/login', [AdminAuthController::class, 'login'])
+    ->name('admin.login.submit');
+
 Route::post('/logout', [LoginController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
+
+// Logout admin
+Route::post('/admin/logout', [AdminAuthController::class, 'logout'])
+    ->middleware('auth')
+    ->name('admin-logout');
 
 
 

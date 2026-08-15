@@ -82,22 +82,24 @@
     </nav>
 
     {{-- User --}}
-    <div class="sidebar-user">
+    @auth
+        <div class="sidebar-user">
 
-        <div class="avatar">
+            <div class="avatar">
 
-            {{ strtoupper(substr(auth()->user()->name,0,1)) }}
+                {{ strtoupper(substr(auth()->user()->name,0,1)) }}
+
+            </div>
+
+            <div>
+
+                <strong>{{ auth()->user()->name }}</strong>
+
+                <small>Quản trị viên</small>
+
+            </div>
 
         </div>
-
-        <div>
-
-            <strong>{{ auth()->user()->name }}</strong>
-
-            <small>Quản trị viên</small>
-
-        </div>
-
-    </div>
+    @endauth
 
 </aside>

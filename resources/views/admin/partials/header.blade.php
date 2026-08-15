@@ -10,6 +10,7 @@
 
     </div>
 
+
     <div class="header-right">
 
         <button class="btn btn-light position-relative">
@@ -25,59 +26,84 @@
 
         </button>
 
-        <div class="dropdown">
 
-            <button
-                class="btn btn-light dropdown-toggle"
-                data-bs-toggle="dropdown">
+        @auth
 
-                {{ auth()->user()->name }}
+            <div class="dropdown">
 
-            </button>
+                <button
+                    class="btn btn-light dropdown-toggle"
+                    data-bs-toggle="dropdown">
 
-            <ul class="dropdown-menu dropdown-menu-end">
+                    {{ auth()->user()->name }}
 
-                <li>
+                </button>
 
-                    <a class="dropdown-item" href="#">
+                <ul class="dropdown-menu dropdown-menu-end">
 
-                        Hồ sơ
+                    <li>
 
-                    </a>
+                        <a
+                            class="dropdown-item"
+                            href="#">
 
-                </li>
+                            Hồ sơ
 
-                <li>
+                        </a>
 
-                    <a class="dropdown-item" href="#">
+                    </li>
 
-                        Đổi mật khẩu
+                    <li>
 
-                    </a>
+                        <a
+                            class="dropdown-item"
+                            href="#">
 
-                </li>
+                            Đổi mật khẩu
 
-                <li><hr class="dropdown-divider"></li>
+                        </a>
 
-                <li>
+                    </li>
 
-                    <form action="{{ route('logout') }}" method="POST">
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
 
-                        @csrf
+                    <li>
 
-                        <button class="dropdown-item">
+                        <form
+                            action="{{ route('admin-logout') }}"
+                            method="POST">
 
-                            Đăng xuất
+                            @csrf
 
-                        </button>
+                            <button
+                                type="submit"
+                                class="dropdown-item">
 
-                    </form>
+                                Đăng xuất
 
-                </li>
+                            </button>
 
-            </ul>
+                        </form>
 
-        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        @else
+
+            <a
+                href="{{ route('admin.login') }}"
+                class="btn btn-light">
+
+                Đăng nhập
+
+            </a>
+
+        @endauth
 
     </div>
 
