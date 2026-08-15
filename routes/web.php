@@ -171,3 +171,8 @@ Route::get('/language/{locale}', [
     'switch'
 ])->name('language.switch');
 
+
+//Danh sách người dùng
+Route::resource('admin/users', UserController::class)
+    ->names('admin.users');
+

@@ -53,7 +53,7 @@
             Hoàn tiền
         </a>
 
-        <a href="#">
+        <a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users.index') ? 'active' : '' }}">
             <i class="bi bi-people"></i>
             Người dùng
         </a>

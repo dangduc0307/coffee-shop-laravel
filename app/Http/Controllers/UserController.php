@@ -4,15 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $users = User::with('roles')
+            ->latest()
+            ->get();
+        if ($request->expectsJson()) {
+            return response()->json($notifications);
+        }
+
+        $roles = Role::all();
+
+        return view('admin.users.index', compact(
+            'users',
+            'roles'
+        ));
     }
 
     /**
