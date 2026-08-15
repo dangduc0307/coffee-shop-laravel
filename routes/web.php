@@ -61,6 +61,10 @@ Route::prefix('admin')
 
         //Danh sách đơn hàng
         Route::resource('orders', OrderController::class);
+
+        //Danh sách người dùng
+        Route::resource('users', UserController::class);
+            
     });
 
 
@@ -172,7 +176,5 @@ Route::get('/language/{locale}', [
 ])->name('language.switch');
 
 
-//Danh sách người dùng
-Route::resource('admin/users', UserController::class)
-    ->names('admin.users');
+
 
