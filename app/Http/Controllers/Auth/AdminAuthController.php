@@ -13,6 +13,59 @@ class AdminAuthController extends Controller
         return view('admin.auth.admin-login');
     }
 
+    // public function login(Request $request)
+    // {
+    //     $credentials = $request->validate([
+    //         'email' => [
+    //             'required',
+    //             'email',
+    //         ],
+
+    //         'password' => [
+    //             'required',
+    //         ],
+    //     ]);
+
+    //     $remember = $request->boolean('remember');
+
+    //     if (!Auth::attempt($credentials, $remember)) {
+
+    //         return back()
+    //             ->withErrors([
+    //                 'email' => 'Email hoặc mật khẩu không chính xác.',
+    //             ])
+    //             ->withInput(
+    //                 $request->only('email')
+    //             );
+    //     }
+
+    //     $request->session()->regenerate();
+
+    //     $user = Auth::user();
+
+    //     // Kiểm tra Super Admin
+    //     if (!$user->hasRole('super_admin')) {
+
+    //         Auth::logout();
+
+    //         $request->session()->invalidate();
+
+    //         $request->session()->regenerateToken();
+
+    //         return back()
+    //             ->withErrors([
+    //                 'email' => 'Tài khoản không có quyền quản trị.',
+    //             ])
+    //             ->withInput(
+    //                 $request->only('email')
+    //             );
+    //     }
+
+    //     return redirect()->route('admin.dashboard');
+    // }
+
+
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -42,24 +95,6 @@ class AdminAuthController extends Controller
         $request->session()->regenerate();
 
         $user = Auth::user();
-
-        // Kiểm tra Super Admin
-        if (!$user->hasRole('super_admin')) {
-
-            Auth::logout();
-
-            $request->session()->invalidate();
-
-            $request->session()->regenerateToken();
-
-            return back()
-                ->withErrors([
-                    'email' => 'Tài khoản không có quyền quản trị.',
-                ])
-                ->withInput(
-                    $request->only('email')
-                );
-        }
 
         return redirect()->route('admin.dashboard');
     }
