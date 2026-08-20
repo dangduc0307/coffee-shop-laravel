@@ -13,28 +13,30 @@
                 <div class="card-body p-4">
 
                     <h2 class="text-center mb-4">
-                        Đăng nhập quản trị
+                        Đặt lại mật khẩu
                     </h2>
 
 
-                    @if (session('status'))
+                    <p class="text-muted text-center mb-4">
 
-                        <div class="alert alert-success">
+                        Nhập mật khẩu mới cho tài khoản của bạn.
 
-                            {{ session('status') }}
-
-                        </div>
-
-                    @endif
+                    </p>
 
 
                     <form
-                        id="adminLoginForm"
-                        action="{{ route('admin.login') }}"
-                        method="POST"
-                        novalidate>
+                        action="{{ route('admin.password.update') }}"
+                        method="POST">
 
                         @csrf
+
+
+                        {{-- Token --}}
+
+                        <input
+                            type="hidden"
+                            name="token"
+                            value="{{ $token }}">
 
 
                         {{-- Email --}}
@@ -42,26 +44,26 @@
                         <div class="mb-3">
 
                             <label class="form-label">
+
                                 Email
+
                             </label>
+
 
                             <input
                                 type="email"
                                 name="email"
+                                value="{{ old('email', $email) }}"
                                 class="form-control @error('email') is-invalid @enderror"
-                                id="email"
-                                value="{{ old('email') }}"
-                                required>
+                                readonly>
 
-                            <div
-                                class="text-danger small"
-                                id="emailError">
-                            </div>
 
                             @error('email')
 
                                 <div class="invalid-feedback">
+
                                     {{ $message }}
+
                                 </div>
 
                             @enderror
@@ -74,25 +76,26 @@
                         <div class="mb-3">
 
                             <label class="form-label">
-                                Mật khẩu
+
+                                Mật khẩu mới
+
                             </label>
+
 
                             <input
                                 type="password"
                                 name="password"
                                 class="form-control @error('password') is-invalid @enderror"
-                                id="password"
+                                placeholder="Nhập mật khẩu mới"
                                 required>
 
-                            <div
-                                class="text-danger small"
-                                id="passwordError">
-                            </div>
 
                             @error('password')
 
                                 <div class="invalid-feedback">
+
                                     {{ $message }}
+
                                 </div>
 
                             @enderror
@@ -100,23 +103,23 @@
                         </div>
 
 
-                        {{-- Remember --}}
+                        {{-- Confirm password --}}
 
-                        <div class="form-check mb-3">
+                        <div class="mb-3">
 
-                            <input
-                                class="form-check-input"
-                                type="checkbox"
-                                name="remember"
-                                id="remember">
+                            <label class="form-label">
 
-                            <label
-                                class="form-check-label"
-                                for="remember">
-
-                                Ghi nhớ đăng nhập
+                                Xác nhận mật khẩu mới
 
                             </label>
+
+
+                            <input
+                                type="password"
+                                name="password_confirmation"
+                                class="form-control"
+                                placeholder="Nhập lại mật khẩu mới"
+                                required>
 
                         </div>
 
@@ -125,25 +128,19 @@
                             type="submit"
                             class="btn btn-dark w-100">
 
-                            Đăng nhập quản trị
+                            Đặt lại mật khẩu
 
                         </button>
 
                     </form>
 
-                    <div class="text-center mt-3">
-
-                        <a href="{{ route('admin.password.request') }}">
-                            Đổi mật khẩu
-                        </a>
-
-                    </div>
-
 
                     <div class="text-center mt-4">
 
-                        <a href="{{ route('login') }}">
-                            Quay lại đăng nhập người dùng
+                        <a href="{{ route('admin.login') }}">
+
+                            Quay lại đăng nhập quản trị
+
                         </a>
 
                     </div>
@@ -157,12 +154,5 @@
     </div>
 
 </div>
-
-@endsection
-
-
-@section('scripts')
-
-<script src="{{ asset('js/auth/admin-login.js') }}"></script>
 
 @endsection

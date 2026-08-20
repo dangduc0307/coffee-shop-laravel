@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Auth\AdminPasswordResetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -174,6 +175,41 @@ Route::get('/language/{locale}', [
     LanguageController::class,
     'switch'
 ])->name('language.switch');
+
+
+
+
+// Đổi mật khẩu
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    // Hiển thị form nhập email
+    Route::get(
+        '/forgot-password',
+        [AdminPasswordResetController::class, 'showLinkRequestForm']
+    )->name('password.request');
+
+
+    // Gửi email reset password
+    Route::post(
+        '/forgot-password',
+        [AdminPasswordResetController::class, 'sendResetLinkEmail']
+    )->name('password.email');
+
+
+    // Hiển thị form nhập mật khẩu mới
+    Route::get(
+        '/reset-password/{token}',
+        [AdminPasswordResetController::class, 'showResetForm']
+    )->name('password.reset');
+
+
+    // Lưu mật khẩu mới
+    Route::post(
+        '/reset-password',
+        [AdminPasswordResetController::class, 'reset']
+    )->name('password.update');
+
+});
 
 
 

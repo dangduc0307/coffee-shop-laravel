@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\AdminResetPasswordNotification;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -84,5 +85,13 @@ class User extends Authenticatable
                 $query->where('name', $permission);
             })
             ->exists();
+    }
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(
+            new AdminResetPasswordNotification($token)
+        );
     }
 }
