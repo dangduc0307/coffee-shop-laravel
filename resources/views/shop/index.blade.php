@@ -70,21 +70,19 @@
                     </p>
 
                     <p>
-
-                        @if($product->stock>0)
-
-                            <span class="badge bg-success">
-                                Còn hàng
-                            </span>
-
-                        @else
-
-                            <span class="badge bg-danger">
-                                Hết hàng
-                            </span>
-
+                        @if($product->demo_url)
+                            <a
+                                href="{{ $product->demo_url }}"
+                                target="_blank"
+                                class="btn btn-outline-primary btn-sm">
+                                Xem Demo
+                            </a>
                         @endif
+                    </p>
 
+                    <p class="text-muted mb-2">
+                        File:
+                        {{ $product->file_size ?? 'Đang cập nhật' }}
                     </p>
 
                     <button

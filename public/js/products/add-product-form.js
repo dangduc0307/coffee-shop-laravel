@@ -38,8 +38,12 @@ function validateProduct() {
     clearError("description_en");
 
     clearError("price");
-    clearError("stock");
     clearError("thumbnail");
+    clearError("file");
+    clearError("file_size");
+    clearError("demo_url");
+    clearError("documentation_url");
+    clearError("requirements");
 
     // Tên tiếng Việt
 
@@ -81,18 +85,18 @@ function validateProduct() {
         valid = false;
     }
 
-    // Stock
-
-    if (document.getElementById("stock").value === "") {
-        showError("stock", "Vui lòng nhập tồn kho");
-
-        valid = false;
-    }
-
     // Thumbnail
 
     if (document.getElementById("thumbnail").files.length === 0) {
         showError("thumbnail", "Vui lòng chọn ảnh đại diện");
+
+        valid = false;
+    }
+
+    // File source
+
+    if (document.getElementById("file").files.length === 0) {
+        showError("file", "Vui lòng chọn file source");
 
         valid = false;
     }
@@ -165,18 +169,6 @@ document.getElementById("price").addEventListener("input", function () {
 });
 
 // ===============================
-// STOCK
-// ===============================
-
-document.getElementById("stock").addEventListener("input", function () {
-    if (this.value !== "") {
-        clearError("stock");
-    } else {
-        showError("stock", "Vui lòng nhập tồn kho");
-    }
-});
-
-// ===============================
 // THUMBNAIL
 // ===============================
 
@@ -185,5 +177,17 @@ document.getElementById("thumbnail").addEventListener("change", function () {
         clearError("thumbnail");
     } else {
         showError("thumbnail", "Vui lòng chọn ảnh đại diện");
+    }
+});
+
+// ===============================
+// FILE SOURCE
+// ===============================
+
+document.getElementById("file").addEventListener("change", function () {
+    if (this.files.length > 0) {
+        clearError("file");
+    } else {
+        showError("file", "Vui lòng chọn file source");
     }
 });

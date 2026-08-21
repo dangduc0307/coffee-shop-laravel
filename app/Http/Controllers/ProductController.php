@@ -76,6 +76,30 @@ class ProductController extends Controller
             );
         }
 
+        // ===============================
+        // SOURCE FILE
+        // ===============================
+
+        $filePath = null;
+        $fileSize = null;
+
+        if ($request->hasFile('file')) {
+
+            $file = $request->file('file');
+
+            $filePath = $file->store(
+                'products',
+                'private'
+            );
+
+            $size = $file->getSize();
+
+            $fileSize = round(
+                $size / 1024 / 1024,
+                2
+            ) . ' MB';
+        }
+
         $product = Product::create([
 
             'category_id' => $request->category_id,
@@ -97,9 +121,17 @@ class ProductController extends Controller
 
             'price' => $request->price,
 
-            'stock' => $request->stock,
-
             'thumbnail' => $thumbnail,
+
+            'file' => $filePath,
+
+            'file_size' => $fileSize,
+
+            'demo_url' => $request->demo_url,
+
+            'documentation_url' => $request->documentation_url,
+
+            'requirements' => $request->requirements,
 
             'featured' => $request->featured,
 
@@ -152,6 +184,30 @@ class ProductController extends Controller
             );
         }
 
+        // ===============================
+        // FILE SOURCE
+        // ===============================
+
+        $filePath = $product->file;
+        $fileSize = $product->file_size;
+
+        if ($request->hasFile('file')) {
+
+            $file = $request->file('file');
+
+            $filePath = $file->store(
+                'products',
+                'private'
+            );
+
+            $size = $file->getSize();
+
+            $fileSize = round(
+                $size / 1024 / 1024,
+                2
+            ) . ' MB';
+        }
+
         $product->update([
 
             'category_id' => $request->category_id,
@@ -173,9 +229,21 @@ class ProductController extends Controller
 
             'price' => $request->price,
 
-            'stock' => $request->stock,
-
             'thumbnail' => $thumbnail,
+
+            // ===============================
+            // THÔNG TIN SOURCE CODE
+            // ===============================
+
+            'file' => $filePath,
+
+            'file_size' => $fileSize,
+
+            'demo_url' => $request->demo_url,
+
+            'documentation_url' => $request->documentation_url,
+
+            'requirements' => $request->requirements,
 
             'featured' => $request->featured,
 

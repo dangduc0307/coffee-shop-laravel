@@ -40,17 +40,9 @@
                     </td>
 
                     <td> 
-                        <div class="d-flex align-items-center gap-2"> 
-                            <button class="btn btn-outline-secondary btn-sm decrease-btn" data-id="{{ $item->id }}">
-                                 - 
-                            </button>
-                             <span id="quantity-{{ $item->id }}" data-stock="{{ $item->product->stock }}">
-                                 {{ $item->quantity }} 
-                            </span> 
-                            <button class="btn btn-outline-secondary btn-sm increase-btn" data-id="{{ $item->id }}">
-                                 + 
-                            </button> 
-                        </div> 
+                        <span id="quantity-{{ $item->id }}">
+                            {{ $item->quantity }}
+                        </span>
                     </td>
 
                     <td

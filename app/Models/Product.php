@@ -16,10 +16,14 @@ class Product extends Model
         'slug',
         'description',
         'price',
-        'stock',
         'thumbnail',
         'featured',
-        'status'
+        'status',
+        'file',
+        'file_size',
+        'demo_url',
+        'documentation_url',
+        'requirements',
     ];
 
 

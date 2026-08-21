@@ -186,26 +186,115 @@
                     </div>
 
 
-                    <div class="col-md-6">
+                    
 
-                        <div class="mb-3">
+                </div>
 
-                            <label class="form-label">
-                                Tồn kho
-                            </label>
+                {{-- File source --}}
+                <div class="mb-3">
 
-                            <input
-                                type="number"
-                                id="edit_stock"
-                                class="form-control">
+                    <label class="form-label">
+                        File source
+                    </label>
 
-                            <div
-                                id="edit_stock-error"
-                                class="invalid-feedback">
-                            </div>
+                    <div
+                        id="edit_file_current"
+                        class="mb-2 text-muted">
+                    </div>
 
-                        </div>
+                    <input
+                        type="file"
+                        id="edit_file"
+                        class="form-control"
+                        accept=".zip,.rar,.7z">
 
+                    <div
+                        id="edit_file-error"
+                        class="invalid-feedback">
+                    </div>
+
+                </div>
+
+
+                {{-- Dung lượng file --}}
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Dung lượng file
+                    </label>
+
+                    <input
+                        type="text"
+                        id="edit_file_size"
+                        class="form-control"
+                        placeholder="Ví dụ: 25 MB">
+
+                    <div
+                        id="edit_file_size-error"
+                        class="invalid-feedback">
+                    </div>
+
+                </div>
+
+
+                {{-- Demo URL --}}
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Link Demo
+                    </label>
+
+                    <input
+                        type="url"
+                        id="edit_demo_url"
+                        class="form-control"
+                        placeholder="https://demo.example.com">
+
+                    <div
+                        id="edit_demo_url-error"
+                        class="invalid-feedback">
+                    </div>
+
+                </div>
+
+
+                {{-- Documentation URL --}}
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Link hướng dẫn
+                    </label>
+
+                    <input
+                        type="url"
+                        id="edit_documentation_url"
+                        class="form-control"
+                        placeholder="https://example.com/documentation">
+
+                    <div
+                        id="edit_documentation_url-error"
+                        class="invalid-feedback">
+                    </div>
+
+                </div>
+
+
+                {{-- Requirements --}}
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Yêu cầu hệ thống
+                    </label>
+
+                    <textarea
+                        id="edit_requirements"
+                        class="form-control"
+                        rows="4"
+                        placeholder="Ví dụ: PHP 8.2+, Laravel 12, MySQL 8.0+"></textarea>
+
+                    <div
+                        id="edit_requirements-error"
+                        class="invalid-feedback">
                     </div>
 
                 </div>

@@ -38,6 +38,23 @@ function renderTable(products) {
     products.forEach((product) => {
         const locale = document.documentElement.lang || "vi";
 
+        const fileName = product.file ? product.file.split("/").pop() : null;
+
+        const fileHtml = fileName
+            ? `<span title="${fileName}">${fileName}</span>`
+            : `<span class="text-muted">Chưa có</span>`;
+
+        const demoHtml = product.demo_url
+            ? `
+                <a
+                    href="${product.demo_url}"
+                    target="_blank"
+                    class="btn btn-sm btn-primary">
+                    Xem demo
+                </a>
+            `
+            : `<span class="text-muted">Không có</span>`;
+
         const name = product.name?.[locale] ?? product.name?.vi ?? "";
 
         const description =
@@ -81,15 +98,19 @@ function renderTable(products) {
                 </td>
 
                 <td>
-                    ${product.stock}
+                    ${fileHtml}
                 </td>
 
                 <td>
-                    ${product.featured}
+                    ${demoHtml}
                 </td>
 
                 <td>
-                    ${product.status}
+                    ${product.featured ? "Có" : "Không"}
+                </td>
+
+                <td>
+                    ${product.status ? "Hiển thị" : "Ẩn"}
                 </td>
 
                 <td>
@@ -220,6 +241,13 @@ async function addProduct() {
 
     const thumbnail = document.getElementById("thumbnail").files[0];
 
+    const file = document.getElementById("file").files[0];
+
+    const fileSize = document.getElementById("file_size").value;
+    const demoUrl = document.getElementById("demo_url").value;
+    const documentationUrl = document.getElementById("documentation_url").value;
+    const requirements = document.getElementById("requirements").value;
+
     const nameVi = document.getElementById("name_vi").value;
 
     const nameEn = document.getElementById("name_en").value;
@@ -232,8 +260,6 @@ async function addProduct() {
 
     const price = document.getElementById("price").value;
 
-    const stock = document.getElementById("stock").value;
-
     const featured = document.getElementById("featured").value;
 
     const status = document.getElementById("status").value;
@@ -242,6 +268,10 @@ async function addProduct() {
 
     if (thumbnail) {
         formData.append("thumbnail", thumbnail);
+    }
+
+    if (file) {
+        formData.append("file", file);
     }
 
     // NAME
@@ -262,11 +292,14 @@ async function addProduct() {
 
     formData.append("price", price);
 
-    formData.append("stock", stock);
-
     formData.append("featured", featured);
 
     formData.append("status", status);
+
+    formData.append("file_size", fileSize);
+    formData.append("demo_url", demoUrl);
+    formData.append("documentation_url", documentationUrl);
+    formData.append("requirements", requirements);
 
     await fetch("/admin/products", {
         method: "POST",
@@ -289,6 +322,12 @@ async function addProduct() {
 
     document.getElementById("thumbnail").value = "";
 
+    document.getElementById("file").value = "";
+    document.getElementById("file_size").value = "";
+    document.getElementById("demo_url").value = "";
+    document.getElementById("documentation_url").value = "";
+    document.getElementById("requirements").value = "";
+
     document.getElementById("name_vi").value = "";
 
     document.getElementById("name_en").value = "";
@@ -300,8 +339,6 @@ async function addProduct() {
     document.getElementById("category_id").selectedIndex = 0;
 
     document.getElementById("price").value = "";
-
-    document.getElementById("stock").value = "";
 
     document.getElementById("featured").selectedIndex = 0;
 
@@ -339,7 +376,6 @@ async function editProduct(id) {
     clearError("edit_description_en");
 
     clearError("edit_price");
-    clearError("edit_stock");
     clearError("edit_thumbnail");
 
     const response = await fetch("/admin/products/" + id, {
@@ -372,11 +408,27 @@ async function editProduct(id) {
 
     document.getElementById("edit_price").value = product.price;
 
-    document.getElementById("edit_stock").value = product.stock;
-
     document.getElementById("edit_featured").value = product.featured;
 
     document.getElementById("edit_status").value = product.status;
+
+    document.getElementById("edit_file_size").value = product.file_size ?? "";
+
+    document.getElementById("edit_demo_url").value = product.demo_url ?? "";
+
+    document.getElementById("edit_documentation_url").value =
+        product.documentation_url ?? "";
+
+    document.getElementById("edit_requirements").value =
+        product.requirements ?? "";
+
+    if (product.file) {
+        document.getElementById("edit_file_current").textContent =
+            "File hiện tại: " + product.file;
+    } else {
+        document.getElementById("edit_file_current").textContent =
+            "Chưa có file source";
+    }
 
     // THUMBNAIL
 
@@ -403,6 +455,18 @@ async function updateProduct() {
 
     const thumbnail = document.getElementById("edit_thumbnail").files[0];
 
+    const file = document.getElementById("edit_file").files[0];
+
+    const fileSize = document.getElementById("edit_file_size").value;
+
+    const demoUrl = document.getElementById("edit_demo_url").value;
+
+    const documentationUrl = document.getElementById(
+        "edit_documentation_url",
+    ).value;
+
+    const requirements = document.getElementById("edit_requirements").value;
+
     const nameVi = document.getElementById("edit_name_vi").value;
 
     const nameEn = document.getElementById("edit_name_en").value;
@@ -414,8 +478,6 @@ async function updateProduct() {
     const category_id = document.getElementById("edit_category_id").value;
 
     const price = document.getElementById("edit_price").value;
-
-    const stock = document.getElementById("edit_stock").value;
 
     const featured = document.getElementById("edit_featured").value;
 
@@ -443,14 +505,20 @@ async function updateProduct() {
 
     formData.append("price", price);
 
-    formData.append("stock", stock);
-
     formData.append("featured", featured);
 
     formData.append("status", status);
+    formData.append("file_size", fileSize);
+    formData.append("demo_url", demoUrl);
+    formData.append("documentation_url", documentationUrl);
+    formData.append("requirements", requirements);
 
     if (thumbnail) {
         formData.append("thumbnail", thumbnail);
+    }
+
+    if (file) {
+        formData.append("file", file);
     }
 
     await fetch("/admin/products/" + id, {

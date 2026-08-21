@@ -45,7 +45,8 @@
                 <th>Mô tả</th>
                 <th>Danh mục</th>
                 <th>Giá</th>
-                <th>Tồn kho</th>
+                <th>File</th>
+                <th>Demo</th>
                 <th>Nổi bật</th>
                 <th>Trạng thái</th>
                 {{-- <th width="180">Thao tác</th> --}}

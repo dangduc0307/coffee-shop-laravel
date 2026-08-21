@@ -40,13 +40,15 @@ async function loadCartSummary() {
     }
 
     cartItems.forEach((item) => {
+        const productName =
+            item.product.name.vi ?? item.product.name.en ?? "Sản phẩm";
         cartInformation.innerHTML += `
             <div class="cart-item">
 
                 <img src="/uploaded-images/${item.product.thumbnail}"
                      alt="${item.product.name}">
 
-                <span class="me-2">${item.product.name}</span>
+                <span class="me-2">${productName}</span>
 
                 <span>x${item.quantity}</span>
 
@@ -82,41 +84,41 @@ document.querySelectorAll(".add-cart").forEach((button) => {
     };
 });
 
-// tăng số lượng sản phẩm
-document.querySelectorAll(".increase-btn").forEach((button) => {
-    button.addEventListener("click", async function () {
-        const id = this.dataset.id;
+// // tăng số lượng sản phẩm
+// document.querySelectorAll(".increase-btn").forEach((button) => {
+//     button.addEventListener("click", async function () {
+//         const id = this.dataset.id;
 
-        const quantityElement = document.getElementById("quantity-" + id);
+//         const quantityElement = document.getElementById("quantity-" + id);
 
-        let quantity = parseInt(quantityElement.textContent);
+//         let quantity = parseInt(quantityElement.textContent);
 
-        const stock = parseInt(quantityElement.dataset.stock);
+//         const stock = parseInt(quantityElement.dataset.stock);
 
-        if (quantity >= stock) return;
+//         if (quantity >= stock) return;
 
-        quantity++;
+//         quantity++;
 
-        await updateQuantity(id, quantity);
-    });
-});
+//         await updateQuantity(id, quantity);
+//     });
+// });
 
-// giảm số lượng sản phẩm
-document.querySelectorAll(".decrease-btn").forEach((button) => {
-    button.addEventListener("click", async function () {
-        const id = this.dataset.id;
+// // giảm số lượng sản phẩm
+// document.querySelectorAll(".decrease-btn").forEach((button) => {
+//     button.addEventListener("click", async function () {
+//         const id = this.dataset.id;
 
-        const quantityElement = document.getElementById("quantity-" + id);
+//         const quantityElement = document.getElementById("quantity-" + id);
 
-        let quantity = parseInt(quantityElement.textContent);
+//         let quantity = parseInt(quantityElement.textContent);
 
-        if (quantity <= 1) return;
+//         if (quantity <= 1) return;
 
-        quantity--;
+//         quantity--;
 
-        await updateQuantity(id, quantity);
-    });
-});
+//         await updateQuantity(id, quantity);
+//     });
+// });
 
 //Cập nhật số lượng sản phẩm
 async function updateQuantity(id, quantity) {

@@ -10,7 +10,11 @@ function validateEditProduct() {
     clearError("edit_description_en");
 
     clearError("edit_price");
-    clearError("edit_stock");
+
+    clearError("edit_file_size");
+    clearError("edit_demo_url");
+    clearError("edit_documentation_url");
+    clearError("edit_requirements");
     clearError("edit_thumbnail");
 
     // ===============================
@@ -64,13 +68,37 @@ function validateEditProduct() {
     }
 
     // ===============================
-    // STOCK
+    // DEMO URL
     // ===============================
 
-    if (document.getElementById("edit_stock").value === "") {
-        showError("edit_stock", "Vui lòng nhập tồn kho");
+    const demoUrl = document.getElementById("edit_demo_url").value.trim();
 
-        valid = false;
+    if (demoUrl !== "") {
+        try {
+            new URL(demoUrl);
+        } catch (error) {
+            showError("edit_demo_url", "Link Demo không hợp lệ");
+
+            valid = false;
+        }
+    }
+
+    // ===============================
+    // DOCUMENTATION URL
+    // ===============================
+
+    const documentationUrl = document
+        .getElementById("edit_documentation_url")
+        .value.trim();
+
+    if (documentationUrl !== "") {
+        try {
+            new URL(documentationUrl);
+        } catch (error) {
+            showError("edit_documentation_url", "Link hướng dẫn không hợp lệ");
+
+            valid = false;
+        }
     }
 
     return valid;
@@ -144,13 +172,43 @@ document.getElementById("edit_price").addEventListener("input", function () {
 });
 
 // ===============================
-// STOCK
+// DEMO URL
 // ===============================
 
-document.getElementById("edit_stock").addEventListener("input", function () {
-    if (this.value !== "") {
-        clearError("edit_stock");
-    } else {
-        showError("edit_stock", "Vui lòng nhập tồn kho");
+document.getElementById("edit_demo_url").addEventListener("input", function () {
+    const value = this.value.trim();
+
+    if (value === "") {
+        clearError("edit_demo_url");
+        return;
+    }
+
+    try {
+        new URL(value);
+        clearError("edit_demo_url");
+    } catch (error) {
+        showError("edit_demo_url", "Link Demo không hợp lệ");
     }
 });
+
+// ===============================
+// DOCUMENTATION URL
+// ===============================
+
+document
+    .getElementById("edit_documentation_url")
+    .addEventListener("input", function () {
+        const value = this.value.trim();
+
+        if (value === "") {
+            clearError("edit_documentation_url");
+            return;
+        }
+
+        try {
+            new URL(value);
+            clearError("edit_documentation_url");
+        } catch (error) {
+            showError("edit_documentation_url", "Link hướng dẫn không hợp lệ");
+        }
+    });
