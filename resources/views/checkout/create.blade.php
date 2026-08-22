@@ -16,7 +16,7 @@
                 <div class="card-header">
 
                     <h4 class="mb-0">
-                        Thông tin giao hàng
+                        Thông tin thanh toán
                     </h4>
 
                 </div>
@@ -102,7 +102,7 @@
 
                         </div>
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
 
                             <label class="form-label">
                                 Địa chỉ giao hàng
@@ -120,7 +120,7 @@
                                 </div>
                             @enderror
 
-                        </div>
+                        </div> --}}
 
                         <div class="d-flex justify-content-end">
 

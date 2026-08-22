@@ -25,7 +25,6 @@ class StoreCheckoutRequest extends FormRequest
             'customer_name' => 'required|string|max:255',
             'phone'         => 'required|string|max:20',
             'email'         => 'required|email|max:255',
-            'address'       => 'required|string|max:500',
         ];
     }
 }

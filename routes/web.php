@@ -78,6 +78,9 @@ Route::resource('shop', ShopController::class)->only([
     'show'
 ]);
 
+Route::get('/shop/product/{product}/download', [ShopController::class, 'download'])
+    ->name('shop.download');
+
 //Giỏ hàng
 Route::resource('carts', CartController::class)
     ->only(['index', 'store', 'update', 'destroy'])

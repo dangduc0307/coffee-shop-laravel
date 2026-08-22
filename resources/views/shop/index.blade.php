@@ -58,40 +58,80 @@
                 <div class="card-body">
 
                     <h5>
-
                         {{ $product->name }}
-
                     </h5>
 
                     <p>
-
                         {{ number_format($product->price, 0, ',', '.') }} đ
-
                     </p>
 
-                    <p>
-                        @if($product->demo_url)
+
+                    {{-- Demo --}}
+                    @if($product->demo_url)
+
+                        <p>
                             <a
                                 href="{{ $product->demo_url }}"
                                 target="_blank"
                                 class="btn btn-outline-primary btn-sm">
-                                Xem Demo
-                            </a>
-                        @endif
-                    </p>
 
+                                Xem Demo
+
+                            </a>
+                        </p>
+
+                    @endif
+
+
+                    {{-- Thông tin file --}}
                     <p class="text-muted mb-2">
+
                         File:
                         {{ $product->file_size ?? 'Đang cập nhật' }}
+
                     </p>
 
-                    <button
-                        class="btn btn-primary w-100 add-cart"
-                        data-id="{{ $product->id }}">
 
-                        Thêm vào giỏ
+                    {{-- =============================== --}}
+                    {{-- KIỂM TRA ĐÃ MUA --}}
+                    {{-- =============================== --}}
 
-                    </button>
+                    @if($purchasedProductIds->contains($product->id))
+
+                        {{-- Đã mua --}}
+                        <div class="text-success fw-bold mb-2">
+
+                            <i class="bi bi-check-circle-fill"></i>
+
+                            Đã mua
+
+                        </div>
+
+
+                        {{-- Nút tải xuống --}}
+                        <a
+                            href="{{ route('shop.download', $product->id) }}"
+                            class="btn btn-success w-100">
+
+                            <i class="bi bi-download"></i>
+
+                            Tải xuống
+
+                        </a>
+
+
+                    @else
+
+                        {{-- Chưa mua --}}
+                        <button
+                            class="btn btn-primary w-100 add-cart"
+                            data-id="{{ $product->id }}">
+
+                            Thêm vào giỏ
+
+                        </button>
+
+                    @endif
 
                 </div>
 

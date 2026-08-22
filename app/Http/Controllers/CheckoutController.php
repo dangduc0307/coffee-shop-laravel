@@ -30,11 +30,14 @@ class CheckoutController extends Controller
 
     public function store(StoreCheckoutRequest $request)
     {
+
         
 
         $cart = Cart::with('cartItems.product')
             ->where('user_id', Auth::id())
             ->first();
+
+        
 
         if (!$cart || $cart->cartItems->isEmpty()) {
             return back()->with('error', 'Giỏ hàng đang trống.');
@@ -48,17 +51,20 @@ class CheckoutController extends Controller
                 $total += $item->product->price * $item->quantity;
             }
 
+            
+
             // 1. Tạo Order
             $order = Order::create([
                 'user_id'        => Auth::id(),
                 'customer_name'  => $request->customer_name,
                 'phone'          => $request->phone,
                 'email'          => $request->email,
-                'address'        => $request->address,
                 'total_price'    => $total,
                 'payment_method' => 'sepay',
                 'status'         => 'pending',
             ]);
+
+            
 
             // 2. Tạo Order Items
             foreach ($cart->cartItems as $item) {
@@ -69,6 +75,8 @@ class CheckoutController extends Controller
                     'price'      => $item->product->price
                 ]);
             }
+
+            
 
             // 3. Tạo Mã Payment (Định dạng CF + 12 số/ký tự)
             $paymentCode = 'CF' . time() . strtoupper(Str::random(3));
@@ -83,10 +91,11 @@ class CheckoutController extends Controller
                 'gateway'        => 'SePay'
             ]);
 
+
             DB::commit();
 
             // 🔥 Bắn event để trang Admin nảy ngay dòng thanh toán mới (Pending)
-            event(new PaymentCreated($payment));
+            // event(new PaymentCreated($payment));
 
             return redirect()->route('checkout.show', $payment->id);
 

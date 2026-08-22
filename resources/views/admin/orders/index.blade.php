@@ -12,7 +12,7 @@
                     type="text"
                     id="search-orders"
                     class="form-control"
-                    placeholder="Tìm theo tên, sđt, email, địa chỉ...">
+                    placeholder="Tìm theo tên, sđt, email...">
 
             </div>
 
@@ -24,7 +24,6 @@
                     <th>Tên khách hàng</th>
                     <th>Số điện thoại</th>
                     <th>Email</th>
-                    <th>Địa chỉ</th>
                     <th>Tổng tiền</th>
                     <th>Phương thức thanh toán</th>
                     <th>Trạng thái</th>

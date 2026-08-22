@@ -36,7 +36,6 @@ function renderTable(orders) {
                 <td>${order.customer_name}</td>
                 <td>${order.phone}</td>
                 <td>${order.email}</td>
-                <td>${order.address}</td>
                 <td>${numberFormat(order.total_price)}đ</td>
                 <td>${order.payment_method}</td>
                 <td>${renderStatus(order.status)}</td>

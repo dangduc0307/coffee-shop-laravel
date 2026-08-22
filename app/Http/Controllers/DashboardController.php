@@ -38,14 +38,7 @@ class DashboardController extends Controller
         $pendingPayments = Payment::where('status', 'pending')
             ->count();
 
-        // ==============================
-        // SẢN PHẨM SẮP HẾT HÀNG
-        // ==============================
-
-        $lowStockProducts = Product::where('stock', '<=', 5)
-            ->orderBy('stock', 'asc')
-            ->take(5)
-            ->get();
+        
 
         // ==============================
         // ĐƠN HÀNG GẦN ĐÂY
@@ -71,7 +64,6 @@ class DashboardController extends Controller
             'totalRevenue',
             'paidPayments',
             'pendingPayments',
-            'lowStockProducts',
             'recentOrders',
             'recentPayments'
         ));

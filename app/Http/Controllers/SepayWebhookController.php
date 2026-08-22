@@ -104,12 +104,12 @@ class SepayWebhookController extends Controller
                         'status' => 'paid'
                     ]);
 
-                    // Trừ số lượng tồn kho sản phẩm
-                    foreach ($payment->order->orderItems as $item) {
-                        if ($item->product) {
-                            $item->product()->decrement('stock', $item->quantity);
-                        }
-                    }
+                    // // Trừ số lượng tồn kho sản phẩm
+                    // foreach ($payment->order->orderItems as $item) {
+                    //     if ($item->product) {
+                    //         $item->product()->decrement('stock', $item->quantity);
+                    //     }
+                    // }
 
                     // Xóa giỏ hàng của user
                     $user = $payment->order->user;
