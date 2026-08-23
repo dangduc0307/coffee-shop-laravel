@@ -13,6 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SepayWebhookController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\AdminAuthController;
@@ -47,6 +48,12 @@ Route::get('/introduce', function(){
 Route::get('/contact', function(){
     return view('contact/contact');
 })->name('contact');
+
+// Gửi liên hệ
+Route::post('/contact/send', [
+    ContactController::class,
+    'send'
+])->name('contact.send');
 
 
 //Admin
