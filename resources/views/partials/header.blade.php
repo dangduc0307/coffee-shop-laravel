@@ -22,7 +22,7 @@
       <a href="/" class="pages-link {{ request()->is('/') ? 'active' : '' }}">{{ __('messages.home') }}</a>
       <a href="{{ route('shop.index') }}" class="pages-link {{ request()->is('shop') ? 'active' : '' }}">Sản phẩm</a>
       <a href="/introduce" class="pages-link {{ request()->is('introduce') ? 'active' : '' }}">Giới thiệu</a>
-      <a href="" class="pages-link">Liên hệ</a>
+      <a href="/contact" class="pages-link {{ request()->is('contact') ? 'active' : '' }}">Liên hệ</a>
     </div>
 
     <!-- Thanh tìm kiếm -->

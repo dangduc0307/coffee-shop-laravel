@@ -43,6 +43,12 @@ Route::get('/introduce', function(){
 })->name('introduce');
 
 
+//Liên hệ
+Route::get('/contact', function(){
+    return view('contact/contact');
+})->name('contact');
+
+
 //Admin
 Route::prefix('admin')
     ->name('admin.')

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
     <link rel="stylesheet" href="{{ asset('css/product.css') }}">
     <link rel="stylesheet" href="{{ asset('css/introduce.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
 
 </head>
 
