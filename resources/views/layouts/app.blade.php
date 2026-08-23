@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
     <link rel="stylesheet" href="{{ asset('css/product.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/introduce.css') }}">
 
 </head>
 
@@ -35,7 +36,7 @@
           <div class="offcanvas-header">
             <a href="" class="logo-link-sideBar"
               ><img
-                src="{{ asset('images/LOGO.png') }}"
+                src="{{ asset('images/LOGOWEB.png') }}"
                 alt="LOGO"
                 class="logo-img rounded-circle"
             /></a>

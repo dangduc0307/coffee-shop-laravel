@@ -92,8 +92,6 @@ class ShopController extends Controller
 
     public function download(Product $product)
     {
-
-    
         // Kiểm tra user đã đăng nhập
         if (!Auth::check()) {
             abort(403);
@@ -123,16 +121,16 @@ class ShopController extends Controller
             abort(404, 'Sản phẩm chưa có file tải xuống.');
         }
 
-        // Đường dẫn file
+        // File đã được lưu bằng disk private
         $filePath = $product->file;
 
         // Kiểm tra file tồn tại
-        if (!Storage::disk('local')->exists($filePath)) {
+        if (!Storage::disk('private')->exists($filePath)) {
             abort(404, 'Không tìm thấy file sản phẩm.');
         }
 
-        // Cho tải xuống
-        return Storage::disk('local')->download($filePath);
+        // Cho phép tải xuống
+        return Storage::disk('private')->download($filePath);
     }
     /**
      * Show the form for creating a new resource.

@@ -4,169 +4,354 @@
 
 @section('content')
 
-<div class="container-fluid p-0">
 
-        
-        <!-- Video màn hình chính -->
-        <section class="hero">
-          <video autoplay muted loop>
-            <source src="{{ asset('videos/coffee.mp4') }}" type="video/mp4" />
-          </video>
 
-          <nav aria-label="breadcrumb" class="mb-3 text-white">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item active text-white" aria-current="page">
-                Trang chủ
-              </li>
-            </ol>
-          </nav>
 
-          <div class="content">
-            <h1>MỘT LY CÀ PHÊ CHO MỖI BUỔI SÁNG</h1>
-            <p>Hãy tận hưởng trải nghiệm cà phê tuyệt vời nhất</p>
-          </div>
-        </section>
+{{-- =====================================================
+     HERO
+===================================================== --}}
 
-        <!-- Infinite Scrolling Text -->
-        <div class="marquee">
-          <div class="marquee-track">
-            <span
-              >TRÀ TRÁI CÂY <i class="bi bi-heart-arrow"></i> CÀ PHÊ
-              <i class="bi bi-heart-arrow"></i> BÁNH NGỌT
-              <i class="bi bi-heart-arrow"></i>
-            </span>
-            <span
-              >TRÀ TRÁI CÂY <i class="bi bi-heart-arrow"></i> CÀ PHÊ
-              <i class="bi bi-heart-arrow"></i> BÁNH NGỌT
-              <i class="bi bi-heart-arrow"></i>
-            </span>
-            <span
-              >TRÀ TRÁI CÂY <i class="bi bi-heart-arrow"></i> CÀ PHÊ
-              <i class="bi bi-heart-arrow"></i> BÁNH NGỌT
-              <i class="bi bi-heart-arrow"></i>
-            </span>
-            <span
-              >TRÀ TRÁI CÂY <i class="bi bi-heart-arrow"></i> CÀ PHÊ
-              <i class="bi bi-heart-arrow"></i> BÁNH NGỌT
-              <i class="bi bi-heart-arrow"></i>
-            </span>
-          </div>
+<section class="hero-section">
+
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div class="col-lg-8">
+                
+                <div class="hero-content">
+
+                    <span class="hero-badge">
+                        <i class="bi bi-code-slash me-2"></i>
+                        WEBSITE & DIGITAL PRODUCTS
+                    </span>
+
+                    <h1 class="hero-title">
+                        WEBSITE
+                        <span>CHẤT LƯỢNG</span>
+                        CHO MỌI DỰ ÁN
+                    </h1>
+
+                    <p class="hero-description">
+                        Khám phá những mẫu website được thiết kế chuyên nghiệp,
+                        hiện đại và sẵn sàng sử dụng. Tiết kiệm thời gian,
+                        chi phí và nhanh chóng đưa dự án của bạn lên Internet.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a href="{{ route('shop.index') }}"
+                           class="btn btn-main me-2">
+                            <i class="bi bi-grid me-2"></i>
+                            Xem sản phẩm
+                        </a>
+
+                        <a href="#categories"
+                           class="btn btn-outline-main">
+                            Khám phá danh mục
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <!-- MÔ TẢ VỀ COFFEE-->
-        <div
-          class="coffee-card d-flex flex-column flex-lg-row justify-content-between align-items-center"
-        >
-          <div class="coffee-image col-lg-6">
-            <img
-              src="{{ asset('/images/coffee_description.jpg') }}"
-              alt="Coffee Description"
-            />
-          </div>
-          <div class="coffee-content col-lg-6">
-            <h3 class="coffee-content-title fw-bold">
-              NHỮNG HẠT CÀ PHÊ ĐƯỢC TUYỂN CHỌN
-            </h3>
-            <p class="fw-light">
-              Những hạt cà phê được tuyển chọn kỹ lưỡng từ các vùng trồng nổi
-              tiếng, trải qua quá trình rang xay tỉ mỉ để giữ trọn hương thơm tự
-              nhiên và hương vị đậm đà. Mỗi hạt cà phê đều mang đến sự cân bằng
-              hoàn hảo giữa vị đắng nhẹ, hậu ngọt tinh tế và hương thơm quyến
-              rũ, tạo nên một tách cà phê chất lượng cho mọi khoảnh khắc trong
-              ngày.
+    </div>
+
+</section>
+
+
+{{-- =====================================================
+     FEATURES
+===================================================== --}}
+
+<section class="features-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="section-title">
+                TẠI SAO CHỌN CHÚNG TÔI?
+            </h2>
+
+            <p class="section-description mt-3">
+                Cung cấp các website và sản phẩm số được xây dựng
+                với tiêu chí đẹp, dễ sử dụng và tiết kiệm thời gian.
             </p>
-            <p class="fw-light">
-              Hạt cà phê nguyên chất với hương thơm nồng nàn, vị đậm đà và hậu
-              vị êm dịu. Được chọn lọc và rang xay cẩn thận để mang đến trải
-              nghiệm cà phê trọn vẹn trong từng tách.
-            </p>
-            <p class="fw-light">
-              Từ những hạt cà phê được tuyển chọn cẩn thận đến quy trình rang
-              xay chuẩn mực, chúng tôi mang đến hương thơm quyến rũ cùng vị cà
-              phê đậm đà và cân bằng. Mỗi tách cà phê không chỉ là một thức uống
-              mà còn là hành trình khám phá tinh hoa của nghệ thuật pha chế và
-              niềm đam mê dành cho cà phê.
-            </p>
-          </div>
+
         </div>
 
-        <!-- MÔ TẢ VỀ TRÀ TRÁI CÂY-->
-        <div
-          class="tea-card d-flex flex-column flex-lg-row justify-content-between align-items-center"
-        >
-          <div class="tea-content col-lg-6">
-            <h3 class="tea-content-title fw-bold">TRÀ TRÁI CÂY THANH MÁT</h3>
-            <p class="fw-light">
-              Những lá trà được tuyển chọn kỹ lưỡng kết hợp cùng các loại trái
-              cây tươi ngon, tạo nên hương vị thanh mát và tự nhiên trong từng
-              ly trà. Sự hòa quyện giữa vị trà dịu nhẹ và hương thơm của trái
-              cây mang đến cảm giác sảng khoái, giúp mỗi khoảnh khắc thưởng thức
-              trở nên thư giãn và đầy cảm hứng.
-            </p>
-            <p class="fw-light">
-              Trà trái cây được pha chế từ lá trà chất lượng cùng những nguyên
-              liệu tươi ngon, mang đến hương thơm dễ chịu, vị ngọt thanh và chút
-              chua nhẹ hài hòa. Mỗi ly trà là sự kết hợp hoàn hảo giữa hương vị
-              tự nhiên và sự tươi mát, phù hợp để thưởng thức vào bất kỳ thời
-              điểm nào trong ngày.
-            </p>
-            <p class="fw-light">
-              Từ những lá trà thơm ngon đến các loại trái cây được lựa chọn cẩn
-              thận, chúng tôi mang đến những ly trà trái cây đậm hương vị tự
-              nhiên và đầy sức sống. Mỗi thức uống không chỉ giúp giải khát mà
-              còn là sự kết hợp tinh tế giữa nghệ thuật pha chế và nguồn nguyên
-              liệu tươi mới, mang đến trải nghiệm trọn vẹn trong từng ngụm trà.
-            </p>
-          </div>
 
-          <div class="tea-image col-lg-6">
-            <img
-              src="{{ asset('images/tea_fruit_description.jpg') }}"
-              alt="Tea Description"
-            />
-          </div>
+        <div class="row g-4">
+
+            {{-- Feature 1 --}}
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-laptop"></i>
+                    </div>
+
+                    <h5>
+                        Thiết kế hiện đại
+                    </h5>
+
+                    <p>
+                        Giao diện chuyên nghiệp, hiện đại và phù hợp
+                        với nhiều loại hình website khác nhau.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {{-- Feature 2 --}}
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-phone"></i>
+                    </div>
+
+                    <h5>
+                        Responsive
+                    </h5>
+
+                    <p>
+                        Website được tối ưu để hiển thị tốt trên
+                        máy tính, tablet và điện thoại.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {{-- Feature 3 --}}
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-lightning-charge"></i>
+                    </div>
+
+                    <h5>
+                        Tiết kiệm thời gian
+                    </h5>
+
+                    <p>
+                        Sử dụng website có sẵn giúp bạn rút ngắn
+                        đáng kể thời gian phát triển dự án.
+                    </p>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <!-- MÔ TẢ VỀ BÁNH NGỌT -->
+    </div>
 
-        <div
-          class="bun-card d-flex flex-column flex-lg-row justify-content-between align-items-center"
-        >
-          <div class="bun-image col-lg-6">
-            <img
-              src="{{ asset('images/buns_description.jpg') }}"
-              alt="Buns Description"
-            />
-          </div>
-          <div class="bun-content col-lg-6">
-            <h3 class="bun-content-title fw-bold">
-              NHỮNG CHIẾC BÁNH NGỌT ĐƯỢC CHẾ BIẾN TỈ MỈ
-            </h3>
-            <p class="fw-light">
-              Những chiếc bánh ngọt được làm từ những nguyên liệu tươi ngon,
-              tuyển chọn kỹ lưỡng và chế biến theo công thức chuẩn để giữ trọn
-              hương vị thơm ngon. Mỗi chiếc bánh là sự hòa quyện hoàn hảo giữa
-              lớp bánh mềm mịn, vị ngọt thanh và hương thơm hấp dẫn, mang đến
-              trải nghiệm tuyệt vời cho mọi khoảnh khắc trong ngày.
+</section>
+
+
+{{-- =====================================================
+     CATEGORIES
+===================================================== --}}
+
+<section class="category-section" id="categories">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="section-title">
+                KHÁM PHÁ SẢN PHẨM
+            </h2>
+
+            <p class="section-description mt-3">
+                Tìm kiếm mẫu website phù hợp với nhu cầu
+                và dự án của bạn.
             </p>
 
-            <p class="fw-light">
-              Bánh ngọt thơm mềm với hương vị tự nhiên, độ ngọt hài hòa và kết
-              cấu mềm mịn. Được chế biến cẩn thận từ những nguyên liệu chất
-              lượng, mỗi chiếc bánh đều mang đến cảm giác ngon miệng và sự hài
-              lòng trong từng miếng thưởng thức.
-            </p>
-
-            <p class="fw-light">
-              Từ khâu lựa chọn nguyên liệu đến quá trình nướng bánh tỉ mỉ, chúng
-              tôi luôn đặt chất lượng lên hàng đầu để tạo nên những chiếc bánh
-              thơm ngon và đẹp mắt. Mỗi chiếc bánh không chỉ là một món tráng
-              miệng mà còn là sự kết tinh của niềm đam mê làm bánh, mang đến
-              những phút giây ngọt ngào và đáng nhớ cho mọi khách hàng.
-            </p>
-          </div>
         </div>
 
-</div>
+
+        <div class="row g-4">
+
+            {{-- Category 1 --}}
+            <div class="col-12 col-sm-6 col-lg-4">
+
+                <div class="category-card">
+
+                    <i class="bi bi-building"></i>
+
+                    <h4>
+                        Website doanh nghiệp
+                    </h4>
+
+                    <p>
+                        Website giới thiệu công ty,
+                        dịch vụ và thương hiệu.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {{-- Category 2 --}}
+            <div class="col-12 col-sm-6 col-lg-4">
+
+                <div class="category-card">
+
+                    <i class="bi bi-cart3"></i>
+
+                    <h4>
+                        Website bán hàng
+                    </h4>
+
+                    <p>
+                        Các mẫu website thương mại điện tử
+                        và cửa hàng online.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {{-- Category 3 --}}
+            <div class="col-12 col-sm-6 col-lg-4">
+
+                <div class="category-card">
+
+                    <i class="bi bi-person-badge"></i>
+
+                    <h4>
+                        Portfolio
+                    </h4>
+
+                    <p>
+                        Website cá nhân, CV online và
+                        portfolio chuyên nghiệp.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {{-- Category 4 --}}
+            <div class="col-12 col-sm-6 col-lg-4">
+
+                <div class="category-card">
+
+                    <i class="bi bi-megaphone"></i>
+
+                    <h4>
+                        Landing Page
+                    </h4>
+
+                    <p>
+                        Landing page phục vụ quảng cáo,
+                        marketing và giới thiệu sản phẩm.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {{-- Category 5 --}}
+            <div class="col-12 col-sm-6 col-lg-4">
+
+                <div class="category-card">
+
+                    <i class="bi bi-newspaper"></i>
+
+                    <h4>
+                        Blog & Tin tức
+                    </h4>
+
+                    <p>
+                        Website blog, tin tức và
+                        chia sẻ nội dung.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {{-- Category 6 --}}
+            <div class="col-12 col-sm-6 col-lg-4">
+
+                <div class="category-card">
+
+                    <i class="bi bi-code-square"></i>
+
+                    <h4>
+                        Website khác
+                    </h4>
+
+                    <p>
+                        Khám phá thêm nhiều mẫu website
+                        phù hợp với dự án của bạn.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{{-- =====================================================
+     CTA
+===================================================== --}}
+
+<section class="cta-section">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <h2>
+                BẮT ĐẦU DỰ ÁN CỦA BẠN NGAY HÔM NAY
+            </h2>
+
+            <p>
+                Không cần bắt đầu từ con số 0.
+                Chọn một website phù hợp và biến nó thành
+                sản phẩm của riêng bạn.
+            </p>
+
+            <a href="{{ route('shop.index') }}"
+               class="btn btn-main px-4 py-2">
+
+                <i class="bi bi-arrow-right me-2"></i>
+
+                Xem tất cả sản phẩm
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
 
 @endsection

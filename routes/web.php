@@ -37,6 +37,11 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+//Giới thiệu
+Route::get('/introduce', function(){
+    return view('introduce/introduce');
+})->name('introduce');
+
 
 //Admin
 Route::prefix('admin')

@@ -8,7 +8,7 @@
     <div class="logo flex-shrink-0">
       <a href="" class="logo-link"
         ><img
-          src="{{ asset('/images/LOGO.png') }}"
+          src="{{ asset('/images/LOGOWEB.png') }}"
           alt="LOGO"
           class="logo-img rounded-circle"
       /></a>
@@ -21,8 +21,7 @@
       <!--flex-wrap: không cho các chữ xuống hàng-->
       <a href="/" class="pages-link {{ request()->is('/') ? 'active' : '' }}">{{ __('messages.home') }}</a>
       <a href="{{ route('shop.index') }}" class="pages-link {{ request()->is('shop') ? 'active' : '' }}">Sản phẩm</a>
-      <a href="introduce.html" class="pages-link">Giới thiệu</a>
-      <a href="" class="pages-link">Về chúng tôi</a>
+      <a href="/introduce" class="pages-link {{ request()->is('introduce') ? 'active' : '' }}">Giới thiệu</a>
       <a href="" class="pages-link">Liên hệ</a>
     </div>
 

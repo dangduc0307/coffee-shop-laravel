@@ -1,296 +1,297 @@
-/* =====VIDEO TRÊN MÀN HÌNH CHÍNH===== */
-.hero {
-    position: relative;
-    height: 100vh; /*Luôn lấy kích thước của màn hình làm chuẩn*/
-    overflow: hidden;
+:root {
+    --main-color: linear-gradient(to right, #2b1404, #976017);
+
+    --text-color: #eef5ea;
+    --title-color: #976017;
+    --button-color: #e9d3b4;
+    --border-color: #d8b98a;
 }
 
-.hero video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+/* =========================
+       HERO
+    ========================= */
 
-.hero .content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(
-        -50%,
-        -50%
-    ); /* Dịch trái 50% width và lên 50% height của chính phần tử */
+.hero-section {
+    min-height: 650px;
+    background: var(--main-color);
     color: var(--text-color);
-}
-
-.hero nav {
-    position: absolute;
-    top: 0;
-    left: 5%;
-}
-
-/* =====Infinite Scrolling Text===== */
-.marquee {
-    overflow: hidden;
-    width: 100%;
-}
-
-.marquee-track {
     display: flex;
-    width: max-content;
-    /*
-  marquee  : tên @keyframes
-  15s      : thời gian hoàn thành 1 vòng chạy
-  linear   : tốc độ đều từ đầu đến cuối
-  infinite : lặp vô hạn
-  */
-    animation: marquee 10s linear infinite;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    top: -200px;
+    right: -150px;
+}
+
+.hero-section::after {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    bottom: -180px;
+    left: -100px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    color: var(--button-color);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-size: 58px;
+    line-height: 1.15;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+
+.hero-title span {
+    color: var(--button-color);
+}
+
+.hero-description {
+    font-size: 18px;
+    line-height: 1.7;
+    max-width: 650px;
+    color: rgba(238, 245, 234, 0.85);
+    margin-bottom: 35px;
+}
+
+.hero-buttons .btn {
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.btn-main {
+    background: var(--button-color);
+    color: #2b1404;
+    border: none;
+}
+
+.btn-main:hover {
+    background: #fff;
+    color: #2b1404;
+}
+
+.btn-outline-main {
     color: var(--text-color);
+    border: 1px solid var(--border-color);
 }
 
-.marquee-track span {
-    white-space: nowrap;
-    padding-right: 50px;
-    font-size: 2rem;
-    font-weight: bold;
+.btn-outline-main:hover {
+    background: var(--button-color);
+    color: #2b1404;
+    border-color: var(--button-color);
 }
 
-/* Chạy từ trái sang phải */
-@keyframes marquee {
-    from {
-        transform: translateX(
-            -50%
-        ); /* Dịch sang phải 1/2 track vì nửa sau giống nửa đầu, tạo hiệu ứng chạy vô hạn */
+/* =========================
+       FEATURES
+    ========================= */
+
+.features-section {
+    padding: 80px 0;
+    background: #fff;
+}
+
+.section-title {
+    color: var(--title-color);
+    font-weight: 800;
+}
+
+.section-description {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #666;
+}
+
+.feature-card {
+    height: 100%;
+    padding: 30px;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(43, 20, 4, 0.1);
+    border-color: var(--border-color);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--main-color);
+    color: var(--button-color);
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.feature-card h5 {
+    font-weight: 700;
+    color: #2b1404;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* =========================
+       CATEGORY
+    ========================= */
+
+.category-section {
+    padding: 80px 0;
+    background: #f8f6f3;
+}
+
+.category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    min-height: 230px;
+    background: var(--main-color);
+    color: white;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+}
+
+.category-card i {
+    font-size: 35px;
+    color: var(--button-color);
+    margin-bottom: 15px;
+}
+
+.category-card h4 {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.category-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* =========================
+       CTA
+    ========================= */
+
+.cta-section {
+    padding: 80px 0;
+}
+
+.cta-box {
+    background: var(--main-color);
+    color: var(--text-color);
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-box h2 {
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.cta-box p {
+    max-width: 650px;
+    margin: 0 auto 30px;
+    color: rgba(238, 245, 234, 0.85);
+}
+
+/* =========================
+       RESPONSIVE
+    ========================= */
+
+@media (max-width: 991px) {
+    .hero-section {
+        min-height: 580px;
     }
 
-    to {
-        transform: translateX(0);
+    .hero-title {
+        font-size: 45px;
     }
 }
 
-/* =====MÔ TẢ CÀ PHÊ===== */
-.coffee-card {
-    background: var(--text-color);
-
-    clip-path: polygon(
-        4% 15%,
-        12% 4%,
-        30% 8%,
-        45% 2%,
-        62% 8%,
-        80% 4%,
-        95% 15%,
-        98% 40%,
-        94% 65%,
-        98% 90%,
-        75% 96%,
-        50% 90%,
-        25% 96%,
-        6% 90%,
-        2% 65%,
-        5% 35%
-    );
-
-    padding: 80px;
-}
-
-.coffee-image {
-    aspect-ratio: 1 / 1; /*Tỷ lệ 1/1 tức chiều rộng và chiều cao bằng nhau*/
-    overflow: hidden;
-    /* Chỉ hiển thị phần nằm bên trong vùng được chỉ định, phần nằm bên ngoài bị cắt bỏ */
-    clip-path: polygon(
-        4% 15%,
-        12% 4%,
-        30% 8%,
-        45% 2%,
-        62% 8%,
-        80% 4%,
-        95% 15%,
-        98% 40%,
-        94% 65%,
-        98% 90%,
-        75% 96%,
-        50% 90%,
-        25% 96%,
-        6% 90%,
-        2% 65%,
-        5% 35%
-    );
-
-    /* clip-path: circle(); */
-}
-
-.coffee-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.coffee-content-title {
-    color: var(--title-color);
-}
-
-/* =====MÔ TẢ TRÀ TRÁI CÂY===== */
-.tea-card {
-    background: var(--text-color);
-
-    clip-path: polygon(
-        4% 15%,
-        12% 4%,
-        30% 8%,
-        45% 2%,
-        62% 8%,
-        80% 4%,
-        95% 15%,
-        98% 40%,
-        94% 65%,
-        98% 90%,
-        75% 96%,
-        50% 90%,
-        25% 96%,
-        6% 90%,
-        2% 65%,
-        5% 35%
-    );
-
-    padding: 80px;
-}
-
-.tea-image {
-    aspect-ratio: 1 / 1; /*Tỷ lệ 1/1 tức chiều rộng và chiều cao bằng nhau*/
-    overflow: hidden;
-    /* Chỉ hiển thị phần nằm bên trong vùng được chỉ định, phần nằm bên ngoài bị cắt bỏ */
-    clip-path: polygon(
-        4% 15%,
-        12% 4%,
-        30% 8%,
-        45% 2%,
-        62% 8%,
-        80% 4%,
-        95% 15%,
-        98% 40%,
-        94% 65%,
-        98% 90%,
-        75% 96%,
-        50% 90%,
-        25% 96%,
-        6% 90%,
-        2% 65%,
-        5% 35%
-    );
-
-    /* clip-path: circle(); */
-}
-
-.tea-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.tea-content-title {
-    color: var(--title-color);
-}
-
-/* =====MÔ TẢ BÁNH NGỌT===== */
-.bun-card {
-    background: var(--text-color);
-
-    clip-path: polygon(
-        4% 15%,
-        12% 4%,
-        30% 8%,
-        45% 2%,
-        62% 8%,
-        80% 4%,
-        95% 15%,
-        98% 40%,
-        94% 65%,
-        98% 90%,
-        75% 96%,
-        50% 90%,
-        25% 96%,
-        6% 90%,
-        2% 65%,
-        5% 35%
-    );
-
-    padding: 80px;
-}
-
-.bun-image {
-    aspect-ratio: 1 / 1; /*Tỷ lệ 1/1 tức chiều rộng và chiều cao bằng nhau*/
-    overflow: hidden;
-    /* Chỉ hiển thị phần nằm bên trong vùng được chỉ định, phần nằm bên ngoài bị cắt bỏ */
-    clip-path: polygon(
-        4% 15%,
-        12% 4%,
-        30% 8%,
-        45% 2%,
-        62% 8%,
-        80% 4%,
-        95% 15%,
-        98% 40%,
-        94% 65%,
-        98% 90%,
-        75% 96%,
-        50% 90%,
-        25% 96%,
-        6% 90%,
-        2% 65%,
-        5% 35%
-    );
-
-    /* clip-path: circle(); */
-}
-
-.bun-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.bun-content-title {
-    color: var(--title-color);
-}
-
-/* Điện thoại */
 @media (max-width: 767px) {
-    .coffee-card {
-        clip-path: none;
-        padding: 20px;
-        border-radius: 16px; /* hoặc 20px nếu muốn */
-        margin-bottom: 10px;
+    .hero-section {
+        min-height: auto;
+        padding: 90px 0;
+        text-align: center;
     }
 
-    .coffee-image {
-        clip-path: none;
-        border-radius: 16px;
+    .hero-title {
+        font-size: 36px;
     }
 
-    .tea-card {
-        clip-path: none;
-        padding: 20px;
-        border-radius: 16px;
-        margin-bottom: 10px;
+    .hero-description {
+        font-size: 16px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .tea-image {
-        clip-path: none;
-        border-radius: 16px;
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 
-    .bun-card {
-        clip-path: none;
-        padding: 20px;
-        border-radius: 16px;
-        margin-bottom: 10px;
+    .hero-buttons .btn {
+        width: 100%;
     }
 
-    .bun-image {
-        clip-path: none;
-        border-radius: 16px;
+    .features-section,
+    .category-section,
+    .cta-section {
+        padding: 60px 0;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .cta-box {
+        padding: 45px 25px;
+    }
+
+    .cta-box h2 {
+        font-size: 28px;
     }
 }
