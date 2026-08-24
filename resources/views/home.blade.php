@@ -5,8 +5,6 @@
 @section('content')
 
 
-
-
 {{-- =====================================================
      HERO
 ===================================================== --}}
@@ -20,24 +18,24 @@
                 
                 <div class="hero-content">
 
-                    <span class="hero-badge">
+                    <span class="hero-badge reveal-load">
                         <i class="bi bi-code-slash me-2"></i>
                         WEBSITE & DIGITAL PRODUCTS
                     </span>
 
-                    <h1 class="hero-title">
+                    <h1 class="hero-title reveal-load" style="transition-delay:.1s">
                         WEBSITE
                         <span>CHẤT LƯỢNG</span>
                         CHO MỌI DỰ ÁN
                     </h1>
 
-                    <p class="hero-description">
+                    <p class="hero-description reveal-load" style="transition-delay:.2s">
                         Khám phá những mẫu website được thiết kế chuyên nghiệp,
                         hiện đại và sẵn sàng sử dụng. Tiết kiệm thời gian,
                         chi phí và nhanh chóng đưa dự án của bạn lên Internet.
                     </p>
 
-                    <div class="hero-buttons">
+                    <div class="hero-buttons reveal-load" style="transition-delay:.3s">
 
                         <a href="{{ route('shop.index') }}"
                            class="btn btn-main me-2">
@@ -71,7 +69,7 @@
 
     <div class="container">
 
-        <div class="text-center mb-5">
+        <div class="text-center mb-5 reveal">
 
             <h2 class="section-title">
                 TẠI SAO CHỌN CHÚNG TÔI?
@@ -90,7 +88,7 @@
             {{-- Feature 1 --}}
             <div class="col-12 col-md-6 col-lg-4">
 
-                <div class="feature-card">
+                <div class="feature-card reveal">
 
                     <div class="feature-icon">
                         <i class="bi bi-laptop"></i>
@@ -113,7 +111,7 @@
             {{-- Feature 2 --}}
             <div class="col-12 col-md-6 col-lg-4">
 
-                <div class="feature-card">
+                <div class="feature-card reveal" style="transition-delay:.1s">
 
                     <div class="feature-icon">
                         <i class="bi bi-phone"></i>
@@ -136,7 +134,7 @@
             {{-- Feature 3 --}}
             <div class="col-12 col-md-6 col-lg-4">
 
-                <div class="feature-card">
+                <div class="feature-card reveal" style="transition-delay:.2s">
 
                     <div class="feature-icon">
                         <i class="bi bi-lightning-charge"></i>
@@ -170,7 +168,7 @@
 
     <div class="container">
 
-        <div class="text-center mb-5">
+        <div class="text-center mb-5 reveal">
 
             <h2 class="section-title">
                 KHÁM PHÁ SẢN PHẨM
@@ -189,7 +187,7 @@
             {{-- Category 1 --}}
             <div class="col-12 col-sm-6 col-lg-4">
 
-                <div class="category-card">
+                <div class="category-card reveal">
 
                     <i class="bi bi-building"></i>
 
@@ -210,7 +208,7 @@
             {{-- Category 2 --}}
             <div class="col-12 col-sm-6 col-lg-4">
 
-                <div class="category-card">
+                <div class="category-card reveal" style="transition-delay:.05s">
 
                     <i class="bi bi-cart3"></i>
 
@@ -231,7 +229,7 @@
             {{-- Category 3 --}}
             <div class="col-12 col-sm-6 col-lg-4">
 
-                <div class="category-card">
+                <div class="category-card reveal" style="transition-delay:.1s">
 
                     <i class="bi bi-person-badge"></i>
 
@@ -252,7 +250,7 @@
             {{-- Category 4 --}}
             <div class="col-12 col-sm-6 col-lg-4">
 
-                <div class="category-card">
+                <div class="category-card reveal" style="transition-delay:.15s">
 
                     <i class="bi bi-megaphone"></i>
 
@@ -273,7 +271,7 @@
             {{-- Category 5 --}}
             <div class="col-12 col-sm-6 col-lg-4">
 
-                <div class="category-card">
+                <div class="category-card reveal" style="transition-delay:.2s">
 
                     <i class="bi bi-newspaper"></i>
 
@@ -294,7 +292,7 @@
             {{-- Category 6 --}}
             <div class="col-12 col-sm-6 col-lg-4">
 
-                <div class="category-card">
+                <div class="category-card reveal" style="transition-delay:.25s">
 
                     <i class="bi bi-code-square"></i>
 
@@ -326,7 +324,7 @@
 
     <div class="container">
 
-        <div class="cta-box">
+        <div class="cta-box reveal">
 
             <h2>
                 BẮT ĐẦU DỰ ÁN CỦA BẠN NGAY HÔM NAY
@@ -354,4 +352,40 @@
 </section>
 
 
+@endsection
+
+
+
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // Hero: hiện ngay khi load trang
+        document.querySelectorAll('.reveal-load').forEach(function (el) {
+            requestAnimationFrame(function () {
+                el.classList.add('active');
+            });
+        });
+
+        // Các phần còn lại: hiện khi cuộn tới
+        const revealEls = document.querySelectorAll('.reveal');
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+
+        revealEls.forEach(function (el) {
+            observer.observe(el);
+        });
+
+    });
+</script>
 @endsection

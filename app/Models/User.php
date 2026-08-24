@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\AdminResetPasswordNotification;
+use App\Notifications\UserResetPasswordNotification;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -88,10 +89,27 @@ class User extends Authenticatable
     }
 
 
+    /**
+     * Gửi email đặt lại mật khẩu
+     */
     public function sendPasswordResetNotification($token)
     {
+        if (
+            $this->hasRole('super_admin') ||
+            $this->hasRole('admin')
+        ) {
+            $this->notify(
+                new AdminResetPasswordNotification($token)
+            );
+
+            return;
+        }
+
         $this->notify(
-            new AdminResetPasswordNotification($token)
+            new UserResetPasswordNotification($token)
         );
     }
+
+
+
 }

@@ -20,6 +20,7 @@ use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\AdminPasswordResetController;
+use App\Http\Controllers\Auth\UserPasswordResetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -231,6 +232,36 @@ Route::prefix('admin')->name('admin.')->group(function () {
     )->name('password.update');
 
 });
+
+
+//Đổi mật khẩu ở giao diện người dùng
+
+// Hiển thị form nhập email
+Route::get(
+    '/forgot-password',
+    [UserPasswordResetController::class, 'showLinkRequestForm']
+)->name('password.request');
+
+
+// Gửi email reset password
+Route::post(
+    '/forgot-password',
+    [UserPasswordResetController::class, 'sendResetLinkEmail']
+)->name('password.email');
+
+
+// Hiển thị form nhập mật khẩu mới
+Route::get(
+    '/reset-password/{token}',
+    [UserPasswordResetController::class, 'showResetForm']
+)->name('password.reset');
+
+
+// Lưu mật khẩu mới
+Route::post(
+    '/reset-password',
+    [UserPasswordResetController::class, 'reset']
+)->name('password.update');
 
 
 

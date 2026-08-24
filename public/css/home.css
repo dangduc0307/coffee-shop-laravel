@@ -295,3 +295,29 @@
         font-size: 28px;
     }
 }
+
+/* Hiệu ứng cuộn xuất hiện */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hiệu ứng khi trang vừa load (riêng cho Hero) - hiện từ trái qua phải */
+.reveal-load {
+    opacity: 0;
+    transform: translateX(-40px); /* trước đó là translateY(25px) */
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+.reveal-load.active {
+    opacity: 1;
+    transform: translateX(0);
+}

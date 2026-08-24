@@ -81,6 +81,14 @@
                         Đăng nhập bằng Google
                     </a>
 
+                    <div class="text-center mt-3">
+
+                        <a href="{{ route('password.request') }}">
+                            Đổi mật khẩu
+                        </a>
+
+                    </div>
+
                     <div class="text-center mt-4">
 
                         Chưa có tài khoản?
@@ -90,6 +98,7 @@
                         </a>
 
                     </div>
+
 
                 </div>
             </div>
