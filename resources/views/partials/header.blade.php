@@ -26,14 +26,42 @@
     </div>
 
     <!-- Thanh tìm kiếm -->
-    <div class="find flex-grow-1 d-flex">
+    {{-- <div class="find flex-grow-1 d-flex">
       <div class="search-box">
         <input class="find-input" type="text" placeholder="Tìm kiếm..." />
         <button class="find-btn">
           <i class="bi bi-search"></i>
         </button>
       </div>
-    </div>
+    </div> --}}
+
+    <!-- Thanh tìm kiếm -->
+  <div class="find flex-grow-1 d-flex">
+
+      <form
+          action="{{ route('shop.index') }}"
+          method="GET"
+          class="search-box"
+      >
+
+          <input
+              class="find-input"
+              type="text"
+              name="search"
+              value="{{ request('search') }}"
+              placeholder="Tìm kiếm..."
+          />
+
+          <button
+              type="submit"
+              class="find-btn"
+          >
+              <i class="bi bi-search"></i>
+          </button>
+
+      </form>
+
+  </div>
 
     <div class="dropdown flex-shrink-0">
 

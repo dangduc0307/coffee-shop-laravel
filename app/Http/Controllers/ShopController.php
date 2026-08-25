@@ -38,17 +38,45 @@ class ShopController extends Controller
 
     public function index(Request $request)
     {
+        $search = $request->search;
+        $locale = app()->getLocale();
         $categories = Category::where('status', 1)->get();
 
         $products = Product::with('category')
-            ->where('status', 1)
-            ->when($request->category, function ($query) use ($request) {
+        ->where('status', 1)
 
-                $query->where('category_id', $request->category);
+        // Tìm kiếm theo name + description
+        ->when($search, function ($query) use ($search, $locale) {
 
-            })
-            ->latest()
-            ->get();
+            $query->where(function ($q) use ($search, $locale) {
+
+                $q->where(
+                    "name->{$locale}",
+                    'like',
+                    "%{$search}%"
+                )
+                ->orWhere(
+                    "description->{$locale}",
+                    'like',
+                    "%{$search}%"
+                );
+
+            });
+
+        })
+
+        // Lọc theo danh mục
+        ->when($request->category, function ($query) use ($request) {
+
+            $query->where(
+                'category_id',
+                $request->category
+            );
+
+        })
+
+        ->latest()
+        ->get();
 
 
         /*

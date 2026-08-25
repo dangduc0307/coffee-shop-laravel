@@ -48,9 +48,9 @@
           <div class="offcanvas-body d-flex flex-column gap-3">
             <a href="/" class="pages-link-sideBar d-block {{ request()->is('/') ? 'active' : '' }}"> Trang chủ </a>
             <a href="{{ route('shop.index') }}" class="pages-link-sideBar d-block {{ request()->is('shop') ? 'active' : '' }}"> Sản phẩm </a>
-            <a href="#" class="pages-link-sideBar d-block"> Giới thiệu </a>
-            <a href="#" class="pages-link-sideBar d-block"> Về chúng tôi </a>
-            <a href="#" class="pages-link-sideBar d-block"> Liên hệ </a>
+            <a href="/introduce" class="pages-link-sideBar d-block {{ request()->is('introduce') ? 'active' : '' }}"> Giới thiệu </a>
+            
+            <a href="/contact" class="pages-link-sideBar d-block {{ request()->is('contact') ? 'active' : ''}}"> Liên hệ </a>
             <span style="border-bottom: 1px solid #fff; display: block"></span>
             <div class="d-flex align-items-center">
               <!-- Đăng nhập trong side bar -->
