@@ -1,12 +1,12 @@
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
 // Hàm bất đồng bộ dùng để tải danh sách đơn hàng từ server
-async function loadOrders() {
+async function loadOrders(page = 1) {
     // Gửi yêu cầu GET đến route /admin/orders
     // await: đợi server trả kết quả rồi mới chạy tiếp
     const keyword = document.getElementById("search-orders").value;
     const response = await fetch(
-        "/admin/orders?search=" + encodeURIComponent(keyword),
+        "/admin/orders?page=" + page + "&search=" + encodeURIComponent(keyword),
         {
             // Gửi Header cho Laravel biết rằng
             // "Tôi muốn nhận dữ liệu dạng JSON"
@@ -18,11 +18,13 @@ async function loadOrders() {
 
     // Chuyển dữ liệu JSON mà server trả về
     // thành Object hoặc Array của JavaScript
-    const orders = await response.json();
+    // const orders = await response.json();
+    const results = await response.json();
 
     // Gọi hàm renderTable()
     // để hiển thị danh sách đơn hàng lên bảng HTML
-    renderTable(orders);
+    renderTable(results.data);
+    renderPagination(results);
 }
 
 function renderTable(orders) {
@@ -44,6 +46,82 @@ function renderTable(orders) {
             </tr>
         `;
     });
+}
+
+function renderPagination(result) {
+    const pagination = document.getElementById("pagination");
+
+    pagination.innerHTML = "";
+
+    if (result.last_page <= 1) {
+        return;
+    }
+
+    let html = `
+        <nav>
+            <ul class="pagination">
+    `;
+
+    // Previous
+
+    html += `
+        <li class="page-item ${result.current_page === 1 ? "disabled" : ""}">
+
+            <button
+                class="page-link"
+                onclick="loadOrders(${result.current_page - 1})">
+
+                Trước
+
+            </button>
+
+        </li>
+    `;
+
+    // Pages
+
+    for (let page = 1; page <= result.last_page; page++) {
+        html += `
+            <li class="page-item ${
+                page === result.current_page ? "active" : ""
+            }">
+
+                <button
+                    class="page-link"
+                    onclick="loadOrders(${page})">
+
+                    ${page}
+
+                </button>
+
+            </li>
+        `;
+    }
+
+    // Next
+
+    html += `
+        <li class="page-item ${
+            result.current_page === result.last_page ? "disabled" : ""
+        }">
+
+            <button
+                class="page-link"
+                onclick="loadOrders(${result.current_page + 1})">
+
+                Sau
+
+            </button>
+
+        </li>
+    `;
+
+    html += `
+            </ul>
+        </nav>
+    `;
+
+    pagination.innerHTML = html;
 }
 
 let searchTimeout;

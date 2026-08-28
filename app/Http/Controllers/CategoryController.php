@@ -27,7 +27,7 @@ class CategoryController extends Controller
 
             ->latest()
 
-            ->get();
+            ->paginate(10);
 
         if ($request->expectsJson()) {
             return response()->json($categories);

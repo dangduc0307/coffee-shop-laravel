@@ -25,7 +25,7 @@ class OrderController extends Controller
             ->orWhere('address', 'like', "%{$search}%");
         })
         ->latest()
-        ->get();
+        ->paginate(10);
         //Request (yêu cầu) gửi lên có mong muốn nhận dữ liệu JSON hay không?
         if($request->expectsJson())
         {

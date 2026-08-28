@@ -2,10 +2,13 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
 //Hàm load dữ liệu
 
-async function loadCategories() {
+async function loadCategories(page = 1) {
     const keyword = document.getElementById("search").value;
     const response = await fetch(
-        "/admin/categories?search=" + encodeURIComponent(keyword),
+        "/admin/categories?page=" +
+            page +
+            "&search=" +
+            encodeURIComponent(keyword),
         {
             headers: {
                 Accept: "application/json",
@@ -13,8 +16,10 @@ async function loadCategories() {
         },
     );
 
-    const categories = await response.json();
-    renderTable(categories);
+    // const categories = await response.json();
+    const results = await response.json();
+    renderTable(results.data);
+    renderPagination(results);
 }
 
 //Hàm render
@@ -54,6 +59,82 @@ function renderTable(categories) {
     });
 }
 
+function renderPagination(result) {
+    const pagination = document.getElementById("pagination");
+
+    pagination.innerHTML = "";
+
+    if (result.last_page <= 1) {
+        return;
+    }
+
+    let html = `
+        <nav>
+            <ul class="pagination">
+    `;
+
+    // Previous
+
+    html += `
+        <li class="page-item ${result.current_page === 1 ? "disabled" : ""}">
+
+            <button
+                class="page-link"
+                onclick="loadCategories(${result.current_page - 1})">
+
+                Trước
+
+            </button>
+
+        </li>
+    `;
+
+    // Pages
+
+    for (let page = 1; page <= result.last_page; page++) {
+        html += `
+            <li class="page-item ${
+                page === result.current_page ? "active" : ""
+            }">
+
+                <button
+                    class="page-link"
+                    onclick="loadCategories(${page})">
+
+                    ${page}
+
+                </button>
+
+            </li>
+        `;
+    }
+
+    // Next
+
+    html += `
+        <li class="page-item ${
+            result.current_page === result.last_page ? "disabled" : ""
+        }">
+
+            <button
+                class="page-link"
+                onclick="loadCategories(${result.current_page + 1})">
+
+                Sau
+
+            </button>
+
+        </li>
+    `;
+
+    html += `
+            </ul>
+        </nav>
+    `;
+
+    pagination.innerHTML = html;
+}
+
 //Add product
 
 async function addCategory() {
@@ -90,7 +171,7 @@ async function addCategory() {
     document.getElementById("image").value = "";
     document.getElementById("name").value = "";
     document.getElementById("description").value = "";
-    document.getElementById("status").value = "";
+    document.getElementById("status").selectedIndex = 0;
 
     loadCategories();
 }

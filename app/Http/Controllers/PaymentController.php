@@ -20,7 +20,7 @@ class PaymentController extends Controller
                 $query->where('payment_code', 'like', "%{$search}%" );
             })
             ->latest()
-            ->get();
+            ->paginate(10);
 
         if ($request->expectsJson()) {
             return response()->json($payments);

@@ -16,11 +16,30 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $search = $request->search;
         $users = User::with('roles')
+            ->when($search, function ($query) use ($search) {
+
+                $query->where(
+                    "name",
+                    'like',
+                    "%{$search}%"
+                )
+                ->orWhere(
+                    "email",
+                    'like',
+                    "%{$search}%"
+                )
+                ->orWhere(
+                    "phone",
+                    'like',
+                    "%{$search}%"
+                );
+            })
             ->latest()
-            ->get();
+            ->paginate(5);
         if ($request->expectsJson()) {
-            return response()->json($notifications);
+            return response()->json($users);
         }
 
         $roles = Role::all();

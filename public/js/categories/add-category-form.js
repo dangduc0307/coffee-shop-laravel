@@ -40,6 +40,7 @@ function validateCategory() {
     return valid;
 }
 
+//Khi bấm nút submit thì hiện ra lỗi nếu chưa nhập đủ
 document.getElementById("name").addEventListener("input", function () {
     if (this.value.trim() !== "") {
         clearError("name");
@@ -48,10 +49,20 @@ document.getElementById("name").addEventListener("input", function () {
     }
 });
 
+//Khi bấm nút submit thì hiện ra lỗi nếu chưa nhập đủ
 document.getElementById("description").addEventListener("input", function () {
     if (this.value.trim() !== "") {
         clearError("description");
     } else {
         showError("description", "Vui lòng nhập vào mô tả loại sản phẩm");
+    }
+});
+
+//Khi bấm nút submit thì hiện ra lỗi nếu chưa nhập đủ
+document.getElementById("image").addEventListener("change", function () {
+    if (this.files.length > 0) {
+        clearError("image");
+    } else {
+        showError("image", "Vui lòng nhập vào ảnh sản phẩm!");
     }
 });

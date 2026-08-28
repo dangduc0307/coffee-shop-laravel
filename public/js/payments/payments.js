@@ -1,9 +1,12 @@
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
-async function loadPayments() {
+async function loadPayments(page = 1) {
     const keyword = document.getElementById("search-payments").value;
     const response = await fetch(
-        "/admin/payments?search=" + encodeURIComponent(keyword),
+        "/admin/payments?page=" +
+            page +
+            "&search=" +
+            encodeURIComponent(keyword),
         {
             headers: {
                 Accept: "application/json",
@@ -11,8 +14,10 @@ async function loadPayments() {
         },
     );
 
-    const payments = await response.json();
-    renderTable(payments);
+    // const payments = await response.json();
+    const result = await response.json();
+    renderTable(result.data);
+    renderPagination(result);
 }
 
 function createRowHTML(payment) {
@@ -34,6 +39,86 @@ function createRowHTML(payment) {
 function renderTable(payments) {
     const table = document.getElementById("paymentTable");
     table.innerHTML = payments.map((p) => createRowHTML(p)).join("");
+}
+
+// ===============================
+// PAGINATION
+// ===============================
+
+function renderPagination(result) {
+    const pagination = document.getElementById("pagination");
+
+    pagination.innerHTML = "";
+
+    if (result.last_page <= 1) {
+        return;
+    }
+
+    let html = `
+        <nav>
+            <ul class="pagination">
+    `;
+
+    // Previous
+
+    html += `
+        <li class="page-item ${result.current_page === 1 ? "disabled" : ""}">
+
+            <button
+                class="page-link"
+                onclick="loadPayments(${result.current_page - 1})">
+
+                Trước
+
+            </button>
+
+        </li>
+    `;
+
+    // Pages
+
+    for (let page = 1; page <= result.last_page; page++) {
+        html += `
+            <li class="page-item ${
+                page === result.current_page ? "active" : ""
+            }">
+
+                <button
+                    class="page-link"
+                    onclick="loadPayments(${page})">
+
+                    ${page}
+
+                </button>
+
+            </li>
+        `;
+    }
+
+    // Next
+
+    html += `
+        <li class="page-item ${
+            result.current_page === result.last_page ? "disabled" : ""
+        }">
+
+            <button
+                class="page-link"
+                onclick="loadPayments(${result.current_page + 1})">
+
+                Sau
+
+            </button>
+
+        </li>
+    `;
+
+    html += `
+            </ul>
+        </nav>
+    `;
+
+    pagination.innerHTML = html;
 }
 
 // Hàm chèn bản ghi mới lên đầu bảng

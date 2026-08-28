@@ -55,7 +55,7 @@
                             type="text"
                             id="search-users"
                             class="form-control"
-                            placeholder="Tìm theo tên hoặc email...">
+                            placeholder="Tìm theo tên hoặc email hoặc phone...">
 
                     </div>
 
@@ -75,7 +75,7 @@
 
             <div class="table-responsive">
 
-                <table class="table table-bordered table-hover align-middle mb-0">
+                <table class="table table-bordered table-hover align-middle mb-0" id="userTable">
 
                     <thead class="table-light">
 
@@ -276,6 +276,7 @@
                     </tbody>
 
                 </table>
+                <div id="pagination" class="mt-3"></div>
 
             </div>
 
@@ -447,3 +448,7 @@
 </div>
 
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/users/users.js') }}"></script>
+@endpush
