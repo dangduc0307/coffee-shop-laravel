@@ -38,13 +38,15 @@ async function loadCartSummary() {
     }
 
     cartItems.forEach((item) => {
+        const productName =
+            item.product.name.vi ?? item.product.name.en ?? "Sản phẩm";
         cartInformation.innerHTML += `
             <div class="cart-item">
 
                 <img src="/uploaded-images/${item.product.thumbnail}"
                      alt="${item.product.name}">
 
-                <span class="me-2">${item.product.name}</span>
+                <span class="me-2">${productName}</span>
 
                 <span>x${item.quantity}</span>
 

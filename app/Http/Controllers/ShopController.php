@@ -89,6 +89,13 @@ class ShopController extends Controller
 
         if (Auth::check()) {
 
+            $cartProductIds = CartItem::whereHas('cart', function ($query) {
+
+                $query->where('user_id', Auth::id());
+
+            })
+            ->pluck('product_id');
+
             $payments = Payment::where('status', 'paid')
                 ->whereHas('order', function ($query) {
 
@@ -114,7 +121,8 @@ class ShopController extends Controller
         return view('shop.index', compact(
             'products',
             'categories',
-            'purchasedProductIds'
+            'purchasedProductIds',
+            'cartProductIds'
         ));
     }
 

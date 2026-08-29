@@ -5,10 +5,6 @@
 @section('content')
 
 
-
-
-
-
 {{-- =====================================================
      HERO
 ===================================================== --}}
@@ -19,16 +15,16 @@
 
         <div class="contact-hero-content text-center">
 
-            <span class="contact-badge">
+            <span class="contact-badge reveal-load">
                 <i class="bi bi-envelope me-2"></i>
                 LIÊN HỆ
             </span>
 
-            <h1>
+            <h1 class="reveal-load" style="transition-delay:.1s">
                 HÃY <span>LIÊN HỆ</span> VỚI CHÚNG TÔI
             </h1>
 
-            <p>
+            <p class="reveal-load" style="transition-delay:.2s">
                 Bạn có câu hỏi về sản phẩm, cần hỗ trợ hoặc muốn
                 tìm hiểu thêm về WebList? Hãy gửi tin nhắn cho chúng tôi.
             </p>
@@ -50,10 +46,13 @@
 
         <div class="row g-5 align-items-start">
 
-            {{-- CONTACT INFORMATION --}}
+            {{-- =================================================
+                 CONTACT INFORMATION
+            ================================================== --}}
+
             <div class="col-12 col-lg-5">
 
-                <div class="contact-info">
+                <div class="contact-info reveal">
 
                     <h2>
                         THÔNG TIN LIÊN HỆ
@@ -67,7 +66,8 @@
 
 
                     {{-- Email --}}
-                    <div class="contact-info-item">
+                    <div class="contact-info-item reveal"
+                         style="transition-delay:.1s">
 
                         <div class="contact-icon">
                             <i class="bi bi-envelope"></i>
@@ -89,7 +89,8 @@
 
 
                     {{-- Phone --}}
-                    <div class="contact-info-item">
+                    <div class="contact-info-item reveal"
+                         style="transition-delay:.2s">
 
                         <div class="contact-icon">
                             <i class="bi bi-telephone"></i>
@@ -111,7 +112,8 @@
 
 
                     {{-- Working time --}}
-                    <div class="contact-info-item">
+                    <div class="contact-info-item reveal"
+                         style="transition-delay:.3s">
 
                         <div class="contact-icon">
                             <i class="bi bi-clock"></i>
@@ -135,7 +137,8 @@
 
 
                     {{-- Website --}}
-                    <div class="contact-info-item">
+                    <div class="contact-info-item reveal"
+                         style="transition-delay:.4s">
 
                         <div class="contact-icon">
                             <i class="bi bi-globe2"></i>
@@ -160,13 +163,20 @@
             </div>
 
 
-            {{-- CONTACT FORM --}}
+            {{-- =================================================
+                 CONTACT FORM
+            ================================================== --}}
+
             <div class="col-12 col-lg-7">
+
                 @if(session('success'))
 
                     <div class="container mt-4">
 
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <div
+                            class="alert alert-success alert-dismissible fade show"
+                            role="alert"
+                        >
 
                             <i class="bi bi-check-circle me-2"></i>
 
@@ -184,7 +194,8 @@
 
                 @endif
 
-                <div class="contact-form">
+
+                <div class="contact-form reveal">
 
                     <h3>
                         GỬI TIN NHẮN CHO CHÚNG TÔI
@@ -328,7 +339,7 @@
 
     <div class="container">
 
-        <div class="text-center mb-5">
+        <div class="text-center mb-5 reveal">
 
             <h2 class="section-title">
                 CÂU HỎI THƯỜNG GẶP
@@ -343,12 +354,14 @@
 
 
         <div
-            class="accordion"
+            class="accordion reveal"
             id="contactFaq"
         >
 
             {{-- FAQ 1 --}}
-            <div class="accordion-item">
+            <div
+                class="accordion-item reveal"
+            >
 
                 <h2 class="accordion-header">
 
@@ -370,9 +383,11 @@
                 >
 
                     <div class="accordion-body">
+
                         Sau khi thanh toán thành công, hệ thống sẽ
                         cung cấp quyền tải sản phẩm theo thông tin
                         đơn hàng của bạn.
+
                     </div>
 
                 </div>
@@ -381,7 +396,10 @@
 
 
             {{-- FAQ 2 --}}
-            <div class="accordion-item">
+            <div
+                class="accordion-item reveal"
+                style="transition-delay:.1s"
+            >
 
                 <h2 class="accordion-header">
 
@@ -403,9 +421,11 @@
                 >
 
                     <div class="accordion-body">
+
                         Có. Tùy từng sản phẩm, bạn có thể tùy chỉnh
                         giao diện, nội dung và các thành phần của website.
                         Vui lòng xem phần mô tả và yêu cầu của từng sản phẩm.
+
                     </div>
 
                 </div>
@@ -414,7 +434,10 @@
 
 
             {{-- FAQ 3 --}}
-            <div class="accordion-item">
+            <div
+                class="accordion-item reveal"
+                style="transition-delay:.2s"
+            >
 
                 <h2 class="accordion-header">
 
@@ -436,9 +459,11 @@
                 >
 
                     <div class="accordion-body">
+
                         Bạn có thể liên hệ với chúng tôi thông qua
                         email hoặc biểu mẫu liên hệ trên trang này.
                         Chúng tôi sẽ hỗ trợ bạn trong thời gian sớm nhất.
+
                     </div>
 
                 </div>
@@ -447,7 +472,10 @@
 
 
             {{-- FAQ 4 --}}
-            <div class="accordion-item">
+            <div
+                class="accordion-item reveal"
+                style="transition-delay:.3s"
+            >
 
                 <h2 class="accordion-header">
 
@@ -469,9 +497,11 @@
                 >
 
                     <div class="accordion-body">
+
                         Hoàn toàn được. Nếu bạn chưa chắc chắn sản phẩm
                         có phù hợp với nhu cầu hay không, hãy liên hệ
                         với chúng tôi trước khi mua.
+
                     </div>
 
                 </div>
@@ -493,7 +523,7 @@
 
     <div class="container">
 
-        <div class="cta-box">
+        <div class="cta-box reveal">
 
             <h2>
                 BẠN ĐANG TÌM MỘT WEBSITE?
@@ -521,5 +551,76 @@
 
 </section>
 
+
+@endsection
+
+
+{{-- =====================================================
+     ANIMATION SCRIPT
+===================================================== --}}
+
+@section('scripts')
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    /*
+    |--------------------------------------------------------------------------
+    | HERO
+    | Hiện ngay khi trang load
+    |--------------------------------------------------------------------------
+    */
+
+    document.querySelectorAll('.reveal-load').forEach(function (el) {
+
+        requestAnimationFrame(function () {
+
+            el.classList.add('active');
+
+        });
+
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCROLL REVEAL
+    |--------------------------------------------------------------------------
+    */
+
+    const revealEls = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver(function (entries) {
+
+        entries.forEach(function (entry) {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add('active');
+
+                // Chỉ chạy một lần
+                observer.unobserve(entry.target);
+
+            }
+
+        });
+
+    }, {
+
+        threshold: 0.15
+
+    });
+
+
+    revealEls.forEach(function (el) {
+
+        observer.observe(el);
+
+    });
+
+});
+
+</script>
 
 @endsection

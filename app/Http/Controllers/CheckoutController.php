@@ -95,7 +95,14 @@ class CheckoutController extends Controller
             DB::commit();
 
             // 🔥 Bắn event để trang Admin nảy ngay dòng thanh toán mới (Pending)
-            // event(new PaymentCreated($payment));
+            try {
+                event(new PaymentCreated($payment));
+            } catch (\Throwable $e) {
+                \Log::error('PaymentCreated broadcast failed', [
+                    'payment_id' => $payment->id,
+                    'error' => $e->getMessage(),
+                ]);
+            }
 
             return redirect()->route('checkout.show', $payment->id);
 

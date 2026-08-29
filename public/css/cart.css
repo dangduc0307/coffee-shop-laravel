@@ -17,3 +17,125 @@
 #emptyCart {
     text-align: center;
 }
+
+/* =====================================================
+   CART BUTTON
+===================================================== */
+
+.add-cart {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.2s ease;
+}
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.cart-button-content {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 2px;
+}
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.cart-loading {
+    cursor: wait;
+
+    transform: scale(0.98);
+}
+
+.cart-loading-icon {
+    animation: cartSpin 0.8s linear infinite;
+}
+
+/* Icon xoay */
+
+@keyframes cartSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =====================================================
+   ADDED
+===================================================== */
+
+.add-cart.cart-added {
+    cursor: default;
+
+    transform: scale(1);
+
+    animation: cartSuccess 0.45s ease;
+}
+
+.cart-success-icon {
+    animation: cartCheck 0.45s ease;
+}
+
+/* Hiệu ứng nút khi thêm thành công */
+
+@keyframes cartSuccess {
+    0% {
+        transform: scale(0.95);
+    }
+
+    60% {
+        transform: scale(1.04);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Icon check */
+
+@keyframes cartCheck {
+    0% {
+        opacity: 0;
+
+        transform: scale(0.3);
+    }
+
+    60% {
+        opacity: 1;
+
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform: scale(1);
+    }
+}
+
+/* =====================================================
+   REDUCE MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .add-cart,
+    .cart-loading-icon,
+    .cart-success-icon {
+        animation: none;
+
+        transition: none;
+    }
+}

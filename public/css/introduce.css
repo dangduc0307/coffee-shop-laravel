@@ -356,3 +356,65 @@
         font-size: 28px;
     }
 }
+
+/* =====================================================
+   INTRODUCE PAGE
+   SCROLL REVEAL ANIMATION
+===================================================== */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(40px);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+/* Khi phần tử xuất hiện */
+
+.reveal.active {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+/* =====================================================
+   HERO LOAD ANIMATION
+   Hiện từ trái sang phải
+===================================================== */
+
+.reveal-load {
+    opacity: 0;
+
+    transform: translateX(-40px);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+
+/* Khi animation bắt đầu */
+
+.reveal-load.active {
+    opacity: 1;
+
+    transform: translateX(0);
+}
+
+/* =====================================================
+   ACCESSIBILITY
+   Nếu người dùng bật Reduce Motion
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal-load {
+        opacity: 1;
+
+        transform: none;
+
+        transition: none;
+    }
+}

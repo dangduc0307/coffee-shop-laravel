@@ -48,30 +48,37 @@ class CartController extends Controller
             'user_id' => auth()->id()
         ]);
 
-        $item = CartItem::where('cart_id',$cart->id)
-            ->where('product_id',$request->product_id)
+        $item = CartItem::where('cart_id', $cart->id)
+            ->where('product_id', $request->product_id)
             ->first();
 
-        if($item){
 
-            $item->increment('quantity');
+        // Sản phẩm đã có trong giỏ
+        if ($item) {
 
-        }else{
-
-            CartItem::create([
-
-                'cart_id'=>$cart->id,
-
-                'product_id'=>$request->product_id,
-
-                'quantity'=>1
-
-            ]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Sản phẩm đã có trong giỏ hàng.'
+            ], 409);
 
         }
 
+
+        // Sản phẩm chưa có → thêm mới
+        CartItem::create([
+
+            'cart_id' => $cart->id,
+
+            'product_id' => $request->product_id,
+
+            'quantity' => 1
+
+        ]);
+
+
         return response()->json([
-            'success'=>true
+            'success' => true,
+            'message' => 'Đã thêm sản phẩm vào giỏ hàng.'
         ]);
     }
 

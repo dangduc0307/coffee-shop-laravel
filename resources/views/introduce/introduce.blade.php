@@ -5,8 +5,6 @@
 @section('content')
 
 
-
-
 {{-- =====================================================
      HERO
 ===================================================== --}}
@@ -17,17 +15,17 @@
 
         <div class="introduce-hero-content text-center">
 
-            <span class="introduce-badge">
+            <span class="introduce-badge reveal-load">
                 <i class="bi bi-info-circle me-2"></i>
                 VỀ CHÚNG TÔI
             </span>
 
-            <h1>
+            <h1 class="reveal-load" style="transition-delay:.1s">
                 GIẢI PHÁP WEBSITE
                 <span>CHO MỌI DỰ ÁN</span>
             </h1>
 
-            <p class="mx-auto">
+            <p class="mx-auto reveal-load" style="transition-delay:.2s">
                 Chúng tôi cung cấp những mẫu website và sản phẩm số
                 được thiết kế chuyên nghiệp, hiện đại và dễ dàng
                 triển khai cho cá nhân, doanh nghiệp và các dự án
@@ -53,7 +51,7 @@
 
             <div class="col-12 col-lg-6">
 
-                <div class="about-image">
+                <div class="about-image reveal">
 
                     <i class="bi bi-code-square"></i>
 
@@ -64,7 +62,7 @@
 
             <div class="col-12 col-lg-6">
 
-                <div class="about-content">
+                <div class="about-content reveal" style="transition-delay:.15s">
 
                     <h2>
                         CHÚNG TÔI LÀ AI?
@@ -109,7 +107,7 @@
 
     <div class="container">
 
-        <div class="text-center mb-5">
+        <div class="text-center mb-5 reveal">
 
             <h2 class="section-title">
                 GIÁ TRỊ CỦA CHÚNG TÔI
@@ -128,7 +126,7 @@
             {{-- Value 1 --}}
             <div class="col-12 col-md-6 col-lg-4">
 
-                <div class="value-card">
+                <div class="value-card reveal">
 
                     <div class="value-icon">
                         <i class="bi bi-palette"></i>
@@ -152,7 +150,8 @@
             {{-- Value 2 --}}
             <div class="col-12 col-md-6 col-lg-4">
 
-                <div class="value-card">
+                <div class="value-card reveal"
+                     style="transition-delay:.1s">
 
                     <div class="value-icon">
                         <i class="bi bi-phone"></i>
@@ -175,7 +174,8 @@
             {{-- Value 3 --}}
             <div class="col-12 col-md-6 col-lg-4">
 
-                <div class="value-card">
+                <div class="value-card reveal"
+                     style="transition-delay:.2s">
 
                     <div class="value-icon">
                         <i class="bi bi-lightning-charge"></i>
@@ -199,7 +199,8 @@
             {{-- Value 4 --}}
             <div class="col-12 col-md-6 col-lg-4">
 
-                <div class="value-card">
+                <div class="value-card reveal"
+                     style="transition-delay:.3s">
 
                     <div class="value-icon">
                         <i class="bi bi-code-slash"></i>
@@ -223,7 +224,8 @@
             {{-- Value 5 --}}
             <div class="col-12 col-md-6 col-lg-4">
 
-                <div class="value-card">
+                <div class="value-card reveal"
+                     style="transition-delay:.4s">
 
                     <div class="value-icon">
                         <i class="bi bi-shield-check"></i>
@@ -246,7 +248,8 @@
             {{-- Value 6 --}}
             <div class="col-12 col-md-6 col-lg-4">
 
-                <div class="value-card">
+                <div class="value-card reveal"
+                     style="transition-delay:.5s">
 
                     <div class="value-icon">
                         <i class="bi bi-headset"></i>
@@ -281,7 +284,7 @@
 
     <div class="container">
 
-        <div class="text-center mb-5">
+        <div class="text-center mb-5 reveal">
 
             <h2 class="section-title">
                 QUY TRÌNH MUA WEBSITE
@@ -299,7 +302,7 @@
             {{-- Step 1 --}}
             <div class="col-12 col-md-6 col-lg-3">
 
-                <div class="process-card">
+                <div class="process-card reveal">
 
                     <div class="process-number">
                         1
@@ -322,7 +325,8 @@
             {{-- Step 2 --}}
             <div class="col-12 col-md-6 col-lg-3">
 
-                <div class="process-card">
+                <div class="process-card reveal"
+                     style="transition-delay:.1s">
 
                     <div class="process-number">
                         2
@@ -345,7 +349,8 @@
             {{-- Step 3 --}}
             <div class="col-12 col-md-6 col-lg-3">
 
-                <div class="process-card">
+                <div class="process-card reveal"
+                     style="transition-delay:.2s">
 
                     <div class="process-number">
                         3
@@ -368,7 +373,8 @@
             {{-- Step 4 --}}
             <div class="col-12 col-md-6 col-lg-3">
 
-                <div class="process-card">
+                <div class="process-card reveal"
+                     style="transition-delay:.3s">
 
                     <div class="process-number">
                         4
@@ -402,21 +408,25 @@
 
     <div class="container">
 
-        <div class="technology-box">
+        <div class="technology-box reveal">
 
             <div class="row align-items-center g-4">
 
                 <div class="col-12 col-lg-6">
 
-                    <h2>
-                        ĐƯỢC XÂY DỰNG VỚI CÔNG NGHỆ HIỆN ĐẠI
-                    </h2>
+                    <div class="technology-content reveal">
 
-                    <p>
-                        Các sản phẩm được phát triển dựa trên những
-                        công nghệ web phổ biến và hiện đại, giúp website
-                        dễ dàng triển khai, tùy chỉnh và mở rộng.
-                    </p>
+                        <h2>
+                            ĐƯỢC XÂY DỰNG VỚI CÔNG NGHỆ HIỆN ĐẠI
+                        </h2>
+
+                        <p>
+                            Các sản phẩm được phát triển dựa trên những
+                            công nghệ web phổ biến và hiện đại, giúp website
+                            dễ dàng triển khai, tùy chỉnh và mở rộng.
+                        </p>
+
+                    </div>
 
                 </div>
 
@@ -425,9 +435,10 @@
 
                     <div class="row g-3">
 
+                        {{-- HTML / CSS --}}
                         <div class="col-6">
 
-                            <div class="technology-item">
+                            <div class="technology-item reveal">
 
                                 <i class="bi bi-filetype-html"></i>
 
@@ -440,9 +451,11 @@
                         </div>
 
 
+                        {{-- Bootstrap --}}
                         <div class="col-6">
 
-                            <div class="technology-item">
+                            <div class="technology-item reveal"
+                                 style="transition-delay:.1s">
 
                                 <i class="bi bi-bootstrap"></i>
 
@@ -455,9 +468,11 @@
                         </div>
 
 
+                        {{-- JavaScript --}}
                         <div class="col-6">
 
-                            <div class="technology-item">
+                            <div class="technology-item reveal"
+                                 style="transition-delay:.2s">
 
                                 <i class="bi bi-filetype-js"></i>
 
@@ -470,9 +485,11 @@
                         </div>
 
 
+                        {{-- PHP / Laravel --}}
                         <div class="col-6">
 
-                            <div class="technology-item">
+                            <div class="technology-item reveal"
+                                 style="transition-delay:.3s">
 
                                 <i class="bi bi-code-slash"></i>
 
@@ -505,7 +522,7 @@
 
     <div class="container">
 
-        <div class="cta-box">
+        <div class="cta-box reveal">
 
             <h2>
                 SẴN SÀNG BẮT ĐẦU?
@@ -517,7 +534,7 @@
                 của bạn.
             </p>
 
-            <a href="{{ url('/products') }}"
+            <a href="{{ route('shop.index')}}"
                class="btn btn-main">
 
                 <i class="bi bi-grid me-2"></i>
@@ -532,5 +549,75 @@
 
 </section>
 
+
+@endsection
+
+
+{{-- =====================================================
+     ANIMATION SCRIPT
+===================================================== --}}
+
+@section('scripts')
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    /*
+    |--------------------------------------------------------------------------
+    | HERO - HIỆN NGAY KHI LOAD TRANG
+    |--------------------------------------------------------------------------
+    */
+
+    document.querySelectorAll('.reveal-load').forEach(function (el) {
+
+        requestAnimationFrame(function () {
+
+            el.classList.add('active');
+
+        });
+
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | CÁC PHẦN CÒN LẠI - HIỆN KHI CUỘN TỚI
+    |--------------------------------------------------------------------------
+    */
+
+    const revealEls = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver(function (entries) {
+
+        entries.forEach(function (entry) {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add('active');
+
+                // Chỉ chạy animation một lần
+                observer.unobserve(entry.target);
+
+            }
+
+        });
+
+    }, {
+
+        threshold: 0.15
+
+    });
+
+
+    revealEls.forEach(function (el) {
+
+        observer.observe(el);
+
+    });
+
+});
+
+</script>
 
 @endsection

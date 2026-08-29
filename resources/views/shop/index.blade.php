@@ -123,13 +123,58 @@
                     @else
 
                         {{-- Chưa mua --}}
-                        <button
+                        {{-- <button
                             class="btn btn-primary w-100 add-cart"
                             data-id="{{ $product->id }}">
 
                             Thêm vào giỏ
 
-                        </button>
+                        </button> --}}
+
+                        @if($cartProductIds->contains($product->id))
+
+                            {{-- Đã có trong giỏ --}}
+
+                            <button
+                                type="button"
+                                class="btn btn-primary w-100 add-cart cart-added"
+                                data-id="{{ $product->id }}"
+                                disabled>
+
+                                <span class="cart-button-content">
+
+                                    <i class="bi bi-check-circle-fill me-1 cart-success-icon"></i>
+
+                                    <span class="cart-button-text">
+                                        Đã thêm vào giỏ hàng
+                                    </span>
+
+                                </span>
+
+                            </button>
+
+                        @else
+
+                            {{-- Chưa có trong giỏ --}}
+
+                            <button
+                                type="button"
+                                class="btn btn-primary w-100 add-cart"
+                                data-id="{{ $product->id }}">
+
+                                <span class="cart-button-content">
+
+                                    <i class="bi bi-cart-plus me-1"></i>
+
+                                    <span class="cart-button-text">
+                                        Thêm vào giỏ
+                                    </span>
+
+                                </span>
+
+                            </button>
+
+                        @endif
 
                     @endif
 
