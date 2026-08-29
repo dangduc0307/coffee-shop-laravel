@@ -36,70 +36,200 @@ class ShopController extends Controller
     // }
 
 
+    // public function index(Request $request)
+    // {
+    //     $search = $request->search;
+    //     $locale = app()->getLocale();
+    //     $categories = Category::where('status', 1)->get();
+
+    //     $products = Product::with('category')
+    //     ->where('status', 1)
+
+    //     // Tìm kiếm theo name + description
+    //     ->when($search, function ($query) use ($search, $locale) {
+
+    //         $query->where(function ($q) use ($search, $locale) {
+
+    //             $q->where(
+    //                 "name->{$locale}",
+    //                 'like',
+    //                 "%{$search}%"
+    //             )
+    //             ->orWhere(
+    //                 "description->{$locale}",
+    //                 'like',
+    //                 "%{$search}%"
+    //             );
+
+    //         });
+
+    //     })
+
+    //     // Lọc theo danh mục
+    //     ->when($request->category, function ($query) use ($request) {
+
+    //         $query->where(
+    //             'category_id',
+    //             $request->category
+    //         );
+
+    //     })
+
+    //     ->latest()
+    //     ->get();
+
+
+    //     /*
+    //     |--------------------------------------------------------------------------
+    //     | Lấy danh sách sản phẩm user đã mua
+    //     |--------------------------------------------------------------------------
+    //     */
+
+    //     $purchasedProductIds = collect();
+
+    //     if (Auth::check()) {
+
+    //         $cartProductIds = CartItem::whereHas('cart', function ($query) {
+
+    //             $query->where('user_id', Auth::id());
+
+    //         })
+    //         ->pluck('product_id');
+
+    //         $payments = Payment::where('status', 'paid')
+    //             ->whereHas('order', function ($query) {
+
+    //                 $query->where('user_id', Auth::id());
+
+    //             })
+    //             ->with('order.orderItems')
+    //             ->get();
+
+
+    //         $purchasedProductIds = $payments
+    //             ->flatMap(function ($payment) {
+
+    //                 return $payment->order->orderItems
+    //                     ->pluck('product_id');
+
+    //             })
+    //             ->unique()
+    //             ->values();
+    //     }
+
+
+    //     return view('shop.index', compact(
+    //         'products',
+    //         'categories',
+    //         'purchasedProductIds',
+    //         'cartProductIds'
+    //     ));
+    // }
+
+
     public function index(Request $request)
     {
         $search = $request->search;
         $locale = app()->getLocale();
+
         $categories = Category::where('status', 1)->get();
-
-        $products = Product::with('category')
-        ->where('status', 1)
-
-        // Tìm kiếm theo name + description
-        ->when($search, function ($query) use ($search, $locale) {
-
-            $query->where(function ($q) use ($search, $locale) {
-
-                $q->where(
-                    "name->{$locale}",
-                    'like',
-                    "%{$search}%"
-                )
-                ->orWhere(
-                    "description->{$locale}",
-                    'like',
-                    "%{$search}%"
-                );
-
-            });
-
-        })
-
-        // Lọc theo danh mục
-        ->when($request->category, function ($query) use ($request) {
-
-            $query->where(
-                'category_id',
-                $request->category
-            );
-
-        })
-
-        ->latest()
-        ->get();
 
 
         /*
         |--------------------------------------------------------------------------
-        | Lấy danh sách sản phẩm user đã mua
+        | PRODUCTS
+        |--------------------------------------------------------------------------
+        */
+
+        $products = Product::with('category')
+            ->where('status', 1)
+
+            // Tìm kiếm theo name + description
+            ->when($search, function ($query) use ($search, $locale) {
+
+                $query->where(function ($q) use ($search, $locale) {
+
+                    $q->where(
+                        "name->{$locale}",
+                        'like',
+                        "%{$search}%"
+                    )
+                    ->orWhere(
+                        "description->{$locale}",
+                        'like',
+                        "%{$search}%"
+                    );
+
+                });
+
+            })
+
+            // Lọc theo danh mục
+            ->when($request->category, function ($query) use ($request) {
+
+                $query->where(
+                    'category_id',
+                    $request->category
+                );
+
+            })
+
+            ->latest()
+            ->get();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | DEFAULT
         |--------------------------------------------------------------------------
         */
 
         $purchasedProductIds = collect();
 
+        $cartProductIds = collect();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | USER ĐÃ ĐĂNG NHẬP
+        |--------------------------------------------------------------------------
+        */
+
         if (Auth::check()) {
+
+            /*
+            |----------------------------------------------------------------------
+            | Sản phẩm trong giỏ hàng
+            |----------------------------------------------------------------------
+            */
 
             $cartProductIds = CartItem::whereHas('cart', function ($query) {
 
-                $query->where('user_id', Auth::id());
+                $query->where(
+                    'user_id',
+                    Auth::id()
+                );
 
             })
             ->pluck('product_id');
 
-            $payments = Payment::where('status', 'paid')
+
+            /*
+            |----------------------------------------------------------------------
+            | Sản phẩm đã mua
+            |----------------------------------------------------------------------
+            */
+
+            $payments = Payment::where(
+                    'status',
+                    'paid'
+                )
                 ->whereHas('order', function ($query) {
 
-                    $query->where('user_id', Auth::id());
+                    $query->where(
+                        'user_id',
+                        Auth::id()
+                    );
 
                 })
                 ->with('order.orderItems')
@@ -117,6 +247,12 @@ class ShopController extends Controller
                 ->values();
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | VIEW
+        |--------------------------------------------------------------------------
+        */
 
         return view('shop.index', compact(
             'products',

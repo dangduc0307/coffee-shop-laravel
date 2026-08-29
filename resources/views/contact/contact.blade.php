@@ -169,30 +169,21 @@
 
             <div class="col-12 col-lg-7">
 
-                @if(session('success'))
+                <div
+                    id="contact-success"
+                    class="alert alert-success alert-dismissible fade show d-none mt-4"
+                    role="alert"
+                >
+                    <i class="bi bi-check-circle me-2"></i>
 
-                    <div class="container mt-4">
+                    <span id="contact-success-message"></span>
 
-                        <div
-                            class="alert alert-success alert-dismissible fade show"
-                            role="alert"
-                        >
-
-                            <i class="bi bi-check-circle me-2"></i>
-
-                            {{ session('success') }}
-
-                            <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="alert"
-                            ></button>
-
-                        </div>
-
-                    </div>
-
-                @endif
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                    ></button>
+                </div>
 
 
                 <div class="contact-form reveal">
@@ -202,6 +193,7 @@
                     </h3>
 
                     <form
+                        id="contact-form"
                         action="{{ route('contact.send') }}"
                         method="POST"
                     >
@@ -568,7 +560,6 @@ document.addEventListener('DOMContentLoaded', function () {
     /*
     |--------------------------------------------------------------------------
     | HERO
-    | Hiện ngay khi trang load
     |--------------------------------------------------------------------------
     */
 
@@ -599,7 +590,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 entry.target.classList.add('active');
 
-                // Chỉ chạy một lần
                 observer.unobserve(entry.target);
 
             }
@@ -618,6 +608,175 @@ document.addEventListener('DOMContentLoaded', function () {
         observer.observe(el);
 
     });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | CONTACT FORM AJAX
+    |--------------------------------------------------------------------------
+    */
+
+    const contactForm = document.getElementById('contact-form');
+
+    if (contactForm) {
+
+        contactForm.addEventListener('submit', async function (e) {
+
+            e.preventDefault();
+
+
+            const submitButton = contactForm.querySelector(
+                'button[type="submit"]'
+            );
+
+            const successAlert = document.getElementById(
+                'contact-success'
+            );
+
+            const successMessage = document.getElementById(
+                'contact-success-message'
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Lấy dữ liệu form
+            |--------------------------------------------------------------------------
+            */
+
+            const formData = new FormData(contactForm);
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Disable button tránh click nhiều lần
+            |--------------------------------------------------------------------------
+            */
+
+            submitButton.disabled = true;
+
+            submitButton.innerHTML = `
+                <span
+                    class="spinner-border spinner-border-sm me-2"
+                    role="status"
+                ></span>
+
+                Đang gửi...
+            `;
+
+
+            try {
+
+                const response = await fetch(
+                    contactForm.action,
+                    {
+                        method: 'POST',
+
+                        body: formData,
+
+                        headers: {
+                            'Accept': 'application/json',
+
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    }
+                );
+
+
+                const data = await response.json();
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Thành công
+                |--------------------------------------------------------------------------
+                */
+
+                if (response.ok) {
+
+                    successMessage.textContent =
+                        data.message ||
+                        'Tin nhắn của bạn đã được gửi thành công!';
+
+                    successAlert.classList.remove('d-none');
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Reset form
+                    |--------------------------------------------------------------------------
+                    */
+
+                    contactForm.reset();
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Cuộn nhẹ tới thông báo
+                    |--------------------------------------------------------------------------
+                    */
+
+                    successAlert.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+
+
+                } else {
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Lỗi validation
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if (data.errors) {
+
+                        const firstError =
+                            Object.values(data.errors)[0][0];
+
+                        alert(firstError);
+
+                    } else {
+
+                        alert(
+                            data.message ||
+                            'Có lỗi xảy ra. Vui lòng thử lại.'
+                        );
+
+                    }
+
+                }
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    'Không thể gửi tin nhắn. Vui lòng thử lại sau.'
+                );
+
+            } finally {
+
+                /*
+                |--------------------------------------------------------------------------
+                | Enable button lại
+                |--------------------------------------------------------------------------
+                */
+
+                submitButton.disabled = false;
+
+                submitButton.innerHTML = `
+                    <i class="bi bi-send me-2"></i>
+
+                    Gửi tin nhắn
+                `;
+
+            }
+
+        });
+
+    }
 
 });
 

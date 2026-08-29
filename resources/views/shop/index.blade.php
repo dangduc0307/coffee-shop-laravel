@@ -193,5 +193,9 @@
 @endsection
 
 @section('scripts')
+
+    <script>
+        const isLoggedIn = @json(Auth::check());
+    </script>
     <script src="{{ asset('js/carts/carts.js') }}"></script>
 @endsection

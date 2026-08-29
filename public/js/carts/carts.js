@@ -299,6 +299,16 @@ document.addEventListener("click", async function (event) {
         return;
     }
 
+    // ==========================================
+    // CHƯA ĐĂNG NHẬP
+    // ==========================================
+
+    if (!isLoggedIn) {
+        window.location.href = "/login";
+
+        return;
+    }
+
     // Đang xử lý hoặc đã thêm rồi
     if (button.disabled) {
         return;

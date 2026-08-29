@@ -42,11 +42,16 @@ class ContactController extends Controller
             $validated['message']
         );
 
-        return redirect()
-            ->route('contact')
-            ->with(
-                'success',
-                'Tin nhắn của bạn đã được gửi thành công!'
-            );
+        // return redirect()
+        //     ->route('contact')
+        //     ->with(
+        //         'success',
+        //         'Tin nhắn của bạn đã được gửi thành công!'
+        //     );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Tin nhắn của bạn đã được gửi thành công!',
+        ]);
     }
 }
