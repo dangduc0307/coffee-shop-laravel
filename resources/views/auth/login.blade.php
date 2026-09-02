@@ -39,12 +39,33 @@
                                 Mật khẩu
                             </label>
 
-                            <input
-                                type="password"
-                                name="password"
-                                class="form-control @error('password') is-invalid @enderror"
-                                id="password"
-                                required>
+                            {{-- PASSWORD WRAPPER --}}
+
+                            <div class="password-wrapper">
+
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    class="form-control pe-5 @error('password') is-invalid @enderror"
+                                    required
+                                >
+
+
+                                {{-- TOGGLE PASSWORD --}}
+
+                                <span
+                                    id="toggle-password"
+                                    class="password-toggle"
+                                    role="button"
+                                    aria-label="Hiển thị mật khẩu"
+                                >
+
+                                    <i class="bi bi-eye"></i>
+
+                                </span>
+
+                            </div>
                             <div class="text-danger small" id="passwordError"></div>
 
                             @error('password')

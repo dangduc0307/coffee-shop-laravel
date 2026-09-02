@@ -100,3 +100,25 @@ function clearErrors() {
 }
 
 addInputListeners();
+
+//hiển thị mật khẩu
+const passwordInput = document.getElementById("password");
+const togglePassword = document.getElementById("toggle-password");
+
+if (passwordInput && togglePassword) {
+    const passwordIcon = togglePassword.querySelector("i");
+
+    togglePassword.addEventListener("click", function () {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+
+            passwordIcon.classList.remove("bi-eye");
+            passwordIcon.classList.add("bi-eye-slash");
+        } else {
+            passwordInput.type = "password";
+
+            passwordIcon.classList.remove("bi-eye-slash");
+            passwordIcon.classList.add("bi-eye");
+        }
+    });
+}
