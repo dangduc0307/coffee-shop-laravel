@@ -56,6 +56,22 @@ Route::post('/contact/send', [
     'send'
 ])->name('contact.send');
 
+//Chính sách bảo mật
+Route::view('/privacy-policy', 'privacy-policy')
+    ->name('privacy-policy');
+
+//Điều khoản sử dụng
+Route::view('/terms-of-service', 'terms-of-service')
+    ->name('terms-of-service');
+
+//Chính sách mua hàng
+Route::view('/purchase-policy', 'purchase-policy')
+    ->name('purchase-policy');
+
+//Câu hỏi thường gặp
+Route::view('/faq', 'faq')
+    ->name('faq');
+
 
 //Admin
 Route::prefix('admin')

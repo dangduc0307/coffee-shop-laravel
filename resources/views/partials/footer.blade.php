@@ -109,7 +109,7 @@
 
                         <li class="mb-2">
                             <a
-                                href="#"
+                                href="{{ route('faq') }}"
                                 class="text-white text-decoration-none opacity-75"
                             >
                                 Câu hỏi thường gặp
@@ -118,7 +118,7 @@
 
                         <li class="mb-2">
                             <a
-                                href="#"
+                                href="{{ route('privacy-policy') }}"
                                 class="text-white text-decoration-none opacity-75"
                             >
                                 Chính sách bảo mật
@@ -127,7 +127,7 @@
 
                         <li class="mb-2">
                             <a
-                                href="#"
+                                href="{{ route('terms-of-service') }}"
                                 class="text-white text-decoration-none opacity-75"
                             >
                                 Điều khoản sử dụng
@@ -136,7 +136,7 @@
 
                         <li>
                             <a
-                                href="#"
+                                href="{{ route('purchase-policy') }}"
                                 class="text-white text-decoration-none opacity-75"
                             >
                                 Chính sách mua hàng
