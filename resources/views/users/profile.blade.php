@@ -28,7 +28,19 @@
                 {{ ucfirst($user->role) }}
             </p>
 
-             <hr>
+            <hr>
+
+            <a
+                href="{{ route('users.purchased') }}"
+                class="btn btn-purchased"
+            >
+                <i class="bi bi-bag-check me-2"></i>
+                Các sản phẩm bạn đã mua
+            </a>
+
+            <hr>
+
+             
 
             <form action="{{ route('logout') }}" method="POST">
                 @csrf

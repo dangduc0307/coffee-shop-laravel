@@ -77,6 +77,14 @@
             </div>
           </div>
         </div>
+
+
+        {{-- PAGE TRANSITION --}}
+      <div id="page-transition">
+          <div id="page-transition-box">
+              <div id="page-transition-fill"></div>
+          </div>
+      </div>
         @yield('content')
     </main>
 

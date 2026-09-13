@@ -111,7 +111,9 @@
                         {{-- Nút tải xuống --}}
                         <a
                             href="{{ route('shop.download', $product->id) }}"
-                            class="btn btn-success w-100">
+                            class="btn btn-success w-100"
+                            data-no-transition
+                            >
 
                             <i class="bi bi-download"></i>
 

@@ -169,11 +169,18 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])
 
 
 
+//Hiển thị các sản phẩm đã mua
+Route::get('/users/purchased', [UserController::class, 'purchased'])
+    ->middleware('auth')
+    ->name('users.purchased');
+
 //Trang cá nhân người dùng
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class)
         ->only(['show', 'edit', 'update']);
 });
+
+
 
 
 //Đăng nhập bằng Google

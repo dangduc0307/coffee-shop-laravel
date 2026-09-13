@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Jobs\SendUserAccountMail;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Role;
@@ -178,5 +181,37 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    public function purchased()
+    {
+        $orders = auth()->user()
+            ->orders()
+            ->where('status', 'paid')
+            ->with('items.product')
+            ->latest()
+            ->get();
+
+        $products = $orders
+            ->flatMap(function ($order) {
+                return $order->items->map(function ($item) use ($order) {
+
+                    $product = $item->product;
+
+                    if (!$product) {
+                        return null;
+                    }
+
+                    $product->purchased_at = $order->created_at;
+
+                    return $product;
+                });
+            })
+            ->filter()
+            ->unique('id')
+            ->values();
+
+        return view('users.purchased', compact('products'));
     }
 }
