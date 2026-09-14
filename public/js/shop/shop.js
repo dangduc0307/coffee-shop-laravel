@@ -185,16 +185,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
 
 
-                    <a
-                        href="${downloadUrl}"
-                        class="btn btn-success w-100"
+                    <a 
+                        href="${downloadUrl}" 
+                        class="btn btn-download w-100" 
                         data-no-transition
                     >
-
-                        <i class="bi bi-download"></i>
-
-                        Tải xuống
-
+                        <span class="download-content">
+                            <i class="bi bi-download"></i>
+                            Tải xuống
+                        </span>
                     </a>
 
                 `;
@@ -442,4 +441,26 @@ document.addEventListener("DOMContentLoaded", function () {
     */
 
     loadShopProducts(1);
+});
+
+//Hiệu ứng fill đầy nút download
+document.addEventListener("click", function (e) {
+    const downloadButton = e.target.closest(".btn-download");
+
+    if (!downloadButton) {
+        return;
+    }
+
+    // Nếu đang tải thì không cho bấm lại
+    if (downloadButton.classList.contains("downloading")) {
+        e.preventDefault();
+        return;
+    }
+
+    downloadButton.classList.add("downloading");
+
+    // Sau khi fill đầy thì trở về bình thường
+    setTimeout(() => {
+        downloadButton.classList.remove("downloading");
+    }, 1200);
 });
