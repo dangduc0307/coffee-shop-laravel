@@ -175,7 +175,20 @@ class ShopController extends Controller
             })
 
             ->latest()
-            ->get();
+            // ⭐ AJAX pagination
+            ->paginate(8);
+        
+         /*
+        |--------------------------------------------------------------------------
+        | AJAX RESPONSE
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->expectsJson()) {
+
+            return response()->json($products);
+
+        }
 
 
         /*

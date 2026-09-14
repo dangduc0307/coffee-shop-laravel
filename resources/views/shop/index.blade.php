@@ -41,154 +41,11 @@
 
     </div>
 
-    <div class="row">
-
-        @foreach($products as $product)
-
-        <div class="col-md-3 mb-4">
-
-            <div class="card h-100">
-
-                <img
-                    src="{{ asset('uploaded-images/'.$product->thumbnail) }}"
-                    class="card-img-top"
-                    style="height:220px;object-fit:cover;"
-                >
-
-                <div class="card-body">
-
-                    <h5>
-                        {{ $product->name }}
-                    </h5>
-
-                    <p>
-                        {{ number_format($product->price, 0, ',', '.') }} đ
-                    </p>
-
-
-                    {{-- Demo --}}
-                    @if($product->demo_url)
-
-                        <p>
-                            <a
-                                href="{{ $product->demo_url }}"
-                                target="_blank"
-                                class="btn btn-outline-primary btn-sm">
-
-                                Xem Demo
-
-                            </a>
-                        </p>
-
-                    @endif
-
-
-                    {{-- Thông tin file --}}
-                    <p class="text-muted mb-2">
-
-                        File:
-                        {{ $product->file_size ?? 'Đang cập nhật' }}
-
-                    </p>
-
-
-                    {{-- =============================== --}}
-                    {{-- KIỂM TRA ĐÃ MUA --}}
-                    {{-- =============================== --}}
-
-                    @if($purchasedProductIds->contains($product->id))
-
-                        {{-- Đã mua --}}
-                        <div class="text-success fw-bold mb-2">
-
-                            <i class="bi bi-check-circle-fill"></i>
-
-                            Đã mua
-
-                        </div>
-
-
-                        {{-- Nút tải xuống --}}
-                        <a
-                            href="{{ route('shop.download', $product->id) }}"
-                            class="btn btn-success w-100"
-                            data-no-transition
-                            >
-
-                            <i class="bi bi-download"></i>
-
-                            Tải xuống
-
-                        </a>
-
-
-                    @else
-
-                        {{-- Chưa mua --}}
-                        {{-- <button
-                            class="btn btn-primary w-100 add-cart"
-                            data-id="{{ $product->id }}">
-
-                            Thêm vào giỏ
-
-                        </button> --}}
-
-                        @if($cartProductIds->contains($product->id))
-
-                            {{-- Đã có trong giỏ --}}
-
-                            <button
-                                type="button"
-                                class="btn btn-primary w-100 add-cart cart-added"
-                                data-id="{{ $product->id }}"
-                                disabled>
-
-                                <span class="cart-button-content">
-
-                                    <i class="bi bi-check-circle-fill me-1 cart-success-icon"></i>
-
-                                    <span class="cart-button-text">
-                                        Đã thêm vào giỏ hàng
-                                    </span>
-
-                                </span>
-
-                            </button>
-
-                        @else
-
-                            {{-- Chưa có trong giỏ --}}
-
-                            <button
-                                type="button"
-                                class="btn btn-primary w-100 add-cart"
-                                data-id="{{ $product->id }}">
-
-                                <span class="cart-button-content">
-
-                                    <i class="bi bi-cart-plus me-1"></i>
-
-                                    <span class="cart-button-text">
-                                        Thêm vào giỏ
-                                    </span>
-
-                                </span>
-
-                            </button>
-
-                        @endif
-
-                    @endif
-
-                </div>
-
-            </div>
-
-        </div>
-
-        @endforeach
-
+    <div class="row" id="productList">
+        {{-- Sản phẩm được render bằng AJAX --}}
     </div>
+
+    <div id="pagination" class="mt-4"></div>
 
 </div>
 
@@ -199,5 +56,18 @@
     <script>
         const isLoggedIn = @json(Auth::check());
     </script>
+    <script>
+
+        const purchasedProductIds = @json($purchasedProductIds);
+
+        const cartProductIds = @json($cartProductIds);
+
+        const currentCategory = @json(request('category'));
+
+        const shopDownloadRoute = @json(
+            route('shop.download', ['product' => '__PRODUCT_ID__'])
+        );
+    </script>
     <script src="{{ asset('js/carts/carts.js') }}"></script>
+    <script src="{{ asset('js/shop/shop.js') }}"></script>
 @endsection

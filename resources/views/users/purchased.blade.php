@@ -123,6 +123,16 @@
 
                             </p>
 
+                            {{-- Ngày mua --}}
+                            <p class="text-muted mb-2">
+
+                                <i class="bi bi-calendar-check me-1"></i>
+
+                                Ngày mua:
+                                {{ $product->purchased_at->format('d/m/Y H:i') }}
+
+                            </p>
+
 
                             {{-- Demo --}}
                             @if($product->demo_url)

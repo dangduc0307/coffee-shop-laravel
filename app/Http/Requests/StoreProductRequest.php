@@ -27,8 +27,8 @@ class StoreProductRequest extends FormRequest
             'description' => 'nullable',
             'price' => 'required|numeric|min:0',
             // 'thumbnail' => 'nullable|image',
-            'thumbnail' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'file' => 'required|file|mimes:zip,rar,7z|max:51200',
+            'thumbnail' => 'required|image|mimes:jpg,jpeg,png,webp|max:10240',
+            'file' => 'required|file|mimes:zip,rar,7z|max:102400',
 
             'file_size' => 'nullable|string|max:50',
 

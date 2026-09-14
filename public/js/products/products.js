@@ -234,7 +234,12 @@ function renderPagination(result) {
 // ADD PRODUCT
 // ===============================
 
+// ===============================
+// ADD PRODUCT
+// ===============================
+
 async function addProduct() {
+    // Kiểm tra dữ liệu phía frontend trước
     if (!validateProduct()) {
         return;
     }
@@ -246,6 +251,7 @@ async function addProduct() {
     const fileSize = document.getElementById("file_size").value;
     const demoUrl = document.getElementById("demo_url").value;
     const documentationUrl = document.getElementById("documentation_url").value;
+
     const requirements = document.getElementById("requirements").value;
 
     const nameVi = document.getElementById("name_vi").value;
@@ -264,11 +270,19 @@ async function addProduct() {
 
     const status = document.getElementById("status").value;
 
+    // ===============================
+    // FORM DATA
+    // ===============================
+
     const formData = new FormData();
+
+    // THUMBNAIL
 
     if (thumbnail) {
         formData.append("thumbnail", thumbnail);
     }
+
+    // SOURCE FILE
 
     if (file) {
         formData.append("file", file);
@@ -277,13 +291,11 @@ async function addProduct() {
     // NAME
 
     formData.append("name[vi]", nameVi);
-
     formData.append("name[en]", nameEn);
 
     // DESCRIPTION
 
     formData.append("description[vi]", descriptionVi);
-
     formData.append("description[en]", descriptionEn);
 
     // OTHER FIELDS
@@ -297,20 +309,79 @@ async function addProduct() {
     formData.append("status", status);
 
     formData.append("file_size", fileSize);
+
     formData.append("demo_url", demoUrl);
+
     formData.append("documentation_url", documentationUrl);
+
     formData.append("requirements", requirements);
 
-    await fetch("/admin/products", {
+    // ===============================
+    // SEND REQUEST
+    // ===============================
+
+    const response = await fetch("/admin/products", {
         method: "POST",
 
         headers: {
             "X-CSRF-TOKEN": csrfToken,
+
             Accept: "application/json",
         },
 
         body: formData,
     });
+
+    // ===============================
+    // READ RESPONSE
+    // ===============================
+
+    let result = {};
+
+    try {
+        result = await response.json();
+    } catch (error) {
+        console.error("Laravel không trả về JSON:", error);
+    }
+
+    // ===============================
+    // VALIDATION ERROR - 422
+    // ===============================
+
+    if (response.status === 422) {
+        console.error("❌ LỖI VALIDATION 422:", result);
+
+        console.error("Chi tiết lỗi:", result.errors);
+
+        alert(
+            "Dữ liệu sản phẩm không hợp lệ. " +
+                "Hãy mở F12 → Console để xem field nào bị lỗi.",
+        );
+
+        return;
+    }
+
+    // ===============================
+    // OTHER ERROR
+    // ===============================
+
+    if (!response.ok) {
+        console.error("❌ LỖI THÊM SẢN PHẨM:", result);
+
+        alert(result.message || "Có lỗi xảy ra khi thêm sản phẩm.");
+
+        return;
+    }
+
+    // ===============================
+    // SUCCESS
+    // ===============================
+
+    console.log("✅ THÊM SẢN PHẨM THÀNH CÔNG:", result);
+
+    // ===============================
+    // CLOSE MODAL
+    // ===============================
 
     const modal = bootstrap.Modal.getInstance(
         document.getElementById("addModal"),
@@ -318,14 +389,20 @@ async function addProduct() {
 
     modal.hide();
 
+    // ===============================
     // RESET FORM
+    // ===============================
 
     document.getElementById("thumbnail").value = "";
 
     document.getElementById("file").value = "";
+
     document.getElementById("file_size").value = "";
+
     document.getElementById("demo_url").value = "";
+
     document.getElementById("documentation_url").value = "";
+
     document.getElementById("requirements").value = "";
 
     document.getElementById("name_vi").value = "";
@@ -343,6 +420,10 @@ async function addProduct() {
     document.getElementById("featured").selectedIndex = 0;
 
     document.getElementById("status").selectedIndex = 0;
+
+    // ===============================
+    // RELOAD PRODUCTS
+    // ===============================
 
     loadProducts();
 }
