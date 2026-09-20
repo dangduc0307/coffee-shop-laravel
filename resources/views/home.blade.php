@@ -62,6 +62,98 @@
 
 
 {{-- =====================================================
+     IMAGE SHOWCASE
+===================================================== --}}
+
+<section class="image-showcase-section">
+
+    <div class="image-showcase">
+
+        <div class="image-track">
+
+            {{-- Bộ ảnh 1 --}}
+            <div class="showcase-item">
+                <img src="{{ asset('images/attendance-1.png') }}"
+                    class="showcase-image"
+                     alt="Chấm công">
+            </div>
+
+            <div class="showcase-item">
+                <img src="{{ asset('images/attendance-2.png') }}"
+                    class="showcase-image"
+                     alt="Quản lý nhân viên">
+            </div>
+
+            <div class="showcase-item">
+                <img src="{{ asset('images/attendance-3.png') }}"
+                    class="showcase-image"
+                     alt="Quản lý phòng ban">
+            </div>
+
+            <div class="showcase-item">
+                <img src="{{ asset('images/attendance-4.png') }}"
+                    class="showcase-image"
+                     alt="Quản lý chức vụ">
+            </div>
+
+
+            {{-- Nhân đôi để tạo chuyển động liên tục --}}
+            <div class="showcase-item">
+                <img src="{{ asset('images/attendance-1.png') }}"
+                    class="showcase-image"
+                     alt="Chấm công">
+            </div>
+
+            <div class="showcase-item">
+                <img src="{{ asset('images/attendance-2.png') }}"
+                    class="showcase-image"
+                     alt="Quản lý nhân viên">
+            </div>
+
+            <div class="showcase-item">
+                <img src="{{ asset('images/attendance-3.png') }}"
+                    class="showcase-image"
+                     alt="Quản lý phòng ban">
+            </div>
+
+            <div class="showcase-item">
+                <img src="{{ asset('images/attendance-4.png') }}"
+                    class="showcase-image"
+                     alt="Quản lý chức vụ">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{{-- =====================================================
+     IMAGE MODAL
+===================================================== --}}
+
+<div id="imageModal" class="image-modal">
+
+    <button type="button"
+            class="image-modal-close"
+            id="imageModalClose">
+
+        <i class="bi bi-x-lg"></i>
+
+    </button>
+
+    <div class="image-modal-content">
+
+        <img id="modalImage"
+             src=""
+             alt="">
+
+    </div>
+
+</div>
+
+
+{{-- =====================================================
      FEATURES
 ===================================================== --}}
 
@@ -385,6 +477,101 @@
         revealEls.forEach(function (el) {
             observer.observe(el);
         });
+
+
+        /* =====================================================
+        IMAGE MODAL
+        ===================================================== */
+
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const imageModalClose = document.getElementById('imageModalClose');
+
+        const showcaseImages = document.querySelectorAll('.showcase-image');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | MỞ MODAL
+        |--------------------------------------------------------------------------
+        */
+
+        showcaseImages.forEach(function (image) {
+
+            image.addEventListener('click', function () {
+
+                modalImage.src = this.src;
+                modalImage.alt = this.alt;
+
+                imageModal.classList.add('active');
+
+                document.body.style.overflow = 'hidden';
+
+            });
+
+        });
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ĐÓNG MODAL - NÚT X
+        |--------------------------------------------------------------------------
+        */
+
+        imageModalClose.addEventListener('click', function () {
+
+            closeImageModal();
+
+        });
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ĐÓNG MODAL - CLICK RA NGOÀI ẢNH
+        |--------------------------------------------------------------------------
+        */
+
+        imageModal.addEventListener('click', function (event) {
+
+            if (event.target === imageModal) {
+
+                closeImageModal();
+
+            }
+
+        });
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ĐÓNG MODAL - PHÍM ESC
+        |--------------------------------------------------------------------------
+        */
+
+        document.addEventListener('keydown', function (event) {
+
+            if (event.key === 'Escape') {
+
+                closeImageModal();
+
+            }
+
+        });
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | FUNCTION ĐÓNG MODAL
+        |--------------------------------------------------------------------------
+        */
+
+        function closeImageModal() {
+
+            imageModal.classList.remove('active');
+
+            document.body.style.overflow = '';
+
+        }
 
     });
 </script>
