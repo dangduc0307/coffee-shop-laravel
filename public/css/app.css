@@ -400,3 +400,11 @@ header {
 .btn-download.downloading .download-content {
     color: #2b1404;
 }
+
+.product-description-content {
+    max-height: 60vh;
+    overflow-y: auto;
+    white-space: pre-line;
+    line-height: 1.7;
+    padding-right: 8px;
+}

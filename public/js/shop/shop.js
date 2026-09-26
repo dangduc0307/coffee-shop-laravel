@@ -279,9 +279,15 @@ document.addEventListener("DOMContentLoaded", function () {
                                 ${name}
                             </h5>
 
-                            <p class="text-muted small">
-                                ${description}
-                            </p>
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary btn-sm w-100 mb-3 view-description"
+                                data-description="${encodeURIComponent(description)}"
+                                data-name="${encodeURIComponent(name)}"
+                            >
+                                <i class="bi bi-file-text me-1"></i>
+                                Xem mô tả
+                            </button>
 
                             <p>
                                 ${Number(product.price || 0).toLocaleString("vi-VN")} đ
@@ -463,4 +469,120 @@ document.addEventListener("click", function (e) {
     setTimeout(() => {
         downloadButton.classList.remove("downloading");
     }, 1200);
+});
+
+//Hiệu ứng fill đầy nút download
+
+/*
+|--------------------------------------------------------------------------
+| PRODUCT DESCRIPTION MODAL
+|--------------------------------------------------------------------------
+*/
+
+document.addEventListener("click", function (e) {
+    const button = e.target.closest(".view-description");
+
+    if (!button) {
+        return;
+    }
+
+    const description = decodeURIComponent(button.dataset.description || "");
+
+    const name = decodeURIComponent(button.dataset.name || "");
+
+    /*
+    |--------------------------------------------------------------------------
+    | TẠO MODAL
+    |--------------------------------------------------------------------------
+    */
+
+    const modalHtml = `
+
+        <div
+            class="modal fade"
+            id="productDescriptionModal"
+            tabindex="-1"
+            aria-labelledby="productDescriptionModalLabel"
+            aria-hidden="true"
+        >
+
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5
+                            class="modal-title"
+                            id="productDescriptionModalLabel"
+                        >
+                            ${name}
+                        </h5>
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Đóng"
+                        ></button>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="product-description-content">
+                            ${description}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+    /*
+    |--------------------------------------------------------------------------
+    | XÓA MODAL CŨ NẾU CÓ
+    |--------------------------------------------------------------------------
+    */
+
+    const oldModal = document.getElementById("productDescriptionModal");
+
+    if (oldModal) {
+        oldModal.remove();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | THÊM MODAL VÀO BODY
+    |--------------------------------------------------------------------------
+    */
+
+    document.body.insertAdjacentHTML("beforeend", modalHtml);
+
+    /*
+    |--------------------------------------------------------------------------
+    | HIỂN THỊ MODAL
+    |--------------------------------------------------------------------------
+    */
+
+    const modalElement = document.getElementById("productDescriptionModal");
+
+    const modal = new bootstrap.Modal(modalElement);
+
+    modal.show();
+
+    /*
+    |--------------------------------------------------------------------------
+    | XÓA MODAL SAU KHI ĐÓNG
+    |--------------------------------------------------------------------------
+    */
+
+    modalElement.addEventListener("hidden.bs.modal", function () {
+        modalElement.remove();
+    });
 });
