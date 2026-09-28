@@ -47,7 +47,7 @@ function renderTable(products) {
         const demoHtml = product.demo_url
             ? `
                 <a
-                    href="${product.demo_url}"
+                    href="/${product.demo_url}"
                     target="_blank"
                     class="btn btn-sm btn-primary">
                     Xem demo
@@ -249,7 +249,8 @@ async function addProduct() {
     const file = document.getElementById("file").files[0];
 
     const fileSize = document.getElementById("file_size").value;
-    const demoUrl = document.getElementById("demo_url").value;
+    // const demoUrl = document.getElementById("demo_url").value;
+    const demoVideo = document.getElementById("demo_url").files[0];
     const documentationUrl = document.getElementById("documentation_url").value;
 
     const requirements = document.getElementById("requirements").value;
@@ -310,7 +311,10 @@ async function addProduct() {
 
     formData.append("file_size", fileSize);
 
-    formData.append("demo_url", demoUrl);
+    // formData.append("demo_url", demoUrl);
+    if (demoVideo) {
+        formData.append("demo_url", demoVideo);
+    }
 
     formData.append("documentation_url", documentationUrl);
 
@@ -495,7 +499,33 @@ async function editProduct(id) {
 
     document.getElementById("edit_file_size").value = product.file_size ?? "";
 
-    document.getElementById("edit_demo_url").value = product.demo_url ?? "";
+    // document.getElementById("edit_demo_url").value = product.demo_url ?? "";
+
+    // VIDEO DEMO
+
+    const editDemoCurrent = document.getElementById("edit_demo_current");
+
+    if (product.demo_url) {
+        const videoName = product.demo_url.split("/").pop();
+
+        editDemoCurrent.innerHTML = `
+        <div class="alert alert-light border mb-2">
+            <i class="bi bi-camera-video me-1"></i>
+            Video hiện tại:
+            <strong>${videoName}</strong>
+        </div>
+    `;
+    } else {
+        editDemoCurrent.innerHTML = `
+        <div class="text-muted">
+            <i class="bi bi-camera-video me-1"></i>
+            Chưa có video demo
+        </div>
+    `;
+    }
+
+    // Reset file input
+    document.getElementById("edit_demo_url").value = "";
 
     document.getElementById("edit_documentation_url").value =
         product.documentation_url ?? "";
@@ -540,8 +570,8 @@ async function updateProduct() {
 
     const fileSize = document.getElementById("edit_file_size").value;
 
-    const demoUrl = document.getElementById("edit_demo_url").value;
-
+    // const demoUrl = document.getElementById("edit_demo_url").value;
+    const demoVideo = document.getElementById("edit_demo_url").files[0];
     const documentationUrl = document.getElementById(
         "edit_documentation_url",
     ).value;
@@ -590,7 +620,9 @@ async function updateProduct() {
 
     formData.append("status", status);
     formData.append("file_size", fileSize);
-    formData.append("demo_url", demoUrl);
+    if (demoVideo) {
+        formData.append("demo_url", demoVideo);
+    }
     formData.append("documentation_url", documentationUrl);
     formData.append("requirements", requirements);
 

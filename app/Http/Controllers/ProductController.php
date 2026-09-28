@@ -100,6 +100,27 @@ class ProductController extends Controller
             ) . ' MB';
         }
 
+
+        // ===============================
+        // VIDEO DEMO
+        // ===============================
+
+        $demoVideoPath = null;
+
+        if ($request->hasFile('demo_url')) {
+
+            $demoVideo = $request->file('demo_url');
+
+            $demoVideoName = time() . '_' . $demoVideo->getClientOriginalName();
+
+            $demoVideo->move(
+                public_path('uploaded-videos'),
+                $demoVideoName
+            );
+
+            $demoVideoPath = 'uploaded-videos/' . $demoVideoName;
+        }
+
         $product = Product::create([
 
             'category_id' => $request->category_id,
@@ -127,7 +148,7 @@ class ProductController extends Controller
 
             'file_size' => $fileSize,
 
-            'demo_url' => $request->demo_url,
+            'demo_url' => $demoVideoPath,
 
             'documentation_url' => $request->documentation_url,
 
@@ -208,6 +229,27 @@ class ProductController extends Controller
             ) . ' MB';
         }
 
+        // ===============================
+        // VIDEO DEMO
+        // ===============================
+
+        // Nếu không chọn video mới thì giữ video cũ
+        $demoVideoPath = $product->demo_url;
+
+        if ($request->hasFile('demo_url')) {
+
+            $demoVideo = $request->file('demo_url');
+
+            $demoVideoName = time() . '_' . $demoVideo->getClientOriginalName();
+
+            $demoVideo->move(
+                public_path('uploaded-videos'),
+                $demoVideoName
+            );
+
+            $demoVideoPath = 'uploaded-videos/' . $demoVideoName;
+        }
+
         $product->update([
 
             'category_id' => $request->category_id,
@@ -239,7 +281,7 @@ class ProductController extends Controller
 
             'file_size' => $fileSize,
 
-            'demo_url' => $request->demo_url,
+            'demo_url' => $demoVideoPath,
 
             'documentation_url' => $request->documentation_url,
 

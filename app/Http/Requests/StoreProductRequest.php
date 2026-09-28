@@ -32,7 +32,8 @@ class StoreProductRequest extends FormRequest
 
             'file_size' => 'nullable|string|max:50',
 
-            'demo_url' => 'nullable|url|max:255',
+            // 'demo_url' => 'nullable|url|max:255',
+            'demo_url' => 'required|file|mimes:mp4,webm,ogg|max:102400',
 
             'documentation_url' => 'nullable|url|max:255',
 

@@ -238,22 +238,35 @@
 
 
                 {{-- Demo URL --}}
+                {{-- Video Demo --}}
                 <div class="mb-3">
 
                     <label class="form-label">
-                        Link Demo
+                        Video demo
                     </label>
 
+                    {{-- Video hiện tại --}}
+                    <div
+                        id="edit_demo_current"
+                        class="mb-2 text-muted">
+                    </div>
+
+                    {{-- Chọn video mới --}}
                     <input
-                        type="url"
+                        type="file"
                         id="edit_demo_url"
                         class="form-control"
-                        placeholder="https://demo.example.com">
+                        accept="video/mp4,video/webm,video/ogg">
 
                     <div
                         id="edit_demo_url-error"
                         class="invalid-feedback">
                     </div>
+
+                    <small class="text-muted">
+                        Chỉ chọn video mới nếu muốn thay video demo hiện tại.
+                        Định dạng hỗ trợ: MP4, WebM, OGG.
+                    </small>
 
                 </div>
 

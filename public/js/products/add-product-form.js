@@ -101,6 +101,13 @@ function validateProduct() {
         valid = false;
     }
 
+    //Demo
+
+    if (document.getElementById("demo_url").files.length === 0) {
+        showError("demo_url", "Vui lòng chọn video demo");
+        valid = false;
+    }
+
     return valid;
 }
 
@@ -189,5 +196,17 @@ document.getElementById("file").addEventListener("change", function () {
         clearError("file");
     } else {
         showError("file", "Vui lòng chọn file source");
+    }
+});
+
+// ===============================
+// VIDEO DEMO
+// ===============================
+
+document.getElementById("demo_url").addEventListener("change", function () {
+    if (this.files.length > 0) {
+        clearError("demo_url");
+    } else {
+        showError("demo_url", "Vui lòng chọn video demo");
     }
 });

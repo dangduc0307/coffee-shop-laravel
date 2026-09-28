@@ -68,16 +68,21 @@ function validateEditProduct() {
     }
 
     // ===============================
-    // DEMO URL
+    // VIDEO DEMO
     // ===============================
 
-    const demoUrl = document.getElementById("edit_demo_url").value.trim();
+    const demoVideo = document.getElementById("edit_demo_url");
 
-    if (demoUrl !== "") {
-        try {
-            new URL(demoUrl);
-        } catch (error) {
-            showError("edit_demo_url", "Link Demo không hợp lệ");
+    if (demoVideo.files.length > 0) {
+        const file = demoVideo.files[0];
+
+        const allowedTypes = ["video/mp4", "video/webm", "video/ogg"];
+
+        if (!allowedTypes.includes(file.type)) {
+            showError(
+                "edit_demo_url",
+                "Video phải có định dạng MP4, WebM hoặc OGG",
+            );
 
             valid = false;
         }
@@ -94,6 +99,8 @@ function validateEditProduct() {
     if (documentationUrl !== "") {
         try {
             new URL(documentationUrl);
+
+            clearError("edit_documentation_url");
         } catch (error) {
             showError("edit_documentation_url", "Link hướng dẫn không hợp lệ");
 
@@ -172,24 +179,30 @@ document.getElementById("edit_price").addEventListener("input", function () {
 });
 
 // ===============================
-// DEMO URL
+// VIDEO DEMO
 // ===============================
 
-document.getElementById("edit_demo_url").addEventListener("input", function () {
-    const value = this.value.trim();
+document
+    .getElementById("edit_demo_url")
+    .addEventListener("change", function () {
+        if (this.files.length === 0) {
+            clearError("edit_demo_url");
+            return;
+        }
 
-    if (value === "") {
-        clearError("edit_demo_url");
-        return;
-    }
+        const file = this.files[0];
 
-    try {
-        new URL(value);
-        clearError("edit_demo_url");
-    } catch (error) {
-        showError("edit_demo_url", "Link Demo không hợp lệ");
-    }
-});
+        const allowedTypes = ["video/mp4", "video/webm", "video/ogg"];
+
+        if (!allowedTypes.includes(file.type)) {
+            showError(
+                "edit_demo_url",
+                "Video phải có định dạng MP4, WebM hoặc OGG",
+            );
+        } else {
+            clearError("edit_demo_url");
+        }
+    });
 
 // ===============================
 // DOCUMENTATION URL
@@ -207,6 +220,7 @@ document
 
         try {
             new URL(value);
+
             clearError("edit_documentation_url");
         } catch (error) {
             showError("edit_documentation_url", "Link hướng dẫn không hợp lệ");
