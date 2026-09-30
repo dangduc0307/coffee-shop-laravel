@@ -69,23 +69,23 @@
                     </h2>
 
                     <p>
-                        Chúng tôi xây dựng một nền tảng cung cấp các
-                        website và sản phẩm số dành cho những người
-                        muốn nhanh chóng sở hữu một website chuyên nghiệp
-                        mà không phải bắt đầu mọi thứ từ con số 0.
+                        WebList là nền tảng cung cấp các website, công cụ và
+                        sản phẩm số được xây dựng nhằm giúp cá nhân, doanh nghiệp
+                        và lập trình viên tiết kiệm thời gian trong quá trình
+                        phát triển dự án.
                     </p>
 
                     <p>
-                        Mỗi sản phẩm được xây dựng với mục tiêu mang lại
-                        giao diện hiện đại, trải nghiệm sử dụng tốt và
-                        khả năng tùy chỉnh linh hoạt.
+                        Các sản phẩm được định hướng theo những nhu cầu thực tế,
+                        từ website và giao diện có sẵn đến các công cụ hỗ trợ
+                        quản lý, phát triển và vận hành hệ thống.
                     </p>
 
                     <p>
-                        Từ website doanh nghiệp, cửa hàng trực tuyến,
-                        portfolio cho đến landing page, chúng tôi mong
-                        muốn giúp bạn tiết kiệm thời gian và chi phí
-                        trong quá trình phát triển dự án.
+                        Mục tiêu của WebList là cung cấp những sản phẩm có cấu trúc
+                        rõ ràng, dễ triển khai và có khả năng tùy chỉnh để khách hàng
+                        có thể bắt đầu dự án nhanh hơn mà không phải xây dựng mọi
+                        thứ từ đầu.
                     </p>
 
                 </div>

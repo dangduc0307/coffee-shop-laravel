@@ -59,9 +59,10 @@
                     </h2>
 
                     <p>
-                        Chúng tôi luôn sẵn sàng hỗ trợ bạn trong quá trình
-                        lựa chọn, mua và sử dụng các sản phẩm website
-                        trên WebList.
+                        WebList tiếp nhận các yêu cầu hỗ trợ liên quan đến
+                        sản phẩm thông qua các kênh liên hệ được cung cấp.
+                        Thời gian phản hồi dự kiến từ <strong>1 - 3 ngày làm việc</strong>,
+                        tùy thuộc vào nội dung và mức độ phức tạp của yêu cầu.
                     </p>
 
 

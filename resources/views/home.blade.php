@@ -281,15 +281,15 @@
 
                 <div class="category-card reveal">
 
-                    <i class="bi bi-building"></i>
+                    <i class="bi bi-shield-lock"></i>
 
                     <h4>
-                        Website doanh nghiệp
+                        Authentication & Security
                     </h4>
 
                     <p>
-                        Website giới thiệu công ty,
-                        dịch vụ và thương hiệu.
+                        Đăng nhập, đăng ký, OTP,
+                        xác thực và phân quyền người dùng.
                     </p>
 
                 </div>
@@ -302,15 +302,15 @@
 
                 <div class="category-card reveal" style="transition-delay:.05s">
 
-                    <i class="bi bi-cart3"></i>
+                    <i class="bi bi-clock-history"></i>
 
                     <h4>
-                        Website bán hàng
+                        Quản lý & Chấm công
                     </h4>
 
                     <p>
-                        Các mẫu website thương mại điện tử
-                        và cửa hàng online.
+                        Công cụ quản lý nhân sự, chấm công,
+                        ca làm và nghỉ phép.
                     </p>
 
                 </div>
@@ -323,15 +323,15 @@
 
                 <div class="category-card reveal" style="transition-delay:.1s">
 
-                    <i class="bi bi-person-badge"></i>
+                    <i class="bi bi-cart3"></i>
 
                     <h4>
-                        Portfolio
+                        Bán hàng & Thương mại
                     </h4>
 
                     <p>
-                        Website cá nhân, CV online và
-                        portfolio chuyên nghiệp.
+                        Quản lý sản phẩm, giỏ hàng,
+                        đơn hàng và bán hàng trực tuyến.
                     </p>
 
                 </div>
@@ -344,15 +344,15 @@
 
                 <div class="category-card reveal" style="transition-delay:.15s">
 
-                    <i class="bi bi-megaphone"></i>
+                    <i class="bi bi-bar-chart"></i>
 
                     <h4>
-                        Landing Page
+                        Quản trị & Báo cáo
                     </h4>
 
                     <p>
-                        Landing page phục vụ quảng cáo,
-                        marketing và giới thiệu sản phẩm.
+                        Dashboard, quản lý dữ liệu,
+                        thống kê và báo cáo.
                     </p>
 
                 </div>
@@ -365,15 +365,15 @@
 
                 <div class="category-card reveal" style="transition-delay:.2s">
 
-                    <i class="bi bi-newspaper"></i>
+                    <i class="bi bi-code-square"></i>
 
                     <h4>
-                        Blog & Tin tức
+                        Developer Tools
                     </h4>
 
                     <p>
-                        Website blog, tin tức và
-                        chia sẻ nội dung.
+                        Các tiện ích hỗ trợ lập trình viên
+                        xử lý và chuyển đổi dữ liệu.
                     </p>
 
                 </div>
@@ -386,15 +386,15 @@
 
                 <div class="category-card reveal" style="transition-delay:.25s">
 
-                    <i class="bi bi-code-square"></i>
+                    <i class="bi bi-window"></i>
 
                     <h4>
-                        Website khác
+                        Website & Templates
                     </h4>
 
                     <p>
-                        Khám phá thêm nhiều mẫu website
-                        phù hợp với dự án của bạn.
+                        Website mẫu, landing page và
+                        giao diện cho nhiều nhu cầu.
                     </p>
 
                 </div>
